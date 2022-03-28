@@ -29,9 +29,9 @@ const SwitchForm: React.FC<SwitchFormProps> = () => {
     const {isLogin, toggleSwitch} = useSwitchContext();
     return (
       <RightTop>
-        <SwitchText onClick={toggleSwitch} active={isLogin}>Login</SwitchText>
+        <SwitchText onClick={() => !isLogin && toggleSwitch!()} active={isLogin}>Login</SwitchText>
         <VrtclLn />
-        <SwitchText onClick={toggleSwitch} active={!isLogin}>Create</SwitchText>
+        <SwitchText onClick={() => isLogin && toggleSwitch!()} active={!isLogin}>Create</SwitchText>
       </RightTop>
     );
 };

@@ -5,11 +5,16 @@ import {HashRouter, Route, Routes} from 'react-router-dom';
 import HomePage from './pages/home';
 import UserHomePage from './pages/user-home';
 
+import BlockLoader from './components/block-loader';
+import {useUserContext} from './contexts/user.context';
+
 interface AppProps {}
 
 const App: React.FC<AppProps> = () => {
+  const {loading} = useUserContext();
   return (
     <HashRouter>
+      {loading && <BlockLoader />}
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/organisation/:orgName/user' element={<UserHomePage />} />

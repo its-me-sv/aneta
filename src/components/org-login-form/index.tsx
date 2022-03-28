@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 
+import {RightEnd} from '../../pages/home/styles';
+
 import Input from '../input';
 
 export const RightMid = styled.div`
@@ -16,10 +18,13 @@ const OrganisationFormLogin: React.FC<OrgFormProps> = () => {
   const [password, setPassword] = useState<string>("");
   
   return (
-    <RightMid>
-      <Input label="Organisation Name" name="orgName" value={orgName} setValue={setOrgname} />
-      <Input label="Password" isPass name="password" value={password} setValue={setPassword} />
-    </RightMid>
+    <>
+      <RightMid>
+        <Input label="Organisation Name" name="orgName" value={orgName} setValue={setOrgname} />
+        <Input label="Password" isPass name="password" value={password} setValue={setPassword} />
+      </RightMid>
+      <RightEnd>Login</RightEnd>
+    </>
   );
 };
 

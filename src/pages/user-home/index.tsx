@@ -38,7 +38,6 @@ const UserHomePage: React.FC<UserHomeProps> = () => {
           <RightContainer>
             <SwitchForm />
             {!isLogin ? <UserFormCreate /> : <UserFormLogin />}
-            <RightEnd>{isLogin ? "Login" : "Create"}</RightEnd>
           </RightContainer>
         </FormContainer>
       </HomePageContainer>

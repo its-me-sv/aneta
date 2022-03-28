@@ -7,19 +7,19 @@ import {
   SecondText,
   LeftContainer,
   RightContainer,
-  VrtclLn,
-  RightTop,
-  SwitchText,
-  InputField,
-  InputLabel,
-  StyledInput,
-  RightMid,
   RightEnd,
 } from "./styles";
+
+import OrganisationFormLogin from '../../components/org-login-form';
+import OrganisationFormCreate from '../../components/org-create-form';
+import SwitchForm from "../../components/switch-form";
+
+import {useSwitchContext} from "../../contexts/switch.context";
 
 interface HomePageProps {}
 
 const HomePage: React.FC<HomePageProps> = () => {
+    const {isLogin} = useSwitchContext();
     return (
       <HomePageContainer>
         <FormContainer>
@@ -28,21 +28,8 @@ const HomePage: React.FC<HomePageProps> = () => {
             <SecondText>neta</SecondText>
           </LeftContainer>
           <RightContainer>
-            <RightTop>
-              <SwitchText active={true}>Login</SwitchText>
-              <VrtclLn />
-              <SwitchText active={false}>Create</SwitchText>
-            </RightTop>
-            <RightMid>
-              <InputField>
-                <InputLabel>Organisation Name</InputLabel>
-                <StyledInput type="text" />
-              </InputField>
-              <InputField>
-                <InputLabel>Password</InputLabel>
-                <StyledInput type="password" />
-              </InputField>
-            </RightMid>
+            <SwitchForm />
+            {!isLogin ? <OrganisationFormCreate /> : <OrganisationFormLogin />}
             <RightEnd>Login</RightEnd>
           </RightContainer>
         </FormContainer>

@@ -17,6 +17,12 @@ const UserFormLogin: React.FC<OrgFormProps> = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const handleLogin = () => {
+    if (!email.length || !password.length) 
+      return window.alert("Field empty");
+    window.alert(JSON.stringify({email, password}));
+  };
+
   return (
     <>
       <RightMid>
@@ -29,7 +35,7 @@ const UserFormLogin: React.FC<OrgFormProps> = () => {
           setValue={setPassword}
         />
       </RightMid>
-      <RightEnd>Login</RightEnd>
+      <RightEnd onClick={handleLogin}>Login</RightEnd>
     </>
   );
 };

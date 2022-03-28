@@ -19,6 +19,12 @@ const OrganisationFormCreate: React.FC<OrgFormProps> = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
+  const handleCreate = () => {
+    if (!orgName.length || !name.length || !email.length || !password.length)
+      return window.alert("Field empty");
+    window.alert(JSON.stringify({orgName, name, email, password}));
+  };
+
   return (
     <>
       <RightMid>
@@ -27,7 +33,7 @@ const OrganisationFormCreate: React.FC<OrgFormProps> = () => {
         <Input label="Email" name="email" value={email} setValue={setEmail} />
         <Input label="Password" isPass name="password" value={password} setValue={setPassword} />
       </RightMid>
-      <RightEnd>Create</RightEnd>
+      <RightEnd onClick={handleCreate}>Create</RightEnd>
     </>
   );
 };

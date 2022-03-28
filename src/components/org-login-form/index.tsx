@@ -17,13 +17,19 @@ const OrganisationFormLogin: React.FC<OrgFormProps> = () => {
   const [orgName, setOrgname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   
+  const handleLogin = () => {
+    if (!orgName.length || !password.length)
+      return window.alert("Field empty");
+    window.alert(JSON.stringify({orgName, password}));
+  };
+
   return (
     <>
       <RightMid>
         <Input label="Organisation Name" name="orgName" value={orgName} setValue={setOrgname} />
         <Input label="Password" isPass name="password" value={password} setValue={setPassword} />
       </RightMid>
-      <RightEnd>Login</RightEnd>
+      <RightEnd onClick={handleLogin}>Login</RightEnd>
     </>
   );
 };

@@ -1,25 +1,29 @@
 import React from 'react';
+import {useParams} from 'react-router-dom';
 
 import {
   HomePageContainer,
   FormContainer,
+  LeftContainer,
   FirstText,
   SecondText,
-  LeftContainer,
   RightContainer,
   RightEnd,
-} from "./styles";
+  CaptionText,
+} from "../home/styles";
 
-import OrganisationFormLogin from '../../components/org-login-form';
-import OrganisationFormCreate from '../../components/org-create-form';
+import UserFormLogin from "../../components/user-login-form";
+import UserFormCreate from "../../components/user-create-form";
 import SwitchForm from "../../components/switch-form";
 
 import {useSwitchContext} from "../../contexts/switch.context";
 
-interface HomePageProps {}
+interface UserHomeProps {}
 
-const HomePage: React.FC<HomePageProps> = () => {
+const UserHomePage: React.FC<UserHomeProps> = () => {
     const {isLogin} = useSwitchContext();
+    const params = useParams();
+
     return (
       <HomePageContainer>
         <FormContainer>
@@ -28,10 +32,12 @@ const HomePage: React.FC<HomePageProps> = () => {
               <FirstText>A</FirstText>
               <SecondText>neta</SecondText>
             </div>
+            <CaptionText>for</CaptionText>
+            <CaptionText>{params.orgName}</CaptionText>
           </LeftContainer>
           <RightContainer>
             <SwitchForm />
-            {!isLogin ? <OrganisationFormCreate /> : <OrganisationFormLogin />}
+            {!isLogin ? <UserFormCreate /> : <UserFormLogin />}
             <RightEnd>{isLogin ? "Login" : "Create"}</RightEnd>
           </RightContainer>
         </FormContainer>
@@ -39,4 +45,4 @@ const HomePage: React.FC<HomePageProps> = () => {
     );
 };
 
-export default HomePage;
+export default UserHomePage;

@@ -18,6 +18,7 @@ export const FormContainer = styled.div`
 
 export const LeftContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 3.6rem 1.8rem;
@@ -53,4 +54,10 @@ export const RightEnd = styled.div`
   font-family: calibri;
   font-size: 1.4rem;
   cursor: pointer;
+`;
+
+export const CaptionText = styled.span`
+  font-family: bahnschrift;
+  font-size: 2.1rem;
+  opacity: 0.7;
 `;

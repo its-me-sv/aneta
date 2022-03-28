@@ -6,6 +6,7 @@ import {
   FirstText,
   SecondText,
   LeftContainer,
+  RightContainer,
   VrtclLn,
 } from "./styles";
 
@@ -19,8 +20,7 @@ const HomePage: React.FC<HomePageProps> = () => {
             <FirstText>A</FirstText>
             <SecondText>neta</SecondText>
           </LeftContainer>
-          <VrtclLn />
-          <div className="right-container">
+          <RightContainer>
             <div className="right-top">
               <span>Login</span>
               <VrtclLn />
@@ -37,7 +37,7 @@ const HomePage: React.FC<HomePageProps> = () => {
               </div>
             </div>
             <div className="right-end"></div>
-          </div>
+          </RightContainer>
         </FormContainer>
       </HomePageContainer>
     );

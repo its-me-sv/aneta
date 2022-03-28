@@ -41,3 +41,5 @@ export const VrtclLn = styled.span`
   border-left: 3px solid black;
   border-radius: 2rem;
 `;
+
+export const RightContainer = styled.div``;

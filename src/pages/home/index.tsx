@@ -30,7 +30,7 @@ const HomePage: React.FC<HomePageProps> = () => {
           <RightContainer>
             <SwitchForm />
             {!isLogin ? <OrganisationFormCreate /> : <OrganisationFormLogin />}
-            <RightEnd>Login</RightEnd>
+            <RightEnd>{isLogin ? "Login" : "Create"}</RightEnd>
           </RightContainer>
         </FormContainer>
       </HomePageContainer>

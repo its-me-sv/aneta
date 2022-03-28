@@ -8,7 +8,6 @@ import {
   FirstText,
   SecondText,
   RightContainer,
-  RightEnd,
   CaptionText,
 } from "../home/styles";
 

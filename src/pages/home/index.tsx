@@ -7,7 +7,6 @@ import {
   SecondText,
   LeftContainer,
   RightContainer,
-  RightEnd,
 } from "./styles";
 
 import OrganisationFormLogin from '../../components/org-login-form';

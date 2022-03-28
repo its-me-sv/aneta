@@ -19,6 +19,8 @@ export const FormContainer = styled.div`
 
 export const LeftContainer = styled.div`
   padding: 3.6rem 1.8rem;
+  padding-right: 1rem;
+  border-right: 1px solid rgba(0, 0, 0, 0.8);
 `;
 
 export const FirstText = styled.span`

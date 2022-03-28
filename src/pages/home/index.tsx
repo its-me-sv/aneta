@@ -8,6 +8,13 @@ import {
   LeftContainer,
   RightContainer,
   VrtclLn,
+  RightTop,
+  SwitchText,
+  InputField,
+  InputLabel,
+  StyledInput,
+  RightMid,
+  RightEnd,
 } from "./styles";
 
 interface HomePageProps {}
@@ -21,22 +28,22 @@ const HomePage: React.FC<HomePageProps> = () => {
             <SecondText>neta</SecondText>
           </LeftContainer>
           <RightContainer>
-            <div className="right-top">
-              <span>Login</span>
+            <RightTop>
+              <SwitchText>Login</SwitchText>
               <VrtclLn />
-              <span>Create</span>
-            </div>
-            <div className="right-mid">
-              <div className="input-field">
-                <label>Organisation Name</label>
-                <input type="text" />
-              </div>
-              <div className="input-field">
-                <label>Password</label>
-                <input type="password" />
-              </div>
-            </div>
-            <div className="right-end"></div>
+              <SwitchText>Create</SwitchText>
+            </RightTop>
+            <RightMid>
+              <InputField>
+                <InputLabel>Organisation Name</InputLabel>
+                <StyledInput type="text" />
+              </InputField>
+              <InputField>
+                <InputLabel>Password</InputLabel>
+                <StyledInput type="password" />
+              </InputField>
+            </RightMid>
+            <RightEnd>Login</RightEnd>
           </RightContainer>
         </FormContainer>
       </HomePageContainer>

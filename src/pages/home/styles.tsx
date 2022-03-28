@@ -10,9 +10,8 @@ export const HomePageContainer = styled.div`
 `;
 
 export const FormContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  /* align-items: center; */
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   border-radius: 1rem;
   background-color: #f0f2f5;
 `;
@@ -55,10 +54,12 @@ export const RightTop = styled.div`
   padding: 3.5px 0px;
 `;
 
-export const SwitchText = styled.span`
+export const SwitchText = styled.span<{ active: boolean }>`
   font-family: calibri;
   font-size: 1.8rem;
-  opacity: 0.7;
+  opacity: 0.9;
+  cursor: pointer;
+  ${(props) => props.active && `color: #1877f2;`}
 `;
 
 export const RightMid = styled.div`
@@ -93,4 +94,5 @@ export const RightEnd = styled.div`
   padding: 0.1rem;
   font-family: calibri;
   font-size: 1.4rem;
+  cursor: pointer;
 `;

@@ -29,9 +29,9 @@ const HomePage: React.FC<HomePageProps> = () => {
           </LeftContainer>
           <RightContainer>
             <RightTop>
-              <SwitchText>Login</SwitchText>
+              <SwitchText active={true}>Login</SwitchText>
               <VrtclLn />
-              <SwitchText>Create</SwitchText>
+              <SwitchText active={false}>Create</SwitchText>
             </RightTop>
             <RightMid>
               <InputField>

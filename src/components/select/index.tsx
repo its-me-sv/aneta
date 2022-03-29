@@ -15,7 +15,7 @@ export const SelectStyles = styled.select`
   border-radius: 0.3rem;
   padding: 3px;
   font-size: 1.2rem;
-  height: 1.8rem;
+  height: 2.4rem;
 `;
 
 export const OptionStyles = styled.option`

@@ -10,6 +10,10 @@ import {useUserContext} from './contexts/user.context';
 
 interface AppProps {}
 
+const UserDashobard = () => <h1>User dashboard</h1>;
+const HRDashobard = () => <h1>HR dashboard</h1>;
+const Error404 = () => <h1>404</h1>;
+
 const App: React.FC<AppProps> = () => {
   const {loading} = useUserContext();
   return (
@@ -17,8 +21,10 @@ const App: React.FC<AppProps> = () => {
       {loading && <BlockLoader />}
       <Routes>
         <Route path='/' element={<HomePage />} />
+        <Route path='/organisation/:orgName/dashboard' element={<HRDashobard />} />
         <Route path='/organisation/:orgName/user' element={<UserHomePage />} />
-        <Route path="/*" element={() => <h1>404</h1>} />
+        <Route path='/user/dashboard' element={<UserDashobard />} />
+        <Route path="/*" element={<Error404 />} />
       </Routes>
     </HashRouter>
   );

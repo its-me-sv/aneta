@@ -7,15 +7,21 @@ import Option from '../option';
 import HorizontalLine from '../horizontal-line';
 import SimpleProfile from '../simple-profile';
 
+import {useUserNavContext} from '../../contexts/user-nav.context';
+
 interface NavUserProps {}
 
 const NavUser: React.FC<NavUserProps> = () => {
+    const {uni, changeUni} = useUserNavContext();
     return (
       <Container>
         <NavHeader />
         <Body>
-          <Option variant={0} active={true} />
-          <Option variant={1} active={false} />
+          {[0, 0].map((_, idx) => (
+            <span key={idx} onClick={() => changeUni!(idx)}>
+              <Option variant={idx} active={uni === idx} />
+            </span>
+          ))}
         </Body>
         <Footer>
           <HorizontalLine />

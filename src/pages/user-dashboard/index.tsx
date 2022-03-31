@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import NavUser from '../../components/nav-user';
+import {useUserNavContext} from '../../contexts/user-nav.context';
 
 const MainContainer = styled.div`
   display: grid;
@@ -11,10 +12,11 @@ const MainContainer = styled.div`
 interface UserDashboardPageProps {}
 
 const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
+    const {uni} = useUserNavContext();
     return (
       <MainContainer>
         <NavUser />
-        <div className="right-container">SOME RANDOM STUFF</div>
+        <div className="right-container">{uni}</div>
       </MainContainer>
     );
 };

@@ -8,6 +8,7 @@ import {SwitchContextProvider} from './contexts/switch.context';
 import {APIContextProvider} from './contexts/api.context';
 import {UserContextProvider} from './contexts/user.context';
 import {SocketContextProvider} from './contexts/socket.context';
+import {UserNavContextProvider} from './contexts/user-nav.context';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +16,9 @@ ReactDOM.render(
       <APIContextProvider>
         <UserContextProvider>
           <SocketContextProvider>
-            <App />
+            <UserNavContextProvider>
+              <App />
+            </UserNavContextProvider>
           </SocketContextProvider>
         </UserContextProvider>
       </APIContextProvider>

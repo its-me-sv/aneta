@@ -20,7 +20,7 @@ const LeftHeader = styled.div`
   flex-direction: column;
 `;
 
-const LogoText = styled.text`
+const LogoText = styled.span`
   font-family: roboto;
   font-size: 2.4rem;
   color: #f0f2f5;
@@ -36,9 +36,7 @@ const HorizontalLine = styled.div`
 const LeftBody = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   position: absloute;
-  margin-top: 21%;
   padding: 7%;
 `;
 
@@ -49,17 +47,17 @@ const OptionContainer = styled.div`
   cursor: pointer;
 `;
 
-const OptionImage = styled.img.attrs({
-  alt: "",
-})`
+const OptionImage = styled.img<{curr?: boolean}>`
   width: 2rem;
   height: 2rem;
   filter: invert(100%);
+  ${(props) => props?.curr && `filter: invert(100%) drop-shadow(0px 7px 3px black);`}
 `;
 
-const OptionText = styled.span`
+const OptionText = styled.p<{curr?: boolean}>`
   color: #f0f2f5;
   font-size: 1.2rem;
+  ${(props) => props.curr && `text-shadow: 10px 10px 24px #000000;`}
 `;
 
 const LeftFooter = styled.div`
@@ -73,6 +71,7 @@ const SimpleProfile = styled.div`
   flex-direction: row;
   gap: 0.7rem;
   margin-top: 0.2rem;
+  padding-left: 3.5px;
 `;
 
 const ProfileImage = styled.img.attrs({
@@ -86,19 +85,19 @@ const ProfileImage = styled.img.attrs({
 const ProfileDetails = styled.div`
   display: flex;
   flex-direction: column;
-  color: white;
+  color: #f0f2f5;
 `;
 
 const NameText = styled.span`
   font-family: calibri;
   font-size: 1.4rem;
-  color: #f0f2f5;
+  opacity: 0.9;
 `;
 
 const EmailText = styled.span`
   font-family: bahnschrift;
   font-size: 0.84rem;
-  color: #f0f2f5;
+  opacity: 0.84;
 `;
 
 interface UserDashboardPageProps {}
@@ -113,8 +112,8 @@ const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
           </LeftHeader>
           <LeftBody>
             <OptionContainer>
-              <OptionImage src={dashboardIcon} />
-              <OptionText>Dashboard</OptionText>
+              <OptionImage src={dashboardIcon} curr />
+              <OptionText curr>Dashboard</OptionText>
             </OptionContainer>
             <OptionContainer>
               <OptionImage src={chatIcon} />

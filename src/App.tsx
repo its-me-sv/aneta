@@ -5,14 +5,13 @@ import {HashRouter, Route, Routes} from 'react-router-dom';
 import HomePage from './pages/home';
 import UserHomePage from './pages/user-home';
 import UserDashboardPage from './pages/user-dashboard';
+import HRDashboardPage from './pages/hr-dashboard';
 import ErrorPage from './pages/error';
 
 import BlockLoader from './components/block-loader';
 import {useUserContext} from './contexts/user.context';
 
 interface AppProps {}
-
-const HRDashobard = () => <h1>HR dashboard</h1>;
 
 const App: React.FC<AppProps> = () => {
   const {loading} = useUserContext();
@@ -21,7 +20,7 @@ const App: React.FC<AppProps> = () => {
       {loading && <BlockLoader />}
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/organisation/:orgName/dashboard' element={<HRDashobard />} />
+        <Route path='/organisation/:orgName/dashboard' element={<HRDashboardPage />} />
         <Route path='/organisation/:orgName/user' element={<UserHomePage />} />
         <Route path='/user/dashboard' element={<UserDashboardPage />} />
         <Route path="/*" element={<ErrorPage />} />

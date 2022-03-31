@@ -2,7 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 import dashboardIcon from "../../assets/icons/dashboard.png";
+import projectsIcon from "../../assets/icons/projects.png";
+import resourcesIcon from "../../assets/icons/resources.png";
+import financialIcon from "../../assets/icons/financial.png";
 import chatIcon from "../../assets/icons/chat.png";
+import settingsIcon from "../../assets/icons/settings.png";
 
 const OptionContainer = styled.div`
   display: flex;
@@ -41,13 +45,41 @@ const variants: Array<Variant> = [
   }
 ];
 
+const variantsHr: Array<Variant> = [
+  {
+    src: dashboardIcon,
+    text: "Dashboard"
+  },
+  {
+    src: projectsIcon,
+    text: "Projects"
+  },
+  {
+    src: resourcesIcon,
+    text: "Resources"
+  },
+  {
+    src: financialIcon,
+    text: "Financial"
+  },
+  {
+    src: chatIcon,
+    text: "Chat"
+  },
+  {
+    src: settingsIcon,
+    text: "Settings"
+  }
+];
+
 interface OptionProps {
   variant: number;
   active: boolean;
+  fromHr?: boolean;
 }
 
-const Option: React.FC<OptionProps> = ({variant, active}) => {
-    const {src, text} = variants[variant];
+const Option: React.FC<OptionProps> = ({variant, active, fromHr}) => {
+    const {src, text} = fromHr ? variantsHr[variant] : variants[variant];
     return (
       <OptionContainer>
         <OptionImage src={src} curr={active} />

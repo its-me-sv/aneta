@@ -23,7 +23,7 @@ type Statuses = "online" | "away" | "offline";
 export const Status = styled.div<{ status: Statuses }>`
   width: 0.84rem;
   height: 0.84rem;
-  border: 0.18rem solid #1877f2;
+  border: 0.187rem solid #1877f2;
   position: absolute;
   border-radius: 50%;
   bottom: 0;

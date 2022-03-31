@@ -74,12 +74,32 @@ const SimpleProfile = styled.div`
   padding-left: 3.5px;
 `;
 
+const ImageContainer = styled.div``;
+
 const ProfileImage = styled.img.attrs({
     alt:""
 })`
   width: 2.8rem;
   height: 2.8rem;
   border-radius: 50%;
+`;
+
+type Statuses = 'online' | 'away' | 'offline';
+
+const Status = styled.div<{status: Statuses}>`
+  width: 0.84rem;
+  height: 0.84rem;
+  border: 0.18rem solid #1877f2;
+  position: absolute;
+  border-radius: 50%;
+  bottom: 0;
+  ${(props) => {
+      switch(props.status) {
+          case 'away': return "background-color: #d1d15b;";
+          case 'offline': return "background-color: #c74040;";
+          default: return "background-color: #42b72a;";
+      }
+  }};
 `;
 
 const ProfileDetails = styled.div`
@@ -123,10 +143,10 @@ const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
           <LeftFooter>
             <HorizontalLine />
             <SimpleProfile>
-              <div>
+              <ImageContainer>
                 <ProfileImage src={suraj} />
-                <div className="status" />
-              </div>
+                <Status status="offline" />
+              </ImageContainer>
               <ProfileDetails>
                 <NameText>Suraj Vijay</NameText>
                 <EmailText>surajvijay@email.com</EmailText>

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import NavUser from '../../components/nav-user';
+import Logout from '../../components/logout';
 import Section from '../../components/section';
 import AssignedTo from '../../components/assigned-to';
 
@@ -23,6 +24,7 @@ const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
     return (
       <MainContainer>
         <NavUser />
+        <Logout />
         <RightContainer>
           <AssignedTo />
           <div>

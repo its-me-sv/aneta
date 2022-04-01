@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Title = styled.span`
   font-family: calibri;
   font-size: 1.4rem;
-  opacity: 0.9;
+  opacity: 0.7;
 `;
 
 interface ProjectNameProps {

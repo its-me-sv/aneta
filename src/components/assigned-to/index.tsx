@@ -9,7 +9,8 @@ const Projects = styled.div`
   padding: 0.5%;
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(7, 1fr);
-  height: 7rem;
+  height: auto;
+  max-height: 7rem;
   overflow-y: auto;
 `;
 

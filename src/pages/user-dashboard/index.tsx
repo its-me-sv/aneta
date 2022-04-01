@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 import NavUser from '../../components/nav-user';
 import Logout from '../../components/logout';
-import Section from '../../components/section';
 import AssignedTo from '../../components/assigned-to';
 import Leaves from '../../components/leaves';
 import JoinedOn from '../../components/joined-on';
 import UserActions from '../../components/user-actions';
+import UserSkills from '../../components/user-skills';
 
 const MainContainer = styled.div`
   display: grid;
@@ -15,10 +15,11 @@ const MainContainer = styled.div`
 `;
 
 const RightContainer = styled.div`
-  padding: 4.2%;
+  padding: 3% 4.2% 2% 3.6%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: auto;
 `;
 
 interface UserDashboardPageProps {}
@@ -30,9 +31,7 @@ const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
         <Logout />
         <RightContainer>
           <AssignedTo />
-          <div>
-            <Section name="Skills" />
-          </div>
+          <UserSkills />
           <UserActions />
           <Leaves />
           <JoinedOn />

@@ -10,7 +10,7 @@ const LogoutSection = styled.div`
   align-items: center;
   gap: 0.42rem;
   right: 1%;
-  top: 1%;
+  top: 2%;
   cursor: pointer;
 `;
 
@@ -18,13 +18,13 @@ const LogoutIcon = styled.img.attrs({
   alt: '',
   src: logoutIcon
 })`
-  width: 2rem;
-  height: 2rem;
+  width: 1.6rem;
+  height: 1.6rem;
 `;
 
 const LogoutText = styled.span`
   font-family: bahnschrift;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   opacity: 0.7;
 `;
 

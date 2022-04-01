@@ -31,8 +31,12 @@ const LogoutText = styled.span`
 interface LogoutProps {}
 
 const Logout: React.FC<LogoutProps> = () => {
+    const onClick = () => {
+      window.alert("Logout clicked");
+    };
+    
     return (
-      <LogoutSection>
+      <LogoutSection onClick={onClick}>
         <LogoutIcon />
         <LogoutText>Logout</LogoutText>
       </LogoutSection>

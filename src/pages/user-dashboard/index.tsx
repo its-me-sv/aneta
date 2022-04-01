@@ -7,6 +7,7 @@ import Section from '../../components/section';
 import AssignedTo from '../../components/assigned-to';
 import Leaves from '../../components/leaves';
 import JoinedOn from '../../components/joined-on';
+import UserActions from '../../components/user-actions';
 
 const MainContainer = styled.div`
   display: grid;
@@ -32,9 +33,7 @@ const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
           <div>
             <Section name="Skills" />
           </div>
-          <div>
-            <Section name="Actions" />
-          </div>
+          <UserActions />
           <Leaves />
           <JoinedOn />
         </RightContainer>

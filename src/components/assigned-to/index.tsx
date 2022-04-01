@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 
 import Section from '../section';
 import ProjectName from "../project-name";
+
+import {useUserContext} from "../../contexts/user.context";
 
 const Projects = styled.div`
   display: grid;
@@ -17,15 +19,24 @@ const Projects = styled.div`
 interface AssignedToProps {}
 
 const AssignedTo: React.FC<AssignedToProps> = () => {
+    const {setLoading} = useUserContext();
+    const [projects, setProjects] = useState<Array<string>>([]);
+
+    useEffect(() => {
+      setLoading!(true);
+      setTimeout(() => {
+        setProjects(Array(42).fill("Project name"));
+        setLoading!(false);
+      }, 3000);
+    }, []);
+
     return (
       <div>
         <Section name="Assigned to" />
         <Projects>
-          {Array(42)
-            .fill(0)
-            .map((_, idx) => (
-              <ProjectName key={idx} id="Project name" />
-            ))}
+          {projects.map((pn, idx) => (
+            <ProjectName key={idx} id={pn} />
+          ))}
         </Projects>
       </div>
     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {
   SkillsContainer, 
@@ -7,19 +7,30 @@ import {
   CloseIcon,
 } from './styles';
 
+import {useUserContext} from '../../contexts/user.context';
+
 interface UserSkillsManangerProps {}
 
 const UserSkillsManager: React.FC<UserSkillsManangerProps> = () => {
+    const {setLoading} = useUserContext();
+    const [skills, setSkills] = useState<Array<string>>([]);
+    
+    useEffect(() => {
+      setLoading!(true);
+      setTimeout(() => {
+        setSkills(["JavaScript"]);
+        setLoading!(false);
+      }, 2000);
+    }, []);
+
     return (
       <SkillsContainer>
-        {Array(42)
-          .fill(0)
-          .map((_, idx) => (
-            <SkillHolder key={idx}>
-              <SkillName>JavaScript</SkillName>
-              <CloseIcon />
-            </SkillHolder>
-          ))}
+        {skills.map((sn, idx) => (
+          <SkillHolder key={idx}>
+            <SkillName>{sn}</SkillName>
+            <CloseIcon />
+          </SkillHolder>
+        ))}
       </SkillsContainer>
     );
 };

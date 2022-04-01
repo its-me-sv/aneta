@@ -10,6 +10,13 @@ const SectionTitle = styled.span`
   opacity: 0.7;
 `;
 
+export const SectionCaption = styled.span`
+  font-family: calibri;
+  padding: 0.5%;
+  font-size: 1.6rem;
+  opacity: 0.84;
+`;
+
 interface SectionProps {
   name: string;
 }

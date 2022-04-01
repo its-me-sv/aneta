@@ -5,6 +5,8 @@ import NavUser from '../../components/nav-user';
 import Logout from '../../components/logout';
 import Section from '../../components/section';
 import AssignedTo from '../../components/assigned-to';
+import Leaves from '../../components/leaves';
+import JoinedOn from '../../components/joined-on';
 
 const MainContainer = styled.div`
   display: grid;
@@ -31,14 +33,10 @@ const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
             <Section name="Skills" />
           </div>
           <div>
-            <Section name="Leaves taken" />
-          </div>
-          <div>
             <Section name="Actions" />
           </div>
-          <div>
-            <Section name="Joined on" />
-          </div>
+          <Leaves />
+          <JoinedOn />
         </RightContainer>
       </MainContainer>
     );

@@ -32,3 +32,10 @@ export const CloseIcon = styled.img.attrs({
   height: 1rem;
   cursor: pointer;
 `;
+
+export const NewSkillInput = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.7rem;
+`;

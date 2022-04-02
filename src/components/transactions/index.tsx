@@ -5,13 +5,14 @@ import {
   ColumnNames, 
   Wrapper,
   Rows,
-  MoreText,
+  MoreSection,
 } from './styles';
 
 import HorizontalLine from '../horizontal-line';
 import {StyledInput} from '../input';
 import Transaction from '../transaction';
 import {useUserContext} from '../../contexts/user.context';
+import Button from '../button';
 
 interface TransactionType {
   id: string;
@@ -60,7 +61,14 @@ const Transactions: React.FC<TransactionsProps> = () => {
             {transactions.map((val, idx) => (
               <Transaction key={idx} {...val} />
             ))}
-            <MoreText onClick={fetchData}>Load more</MoreText>
+            <MoreSection>
+              <Button 
+                onPress={fetchData} 
+                variant={1} 
+                disabled={false} 
+                text="Load more"
+              />
+            </MoreSection>
           </Rows>
         </Wrapper>
       </>

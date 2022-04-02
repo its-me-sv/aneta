@@ -24,9 +24,7 @@ export const Rows = styled.div`
   overflow-y: auto;
 `;
 
-export const MoreText = styled.span`
-  margin-left: 50%;
-  font-family: arial;
-  font-size: 1rem;
+export const MoreSection = styled.span`
   cursor: pointer;
+  align-self: center;
 `;

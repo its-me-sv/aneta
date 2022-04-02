@@ -13,6 +13,7 @@ const BtnContainer = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.5);
   padding: 0.14rem;
   border-radius: 0.42rem;
+  text-align: center;
   cursor: pointer;
   ${(props: ButtonStyleProps) => {
     switch (props.variant) {

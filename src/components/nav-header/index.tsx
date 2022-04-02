@@ -21,6 +21,7 @@ const CaptionText = styled.span`
   font-size: 1.6rem;
   color: #f0f2f5;
   text-align: center;
+  opacity: 0.9;
 `;
 
 interface NavHeaderProps {

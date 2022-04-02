@@ -55,6 +55,10 @@ export const variantsHr: Array<Variant> = [
     text: "Chat"
   },
   {
+    src: settingsIcon,
+    text: "Settings"
+  },
+  {
     src: projectsIcon,
     text: "Projects"
   },
@@ -66,10 +70,6 @@ export const variantsHr: Array<Variant> = [
     src: financialIcon,
     text: "Financial"
   },
-  {
-    src: settingsIcon,
-    text: "Settings"
-  }
 ];
 
 interface OptionProps {

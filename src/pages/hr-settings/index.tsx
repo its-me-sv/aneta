@@ -26,7 +26,7 @@ const HRSettingsPage: React.FC<HRSettingsPageProps> = () => {
   const {changeUni} = useUserNavContext();
 
   useEffect(() => {
-    changeUni!(5);
+    changeUni!(2);
   }, []);
 
   return (

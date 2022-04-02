@@ -13,10 +13,10 @@ import {useUserNavContext} from '../../contexts/user-nav.context';
 const destinationMapper = [
   "dashboard", 
   "chat",
+  "settings",
   "projects",
   "resources",
   "financial",
-  "settings"
 ];
 
 interface NavHrProps {}
@@ -33,7 +33,7 @@ const NavHr: React.FC<NavHrProps> = () => {
     <Container>
       <NavHeader orgName={params.orgName} />
       <Body>
-        {[0, 0, 0, 0, 0, 0].map((_, idx) => (
+        {Array(6).fill(0).map((_, idx) => (
           <span key={idx} onClick={() => handleClick(idx)}>
             <Option fromHr={true} variant={idx} active={uni === idx} />
           </span>

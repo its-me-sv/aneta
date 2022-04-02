@@ -27,7 +27,7 @@ const AssignedTo: React.FC<AssignedToProps> = () => {
       setTimeout(() => {
         setProjects(Array(42).fill("Project name"));
         setLoading!(false);
-      }, 3000);
+      }, 1000);
     }, []);
 
     return (

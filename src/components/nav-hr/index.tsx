@@ -1,4 +1,5 @@
 import React from 'react';
+import {useNavigate, useParams} from "react-router-dom";
 
 import {Container, Body, Footer} from './styles';
 
@@ -9,16 +10,31 @@ import SimpleProfile from '../simple-profile';
 
 import {useUserNavContext} from '../../contexts/user-nav.context';
 
+const destinationMapper = [
+  "dashboard", 
+  "chat",
+  "projects",
+  "resources",
+  "financial",
+  "settings"
+];
+
 interface NavUserProps {}
 
 const NavUser: React.FC<NavUserProps> = () => {
+    const navigate = useNavigate();
+    const params = useParams();
     const {uni, changeUni} = useUserNavContext();
+    const handleClick = (val: number) => {
+      changeUni!(val);
+      navigate(`../organisation/${params.orgName}/${destinationMapper[val]}`);
+    };
     return (
       <Container>
         <NavHeader />
         <Body>
           {[0, 0, 0, 0, 0, 0].map((_, idx) => (
-            <span key={idx} onClick={() => changeUni!(idx)}>
+            <span key={idx} onClick={() => handleClick(idx)}>
               <Option fromHr={true} variant={idx} active={uni === idx} />
             </span>
           ))}

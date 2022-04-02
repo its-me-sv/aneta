@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 
 import NavHr from '../../components/nav-hr';
@@ -6,6 +6,8 @@ import Logout from "../../components/logout";
 import HRProjects from '../../components/hr-projects';
 import HRResources from "../../components/hr-resources";
 import HRFinancial from '../../components/hr-financial';
+
+import {useUserNavContext} from "../../contexts/user-nav.context";
 
 const MainContainer = styled.div`
   display: grid;
@@ -22,6 +24,12 @@ const RightContainer = styled.div`
 interface HRDashboardPageProps {}
 
 const HRDashboardPage: React.FC<HRDashboardPageProps> = () => {
+  const {changeUni} = useUserNavContext();
+
+  useEffect(() => {
+    changeUni!(0);
+  }, []);
+
   return (
     <MainContainer>
       <NavHr />

@@ -51,6 +51,10 @@ export const variantsHr: Array<Variant> = [
     text: "Dashboard"
   },
   {
+    src: chatIcon,
+    text: "Chat"
+  },
+  {
     src: projectsIcon,
     text: "Projects"
   },
@@ -61,10 +65,6 @@ export const variantsHr: Array<Variant> = [
   {
     src: financialIcon,
     text: "Financial"
-  },
-  {
-    src: chatIcon,
-    text: "Chat"
   },
   {
     src: settingsIcon,

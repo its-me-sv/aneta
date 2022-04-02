@@ -24,7 +24,7 @@ const UserSkillsManager: React.FC<UserSkillsManangerProps> = () => {
       setTimeout(() => {
         setSkills(["JavaScript"]);
         setLoading!(false);
-      }, 2000);
+      }, 1000);
     }, []);
 
     const removeSkill = (idx: number) => {

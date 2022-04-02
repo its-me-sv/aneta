@@ -1,5 +1,4 @@
 import React, {createContext, useContext, useState} from "react";
-
 interface UserNavContextInterface {
   uni: number;
   changeUni?: (val: number) => void;
@@ -15,12 +14,15 @@ export const useUserNavContext = () => useContext(UserNavContext);
 
 export const UserNavContextProvider: React.FC = ({ children }) => {
   const [uni, setUni] = useState<number>(defaultState.uni);
-  const changeUni = (val: number) => val !== uni && setUni(val);
+  const changeUni = (val: number) => {
+    if (val === uni) return;
+    setUni(val);
+  };
   
   return (
     <UserNavContext.Provider value={{
-        uni, 
-        changeUni
+      uni, 
+      changeUni
     }}>{children}</UserNavContext.Provider>
   );
 };

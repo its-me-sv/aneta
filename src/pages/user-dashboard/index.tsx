@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 
 import NavUser from '../../components/nav-user';
@@ -8,6 +8,8 @@ import Leaves from '../../components/leaves';
 import JoinedOn from '../../components/joined-on';
 import UserActions from '../../components/user-actions';
 import UserSkills from '../../components/user-skills';
+
+import {useUserNavContext} from '../../contexts/user-nav.context';
 
 const MainContainer = styled.div`
   display: grid;
@@ -25,6 +27,12 @@ const RightContainer = styled.div`
 interface UserDashboardPageProps {}
 
 const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
+    const {changeUni} = useUserNavContext();
+    
+    useEffect(() => {
+      changeUni!(0);
+    }, []);
+    
     return (
       <MainContainer>
         <NavUser />

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 
 import {Container, Footer, Header, Body} from './styles';
 
@@ -28,13 +28,19 @@ const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
     const {setLoading} = useUserContext();
     const [messages, setMessages] = useState<Array<MessageType>>([]);
     
+    const fetchData = useCallback(() => {
+      window.alert(chatId);
+      setLoading!(true);
+      setTimeout(() => {
+        setMessages(prev => [...dummyMessages, ...prev]);
+        setLoading!(false);
+      }, 1000);
+    }, [chatId, setLoading]);
+
     useEffect(() => {
-        setLoading!(true);
-        setTimeout(() => {
-            setMessages(dummyMessages);
-            setLoading!(false);
-        }, 1000);
-    }, []);
+      fetchData();
+      return () => setMessages([]);
+    }, [fetchData]);
     
     return (
       <Container>
@@ -43,6 +49,12 @@ const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
           <HorizontalLine variant={2} />
         </Header>
         <Body>
+          <Button 
+            onPress={fetchData}
+            text="Load more" 
+            variant={1} 
+            disabled={false} 
+          />
           {messages.map((props, idx) => (
             <Message 
               owner={Math.random()} 

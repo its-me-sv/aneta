@@ -17,7 +17,7 @@ export const Body = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.42rem;
-  margin: 0.7rem 0rem;
+  margin: 0rem 0rem;
   height: 70vh;
   max-height: 70vh;
   overflow-y: auto;

@@ -24,7 +24,7 @@ export const Msg = styled.span`
   font-size: 1.2rem;
   opacity: 0.84;
   max-height: 3.6rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 export const Time = styled.span`

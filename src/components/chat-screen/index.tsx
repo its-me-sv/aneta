@@ -1,4 +1,8 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {
+  useState, 
+  useEffect, 
+  useCallback,
+} from "react";
 
 import {Container, Footer, Header, Body} from './styles';
 
@@ -27,15 +31,14 @@ interface ChatScreenProps {
 const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
     const {setLoading} = useUserContext();
     const [messages, setMessages] = useState<Array<MessageType>>([]);
-    
+
     const fetchData = useCallback(() => {
-      window.alert(chatId);
       setLoading!(true);
       setTimeout(() => {
         setMessages(prev => [...dummyMessages, ...prev]);
         setLoading!(false);
       }, 1000);
-    }, [chatId, setLoading]);
+    }, [setLoading]);
 
     useEffect(() => {
       fetchData();
@@ -49,27 +52,19 @@ const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
           <HorizontalLine variant={2} />
         </Header>
         <Body>
-          <Button 
+          <Button
             onPress={fetchData}
-            text="Load more" 
-            variant={1} 
-            disabled={false} 
+            text="Load more"
+            variant={1}
+            disabled={false}
           />
           {messages.map((props, idx) => (
-            <Message 
-              owner={Math.random()} 
-              key={idx} 
-              {...props} 
-            />
-           ))}
+            <Message owner={Math.random()} key={idx} {...props} />
+          ))}
         </Body>
         <Footer>
           <StyledTextArea rows={2} placeholder="Message" />
-          <Button 
-            variant={2} 
-            text="SEND" 
-            onPress={() => {}} 
-            disabled={false} />
+          <Button variant={2} text="SEND" onPress={() => {}} disabled={false} />
         </Footer>
       </Container>
     );

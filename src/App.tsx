@@ -10,13 +10,13 @@ import UserChatPage from './pages/user-chat';
 import HRChatPage from './pages/hr-chat';
 import FinancialPage from './pages/financial-page';
 import ErrorPage from './pages/error';
+import HRSettingsPage from './pages/hr-settings';
 
 import BlockLoader from './components/block-loader';
 import {useUserContext} from './contexts/user.context';
 
 const HRProjectPage = () => <h1>HR Projects Page</h1>;
 const HRResourcesPage = () => <h1>HR Resources Page</h1>;
-const HRSettingsPage = () => <h1>HR Settings Page</h1>;
 
 interface AppProps {}
 

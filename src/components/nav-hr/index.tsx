@@ -41,7 +41,7 @@ const NavUser: React.FC<NavUserProps> = () => {
         </Body>
         <Footer>
           <HorizontalLine />
-          <SimpleProfile />
+          <SimpleProfile variant={1} />
         </Footer>
       </Container>
     );

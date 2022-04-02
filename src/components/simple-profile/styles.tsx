@@ -8,7 +8,10 @@ export const Container = styled.div`
   padding-left: 3.5px;
 `;
 
-export const ImageContainer = styled.div``;
+export const ImageContainer = styled.div`
+  display: flex;
+  position: relative;
+`;
 
 export const ProfileImage = styled.img.attrs({
   alt: "",
@@ -20,13 +23,15 @@ export const ProfileImage = styled.img.attrs({
 
 type Statuses = "online" | "away" | "offline";
 
-export const Status = styled.div<{ status: Statuses }>`
+export const Status = styled.div<{ status: Statuses; variant: number }>`
   width: 0.84rem;
   height: 0.84rem;
   border: 0.187rem solid #1877f2;
+  ${(props) => props.variant === 2 && `border: 0.187rem solid #f0f2f5;`}
   position: absolute;
   border-radius: 50%;
-  bottom: 0;
+  z-index: 999;
+  align-self: flex-end;
   ${(props) => {
     switch (props.status) {
       case "away":
@@ -45,14 +50,16 @@ export const ProfileDetails = styled.div`
   color: #f0f2f5;
 `;
 
-export const NameText = styled.span`
+export const NameText = styled.span<{variant?: number}>`
   font-family: calibri;
   font-size: 1.4rem;
   opacity: 0.9;
+  ${(props) => props.variant === 2 && `color: rgba(0, 0, 0, 0.7);`}
 `;
 
-export const EmailText = styled.span`
+export const EmailText = styled.span<{ variant?: number }>`
   font-family: bahnschrift;
   font-size: 0.84rem;
   opacity: 0.84;
+  ${(props) => props.variant === 2 && `color: rgba(0, 0, 0, 0.7);`}
 `;

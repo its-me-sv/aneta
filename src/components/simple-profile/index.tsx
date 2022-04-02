@@ -12,18 +12,22 @@ import {
     EmailText
 } from './styles';
 
-interface SimpleProfileProps {}
+interface SimpleProfileProps {
+  variant: number;
+}
 
-const SimpleProfile: React.FC<SimpleProfileProps> = () => {
+const SimpleProfile: React.FC<SimpleProfileProps> = ({variant}) => {
     return (
       <Container>
         <ImageContainer>
           <ProfileImage src={suraj} />
-          <Status status="offline" />
+          <Status variant={variant} status="offline" />
         </ImageContainer>
         <ProfileDetails>
-          <NameText>Suraj Vijay</NameText>
-          <EmailText>surajvijay@email.com</EmailText>
+          <NameText variant={variant}>Suraj Vijay</NameText>
+          <EmailText variant={variant}>
+            {variant === 1 ? `surajvijay@email.com` : `Developer`}
+          </EmailText>
         </ProfileDetails>
       </Container>
     );

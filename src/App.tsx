@@ -31,7 +31,10 @@ const App: React.FC<AppProps> = () => {
           path="/organisation/:orgName/dashboard"
           element={<HRDashboardPage />}
         />
-        <Route path="/organisation/:orgName/chat" element={<HRChatPage />} />
+        <Route 
+          path="/organisation/:orgName/chat" 
+          element={<HRChatPage />} 
+        />
         <Route
           path="/organisation/:orgName/projects"
           element={<HRProjectPage />}
@@ -48,9 +51,18 @@ const App: React.FC<AppProps> = () => {
           path="/organisation/:orgName/settings"
           element={<HRSettingsPage />}
         />
-        <Route path="/organisation/:orgName/user" element={<UserHomePage />} />
-        <Route path="/user/dashboard" element={<UserDashboardPage />} />
-        <Route path="/user/chat" element={<UserChatPage />} />
+        <Route 
+          path="/organisation/:orgName/user" 
+          element={<UserHomePage />} 
+        />
+        <Route 
+          path="/user/dashboard" 
+          element={<UserDashboardPage />} 
+        />
+        <Route 
+          path="/user/chat" 
+          element={<UserChatPage />} 
+        />
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
     </HashRouter>

@@ -2,21 +2,32 @@ import React from "react";
 import styled from "styled-components";
 
 import NavHr from '../../components/nav-hr';
-import {useUserNavContext} from "../../contexts/user-nav.context";
+import Logout from "../../components/logout";
+import HRProjects from '../../components/hr-projects';
 
 const MainContainer = styled.div`
   display: grid;
   grid-template-columns: 2fr 10fr;
 `;
 
+const RightContainer = styled.div`
+  padding: 3% 4.2% 2% 3.6%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto;
+`;
+
 interface HRDashboardPageProps {}
 
 const HRDashboardPage: React.FC<HRDashboardPageProps> = () => {
-  const {uni} = useUserNavContext();
   return (
     <MainContainer>
       <NavHr />
-      <div className="right-container">{uni}</div>
+      <Logout />
+      <RightContainer>
+        <HRProjects />
+      </RightContainer>
     </MainContainer>
   );
 };

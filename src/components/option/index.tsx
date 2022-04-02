@@ -45,7 +45,7 @@ const variants: Array<Variant> = [
   }
 ];
 
-const variantsHr: Array<Variant> = [
+export const variantsHr: Array<Variant> = [
   {
     src: dashboardIcon,
     text: "Dashboard"

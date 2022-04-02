@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import styled from 'styled-components';
 
 import NavHr from '../../components/nav-hr';
+import Transactions from '../../components/transactions';
 
 import {useUserNavContext} from '../../contexts/user-nav.context';
 
@@ -11,8 +12,9 @@ const MainContainer = styled.div`
 `;
 
 const RightContainer = styled.div`
-  display: grid;
-  grid-template-columns: 3fr 1fr;
+  display: flex;
+  flex-direction: column;
+  padding: 2% 1%;
 `;
 
 interface FinancialPageProps {}
@@ -25,12 +27,12 @@ const FinancialPage: React.FC<FinancialPageProps> = () => {
     }, []);
 
     return (
-        <MainContainer>
-            <NavHr />
-            <RightContainer>
-                Finance Page
-            </RightContainer>
-        </MainContainer>
+      <MainContainer>
+        <NavHr />
+        <RightContainer>
+          <Transactions />
+        </RightContainer>
+      </MainContainer>
     );
 };
 

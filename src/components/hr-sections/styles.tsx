@@ -4,6 +4,10 @@ export const Section = styled.div`
   border: 2px solid #1877f2;
   padding: 1%;
   align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border-radius: 0.7rem;
 `;
 

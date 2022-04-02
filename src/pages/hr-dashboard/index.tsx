@@ -5,6 +5,7 @@ import NavHr from '../../components/nav-hr';
 import Logout from "../../components/logout";
 import HRProjects from '../../components/hr-projects';
 import HRResources from "../../components/hr-resources";
+import HRFinancial from '../../components/hr-financial';
 
 const MainContainer = styled.div`
   display: grid;
@@ -13,10 +14,9 @@ const MainContainer = styled.div`
 
 const RightContainer = styled.div`
   padding: 3% 4.2% 2% 3.6%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.4rem;
 `;
 
 interface HRDashboardPageProps {}
@@ -29,6 +29,7 @@ const HRDashboardPage: React.FC<HRDashboardPageProps> = () => {
       <RightContainer>
         <HRProjects />
         <HRResources />
+        <HRFinancial />
       </RightContainer>
     </MainContainer>
   );

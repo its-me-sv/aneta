@@ -28,7 +28,8 @@ const UserSkillsManager: React.FC<UserSkillsManangerProps> = () => {
     }, []);
 
     const removeSkill = (idx: number) => {
-      setSkills(prev => prev.splice(idx, 1));
+      const tbr = skills.splice(idx, 1)[0];
+      setSkills(prev => prev.filter(v => v !== tbr));
     };
 
     const addSkill = () => {

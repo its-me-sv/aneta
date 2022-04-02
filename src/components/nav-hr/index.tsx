@@ -31,7 +31,7 @@ const NavHr: React.FC<NavHrProps> = () => {
   };
   return (
     <Container>
-      <NavHeader />
+      <NavHeader orgName={params.orgName} />
       <Body>
         {[0, 0, 0, 0, 0, 0].map((_, idx) => (
           <span key={idx} onClick={() => handleClick(idx)}>

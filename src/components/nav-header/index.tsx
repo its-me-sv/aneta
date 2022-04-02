@@ -16,12 +16,22 @@ const LogoText = styled.span`
   text-align: center;
 `;
 
-interface NavHeaderProps {}
+const CaptionText = styled.span`
+  font-family: bahnschrift;
+  font-size: 1.6rem;
+  color: #f0f2f5;
+  text-align: center;
+`;
 
-const NavHeader: React.FC<NavHeaderProps> = () => {
+interface NavHeaderProps {
+  orgName?: string;
+}
+
+const NavHeader: React.FC<NavHeaderProps> = ({orgName}) => {
     return (
         <HeaderContainer>
             <LogoText>Aneta</LogoText>
+            {orgName && <CaptionText>for {orgName}</CaptionText>}
             <HorizontalLine />
         </HeaderContainer>
     );

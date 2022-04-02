@@ -1,4 +1,8 @@
-import React, {KeyboardEvent, useState, useEffect} from 'react';
+import React, {
+  KeyboardEvent, 
+  useState, 
+  useEffect
+} from 'react';
 
 import {ContactsContainer , Container, Contact} from './styles';
 import {StyledInput} from '../input';
@@ -7,9 +11,11 @@ import HorizontalLine from '../horizontal-line';
 
 import {useUserContext} from '../../contexts/user.context';
 
-interface ContactsProps {}
+interface ContactsProps {
+  setChat: (val: string) => void;
+}
 
-const Contacts: React.FC<ContactsProps> = () => {
+const Contacts: React.FC<ContactsProps> = ({setChat}) => {
     const {setLoading} = useUserContext();
     const [contacts, setContacts] = useState<Array<any>>([]);
 
@@ -28,10 +34,13 @@ const Contacts: React.FC<ContactsProps> = () => {
 
     return (
       <ContactsContainer>
-        <StyledInput placeholder="Name" onKeyDown={handleSearch} />
+        <StyledInput 
+          placeholder="Name" 
+          onKeyDown={handleSearch} 
+        />
         <Container>
           {contacts.map((_, idx) => (
-            <Contact key={idx}>
+            <Contact key={idx} onClick={() => setChat(`${idx}`)}>
               <SimpleProfile variant={2} />
               <HorizontalLine variant={2} />
             </Contact>

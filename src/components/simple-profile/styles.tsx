@@ -30,7 +30,7 @@ export const Status = styled.div<{ status: Statuses; variant: number }>`
   ${(props) => props.variant === 2 && `border: 0.187rem solid #f0f2f5;`}
   position: absolute;
   border-radius: 50%;
-  z-index: 999;
+  z-index: 888;
   align-self: flex-end;
   ${(props) => {
     switch (props.status) {

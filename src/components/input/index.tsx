@@ -18,6 +18,13 @@ export const StyledInput = styled.input`
   height: 1.8rem;
 `;
 
+export const StyledTextArea = styled.textarea`
+  border-radius: 0.3rem;
+  padding: 3px;
+  font-size: 1.2rem;
+  resize: none;
+`;
+
 interface InputProps {
   label: string;
   name: string;

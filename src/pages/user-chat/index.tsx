@@ -1,7 +1,8 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 
 import NavUser from "../../components/nav-user";
+import ChatScreen from "../../components/chat-screen";
 import Contacts from "../../components/contacts";
 
 import {useUserNavContext} from "../../contexts/user-nav.context";
@@ -16,14 +17,21 @@ const RightContainer = styled.div`
   grid-template-columns: 3fr 1fr;
 `;
 
-const ChatContainer = styled.div`
-  padding: 1%;
+const NotSelected = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: calibri;
+  font-size: 4.2rem;
+  opacity: 0.5;
+  text-align: center;
 `;
 
 interface UserChatPageProps {}
 
 const UserChatPage: React.FC<UserChatPageProps> = () => {
   const {changeUni} = useUserNavContext();
+  const [currChat, setCurrChat] = useState<string>('');
   
   useEffect(() => {
     changeUni!(1);
@@ -33,8 +41,10 @@ const UserChatPage: React.FC<UserChatPageProps> = () => {
     <MainContainer>
       <NavUser />
       <RightContainer>
-        <ChatContainer>Chat Screen</ChatContainer>
-        <Contacts />
+        {currChat.length 
+        ? <ChatScreen chatId={currChat} /> 
+        : <NotSelected>Choose a contact from the contacts</NotSelected>}
+        <Contacts setChat={setCurrChat} />
       </RightContainer>
     </MainContainer>
   );

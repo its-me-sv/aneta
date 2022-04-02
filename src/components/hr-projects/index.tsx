@@ -14,7 +14,7 @@ interface HRProjectsProps {}
 const HRProjects: React.FC<HRProjectsProps> = () => {
     return (
       <Section>
-        <HRSections variant={1} />
+        <HRSections variant={2} />
         <SectionContent>
           <Content>
             <span>Active</span>

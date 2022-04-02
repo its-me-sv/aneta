@@ -10,7 +10,7 @@ interface HRResourcesProps {}
 const HRResources: React.FC<HRResourcesProps> = () => {
   return (
     <Section>
-      <HRSections variant={2} />
+      <HRSections variant={3} />
       <SectionContent>
         <Content>
           <span>Total</span>

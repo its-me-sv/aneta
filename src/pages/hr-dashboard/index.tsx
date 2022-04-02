@@ -4,6 +4,7 @@ import styled from "styled-components";
 import NavHr from '../../components/nav-hr';
 import Logout from "../../components/logout";
 import HRProjects from '../../components/hr-projects';
+import HRResources from "../../components/hr-resources";
 
 const MainContainer = styled.div`
   display: grid;
@@ -27,6 +28,7 @@ const HRDashboardPage: React.FC<HRDashboardPageProps> = () => {
       <Logout />
       <RightContainer>
         <HRProjects />
+        <HRResources />
       </RightContainer>
     </MainContainer>
   );

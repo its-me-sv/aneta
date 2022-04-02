@@ -8,6 +8,7 @@ import Leaves from '../../components/leaves';
 import JoinedOn from '../../components/joined-on';
 import UserActions from '../../components/user-actions';
 import UserSkills from '../../components/user-skills';
+import EditUserForms from "../../components/edit-user-form";
 
 import {useUserNavContext} from '../../contexts/user-nav.context';
 
@@ -22,6 +23,7 @@ const RightContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   overflow: auto;
+  max-height: 90vh;
 `;
 
 interface UserDashboardPageProps {}
@@ -39,8 +41,9 @@ const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
         <Logout />
         <RightContainer>
           <AssignedTo />
-          <UserSkills />
           <UserActions />
+          <UserSkills />
+          <EditUserForms />
           <Leaves />
           <JoinedOn />
         </RightContainer>

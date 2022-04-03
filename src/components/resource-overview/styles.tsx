@@ -27,12 +27,19 @@ export const Header = styled.div`
 `;
 
 export const Body = styled.div`
-  height: 84vh;
-  width: 84vw;
-  max-width: 84vw;
-  max-height: 84vh;
+  height: 77vh;
+  width: 77vw;
+  max-width: 77vw;
+  max-height: 77vh;
   overflow: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+`;
+
+export const CloseIcon = styled.span`
+  align-self: flex-end;
+  cursor: pointer;
+  font-family: arial;
+  font-size: 1rem;
 `;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  Container, Wrapper, Header, Body
+  Container, Wrapper, Header, Body, CloseIcon
 } from './styles';
 
 import SimpleProfile from '../simple-profile';
@@ -15,12 +15,14 @@ import Section from '../section';
 
 interface ResourceOverviewProps {
   currId: string;
+  onClose: () => void;
 }
 
-const ResourceOverview: React.FC<ResourceOverviewProps> = () => {
+const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose}) => {
     return (
       <Container>
         <Wrapper>
+          <CloseIcon onClick={onClose}>X</CloseIcon>
           <Header>
             <SimpleProfile variant={2} showEmail />
             <Button
@@ -33,7 +35,7 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = () => {
           <Body>
             <JoinedOn />
             <Leaves />
-            <Section name='Skills' />
+            <Section name="Skills" />
             <ResourcesSkills skills={Array(42).fill("Javascript")} />
             <AssignedTo fromHr={Array(42).fill("ProjectName")} />
             <HRActions />

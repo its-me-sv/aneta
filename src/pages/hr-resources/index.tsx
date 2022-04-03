@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 
 import NavHR from "../../components/nav-hr";
@@ -31,6 +31,7 @@ interface HRResourcesPageProps {}
 
 const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
     const {changeUni} = useUserNavContext();
+    const [crId, setCrId] = useState<string>('hello');
 
     useEffect(() => {
       changeUni!(4);
@@ -39,7 +40,7 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
     return (
       <MainContainer>
         <NavHR />
-        <ResourceOverview currId='' />
+        {crId && <ResourceOverview currId={crId} onClose={() => setCrId('')} />}
         <RightContainer>
           <StyledInput placeholder="Name | Email | Role" />
           <ResourcesWrapper>

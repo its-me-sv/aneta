@@ -14,9 +14,10 @@ import {
 
 interface SimpleProfileProps {
   variant: number;
+  showEmail?: boolean;
 }
 
-const SimpleProfile: React.FC<SimpleProfileProps> = ({variant}) => {
+const SimpleProfile: React.FC<SimpleProfileProps> = ({variant, showEmail}) => {
     return (
       <Container>
         <ImageContainer>
@@ -25,9 +26,16 @@ const SimpleProfile: React.FC<SimpleProfileProps> = ({variant}) => {
         </ImageContainer>
         <ProfileDetails>
           <NameText variant={variant}>Suraj Vijay</NameText>
-          <EmailText variant={variant}>
-            {variant === 1 ? `surajvijay@email.com` : `Developer`}
-          </EmailText>
+          <div>
+            <EmailText variant={variant}>
+              {variant === 1 ? `surajvijay@email.com ` : `Developer `}
+            </EmailText>
+            {variant === 2 && showEmail && (
+              <EmailText variant={variant}>
+                | surajvijay@email.com
+              </EmailText>
+            )}
+          </div>
         </ProfileDetails>
       </Container>
     );

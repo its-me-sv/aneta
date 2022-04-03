@@ -5,6 +5,7 @@ import NavHR from "../../components/nav-hr";
 import {StyledInput} from "../../components/input";
 import Employee from '../../components/employee';
 import Candidates from '../../components/candidates';
+import ResourceOverview from '../../components/resource-overview';
 
 import {useUserNavContext} from "../../contexts/user-nav.context";
 
@@ -38,6 +39,7 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
     return (
       <MainContainer>
         <NavHR />
+        <ResourceOverview currId='' />
         <RightContainer>
           <StyledInput placeholder="Name | Email | Role" />
           <ResourcesWrapper>

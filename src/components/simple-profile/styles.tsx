@@ -6,6 +6,7 @@ export const Container = styled.div`
   gap: 0.7rem;
   margin-top: 0.2rem;
   padding-left: 3.5px;
+  align-items: center;
 `;
 
 export const ImageContainer = styled.div`

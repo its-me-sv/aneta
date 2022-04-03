@@ -10,19 +10,27 @@ const Projects = styled.div`
   display: grid;
   padding: 0.5%;
   grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   height: auto;
   max-height: 7rem;
   overflow-y: auto;
+  overflow-x: auto;
+  gap: 0.5rem;
 `;
 
-interface AssignedToProps {}
+interface AssignedToProps {
+  fromHr?: Array<string>;
+}
 
-const AssignedTo: React.FC<AssignedToProps> = () => {
+const AssignedTo: React.FC<AssignedToProps> = ({fromHr}) => {
     const {setLoading} = useUserContext();
     const [projects, setProjects] = useState<Array<string>>([]);
 
     useEffect(() => {
+      if (fromHr?.length) {
+        setProjects(fromHr);
+        return;
+      } 
       setLoading!(true);
       setTimeout(() => {
         setProjects(Array(42).fill("Project name"));

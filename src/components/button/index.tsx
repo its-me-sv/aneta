@@ -13,7 +13,9 @@ const BtnContainer = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.5);
   padding: 0.14rem;
   border-radius: 0.42rem;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   ${(props: ButtonStyleProps) => {
     switch (props.variant) {
@@ -40,9 +42,9 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({variant, text, onPress, disabled}) => {
     return (
-        <BtnContainer disabled={disabled} variant={variant} onClick={onPress}>
-          {text}
-        </BtnContainer>
+      <BtnContainer disabled={disabled} variant={variant} onClick={onPress}>
+        <span>{text}</span>
+      </BtnContainer>
     );
 };
 

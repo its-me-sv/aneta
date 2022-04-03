@@ -27,8 +27,12 @@ export const Header = styled.div`
 `;
 
 export const Body = styled.div`
+  height: 84vh;
+  width: 84vw;
+  max-width: 84vw;
   max-height: 84vh;
-  overflow-y: auto;
+  overflow: auto;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 `;

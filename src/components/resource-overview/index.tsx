@@ -10,7 +10,8 @@ import JoinedOn from '../joined-on';
 import AssignedTo from '../assigned-to';
 import HRActions from '../hr-actions';
 import Leaves from '../leaves';
-import UserSkills from '../user-skills';
+import ResourcesSkills from "../resources-skills";
+import Section from '../section';
 
 interface ResourceOverviewProps {
   currId: string;
@@ -31,9 +32,10 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = () => {
           </Header>
           <Body>
             <JoinedOn />
-            <UserSkills />
             <Leaves />
-            <AssignedTo fromHr={Array(42).fill("ProjectName")}/>
+            <Section name='Skills' />
+            <ResourcesSkills skills={Array(42).fill("Javascript")} />
+            <AssignedTo fromHr={Array(42).fill("ProjectName")} />
             <HRActions />
           </Body>
         </Wrapper>

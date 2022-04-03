@@ -9,6 +9,12 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
+  cursor: default;
+  &:hover {
+    box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
+    -webkit-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
+    -moz-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
+  }
 `;
 
 const Container = styled.div`

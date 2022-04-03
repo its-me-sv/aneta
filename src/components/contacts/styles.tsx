@@ -18,4 +18,9 @@ export const Contact = styled.div`
   flex-direction: column;
   gap: 0.3rem;
   cursor: pointer;
+  &:hover {
+    box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
+    -webkit-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
+    -moz-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
+  }
 `;

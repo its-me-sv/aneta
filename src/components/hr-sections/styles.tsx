@@ -9,9 +9,13 @@ export const Section = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 0.7rem;
+  cursor: pointer;
   box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
   -webkit-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
   -moz-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
+  &:hover {
+    transform: scale(1.042);
+  }
 `;
 
 export const SectionContent = styled.div`

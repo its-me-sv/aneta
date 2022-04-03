@@ -9,11 +9,13 @@ import {
 import HRSections from '../hr-sections';
 import {VrtclLn} from '../switch-form';
 
-interface HRProjectsProps {}
+interface HRProjectsProps {
+  onPress: () => void;
+}
 
-const HRProjects: React.FC<HRProjectsProps> = () => {
+const HRProjects: React.FC<HRProjectsProps> = ({onPress}) => {
     return (
-      <Section>
+      <Section onClick={onPress}>
         <HRSections variant={3} />
         <SectionContent>
           <Content>

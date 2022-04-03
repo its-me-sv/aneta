@@ -10,7 +10,7 @@ import SimpleProfile from '../simple-profile';
 
 import {useUserNavContext} from '../../contexts/user-nav.context';
 
-const destinationMapper = [
+export const destinationMapper = [
   "dashboard", 
   "chat",
   "settings",

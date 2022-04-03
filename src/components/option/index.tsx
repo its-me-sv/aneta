@@ -22,6 +22,11 @@ const OptionContainer = styled.div<{ curr?: boolean }>`
 -webkit-box-shadow: 0px 0px 3px 1px rgba(240,242,245,0.84);
 -moz-box-shadow: 0px 0px 3px 1px rgba(240,242,245,0.84);
   `}
+  &:hover {
+    box-shadow: 0px 0px 3px 1px rgba(240, 242, 245, 0.84);
+    -webkit-box-shadow: 0px 0px 3px 1px rgba(240, 242, 245, 0.84);
+    -moz-box-shadow: 0px 0px 3px 1px rgba(240, 242, 245, 0.84);
+  }
 `;
 
 const OptionImage = styled.img<{ curr?: boolean }>`

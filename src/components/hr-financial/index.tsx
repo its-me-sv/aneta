@@ -5,11 +5,13 @@ import { Section, SectionContent, Content } from "../hr-sections/styles";
 import HRSections from "../hr-sections";
 import { VrtclLn } from "../switch-form";
 
-interface HRFinancialProps {}
+interface HRFinancialProps {
+  onPress: () => void;
+}
 
-const HRFinancial: React.FC<HRFinancialProps> = () => {
+const HRFinancial: React.FC<HRFinancialProps> = ({onPress}) => {
   return (
-    <Section>
+    <Section onClick={onPress}>
       <HRSections variant={5} />
       <SectionContent>
         <Content>

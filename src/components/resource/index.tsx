@@ -31,7 +31,7 @@ const Container = styled.div<{ variant?: number }>`
     transform: scale(1.042);
     /* background-color: #1877f2; */
     color: #1877f2;
-    border: 1px dashed rgba(0, 0, 0, 0.7);
+    /* border: 1px dashed rgba(0, 0, 0, 0.7); */
   }
   cursor: pointer;
 `;
@@ -45,6 +45,7 @@ const Circle = styled.span`
   background-color: #f26d7d;
   padding: 0% 1.8%;
   border-radius: 50%;
+  color: white;
 `;
 
 interface ResourceProps {}

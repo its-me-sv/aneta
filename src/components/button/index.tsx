@@ -7,6 +7,7 @@ interface ButtonStyleProps {
 }
 
 const BtnContainer = styled.div`
+  max-height: 8.4vh;
   font-family: calibri;
   font-size: 1.2rem;
   opacity: 0.84;

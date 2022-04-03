@@ -34,11 +34,12 @@ const Container = styled.div<{ variant?: number }>`
     /* border: 1px dashed rgba(0, 0, 0, 0.7); */
   }
   cursor: pointer;
+  max-height: 8.4vh;
 `;
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
 `;
 
 const Circle = styled.span`

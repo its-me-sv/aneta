@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {
   HomePageContainer,
@@ -12,6 +12,7 @@ import {
 import OrganisationFormLogin from '../../components/org-login-form';
 import OrganisationFormCreate from '../../components/org-create-form';
 import SwitchForm from "../../components/switch-form";
+import {HomeNav, TermsAndPolicies, Pricing} from "../../components/home-nav";
 
 import {useSwitchContext} from "../../contexts/switch.context";
 
@@ -19,8 +20,15 @@ interface HomePageProps {}
 
 const HomePage: React.FC<HomePageProps> = () => {
     const {isLogin} = useSwitchContext();
+    const [currOption, setCurrOption] = useState<number>(0);
+
+    const ResetOption = () => setCurrOption(0);
+    
     return (
       <HomePageContainer>
+        <HomeNav setter={setCurrOption}/>
+        {currOption === 1 && <TermsAndPolicies onClose={ResetOption} />}
+        {currOption === 2 && <Pricing onClose={ResetOption} />}
         <FormContainer>
           <LeftContainer>
             <div>

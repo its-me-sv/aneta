@@ -61,3 +61,8 @@ export const CaptionText = styled.span`
   font-size: 2.1rem;
   opacity: 0.7;
 `;
+
+export const Slogan = styled.span`
+  font-family: roboto;
+  font-size: 1.4rem;
+`;

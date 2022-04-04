@@ -7,6 +7,7 @@ import {
   SecondText,
   LeftContainer,
   RightContainer,
+  Slogan,
 } from "./styles";
 
 import OrganisationFormLogin from '../../components/org-login-form';
@@ -35,6 +36,7 @@ const HomePage: React.FC<HomePageProps> = () => {
               <FirstText>A</FirstText>
               <SecondText>neta</SecondText>
             </div>
+            <Slogan>Work from home made simple.</Slogan>
           </LeftContainer>
           <RightContainer>
             <SwitchForm />

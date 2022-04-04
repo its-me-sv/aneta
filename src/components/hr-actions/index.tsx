@@ -8,6 +8,9 @@ const ActionButtons = styled.div`
   margin-top: 1%;
   display: flex;
   gap: 1rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
 `;
 
 interface HRActionsProps {}
@@ -34,7 +37,7 @@ const HRActions: React.FC<HRActionsProps> = () => {
           onPress={onClick}
           disabled={false}
           variant={4}
-          text="Assign"
+          text="Assign to project"
         />
         <Button
           onPress={onClick}

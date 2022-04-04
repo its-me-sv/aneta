@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Section = styled.div`
-  border: 2px solid #1877f2;
+  /* border: 2px solid #1877f2; */
   padding: 1%;
   align-self: center;
   display: flex;
@@ -14,6 +14,7 @@ export const Section = styled.div`
   -webkit-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
   -moz-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
   &:hover {
+    border: 2px solid #1877f2;
     transform: scale(1.042);
   }
 `;

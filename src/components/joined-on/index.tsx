@@ -19,15 +19,21 @@ const SinceFormatted = styled.span`
   opacity: 0.7;
 `;
 
-interface JoinedOnProps {}
+interface JoinedOnProps {
+  forProject?: boolean;
+}
 
-const JoinedOn: React.FC<JoinedOnProps> = () => {
+const JoinedOn: React.FC<JoinedOnProps> = ({forProject}) => {
     const timeStamp = getDateObj(
       "9467eb20-a622-11ec-9631-773bd57f3429"
     ).toISOString();
     return (
       <div>
-        <Section name="Joined on" />
+        {!forProject ? (
+          <Section name="Joined on" />
+        ) : (
+          <Section name="Created on" />
+        )}
         <Container>
           <SectionCaption>{prettyDate(timeStamp)}</SectionCaption>
           <SinceFormatted>{format(timeStamp)}</SinceFormatted>

@@ -11,6 +11,7 @@ import NavHR from "../../components/nav-hr";
 import { StyledInput } from "../../components/input";
 import Button from "../../components/button";
 import ProjectForm from '../../components/project-form';
+import ProjectBrief from "../../components/project-brief";
 import {
   ActiveProjects, 
   StalledProjects, 
@@ -24,6 +25,7 @@ interface HRProjectsPageProps {}
 const HRProjectsPage: React.FC<HRProjectsPageProps> = () => {
   const { changeUni } = useUserNavContext();
   const [showForm, setShowForm] = useState<boolean>(false);
+  const [currProj, setCurrProj] = useState<string>('hello');
 
   useEffect(() => {
     changeUni!(3);
@@ -33,6 +35,7 @@ const HRProjectsPage: React.FC<HRProjectsPageProps> = () => {
     <MainContainer>
       <NavHR />
       {showForm && <ProjectForm onClose={() => setShowForm(false)} />}
+      {currProj.length > 0 && <ProjectBrief projId={currProj} onClose={() => setCurrProj('')} />}
       <RightContainer>
         <TopButton>
           <Button

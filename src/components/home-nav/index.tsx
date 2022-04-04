@@ -24,8 +24,8 @@ interface MiscProps {
 export const HomeNav: React.FC<MiscProps> = ({setter}) => {
   return (
     <NavContainer>
-      <span onClick={() => setter(1)}>Terms And Policies</span>
       <span onClick={() => setter(2)}>Pricing</span>
+      <span onClick={() => setter(1)}>Terms And Policies</span>
     </NavContainer>
   );
 };

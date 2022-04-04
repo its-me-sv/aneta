@@ -12,11 +12,10 @@ import FinancialPage from './pages/financial-page';
 import ErrorPage from './pages/error';
 import HRSettingsPage from './pages/hr-settings';
 import HRResourcesPage from './pages/hr-resources';
+import HRProjectsPage from './pages/hr-projects';
 
 import BlockLoader from './components/block-loader';
 import {useUserContext} from './contexts/user.context';
-
-const HRProjectPage = () => <h1>HR Projects Page</h1>;
 
 interface AppProps {}
 
@@ -34,7 +33,7 @@ const App: React.FC<AppProps> = () => {
         <Route path="/organisation/:orgName/chat" element={<HRChatPage />} />
         <Route
           path="/organisation/:orgName/projects"
-          element={<HRProjectPage />}
+          element={<HRProjectsPage />}
         />
         <Route
           path="/organisation/:orgName/resources"

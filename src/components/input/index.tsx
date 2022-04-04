@@ -18,11 +18,16 @@ export const StyledInput = styled.input`
   height: 1.8rem;
 `;
 
-export const StyledTextArea = styled.textarea`
+export const StyledTextArea = styled.textarea<{isDesc ?: boolean}>`
   border-radius: 0.3rem;
   padding: 3px;
   font-size: 1.2rem;
   resize: none;
+  /*  */
+  ${(props) => props.isDesc && `
+    height: 42vh;
+    width: 42vw;
+  `}
 `;
 
 interface InputProps {
@@ -31,14 +36,19 @@ interface InputProps {
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
   isPass?: boolean;
+  isDesc?: boolean;
 }
 
-const Input: React.FC<InputProps> = ({label, name, value, setValue, isPass}) => {
+const Input: React.FC<InputProps> = ({label, name, value, setValue, isPass, isDesc}) => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value);
+    const handleChange1 = (event: ChangeEvent<HTMLTextAreaElement>) => setValue(event.target.value);
     return (
       <InputField>
         <InputLabel>{label}</InputLabel>
-        <StyledInput type={isPass ? "password": "text"} name={name} value={value} onChange={handleChange} />
+        {!isDesc 
+         ? (<StyledInput type={isPass ? "password": "text"} name={name} value={value} onChange={handleChange} />)
+         : (<StyledTextArea isDesc name={name} value={value} onChange={handleChange1} />)
+        }
       </InputField>
     );
 };

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 
 import {
   MainContainer,
@@ -10,6 +10,7 @@ import {
 import NavHR from "../../components/nav-hr";
 import { StyledInput } from "../../components/input";
 import Button from "../../components/button";
+import ProjectForm from '../../components/project-form';
 import {
   ActiveProjects, 
   StalledProjects, 
@@ -22,6 +23,7 @@ interface HRProjectsPageProps {}
 
 const HRProjectsPage: React.FC<HRProjectsPageProps> = () => {
   const { changeUni } = useUserNavContext();
+  const [showForm, setShowForm] = useState<boolean>(false);
 
   useEffect(() => {
     changeUni!(3);
@@ -30,12 +32,13 @@ const HRProjectsPage: React.FC<HRProjectsPageProps> = () => {
   return (
     <MainContainer>
       <NavHR />
+      {showForm && <ProjectForm onClose={() => setShowForm(false)} />}
       <RightContainer>
         <TopButton>
           <Button
             text="+ New Project"
             variant={2}
-            onPress={() => {}}
+            onPress={() => setShowForm(true)}
             disabled={false}
           />
         </TopButton>

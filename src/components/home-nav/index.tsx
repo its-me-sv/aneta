@@ -64,7 +64,7 @@ export const Pricing: React.FC<PricingProps> = ({onClose}) => {
         <Title>Plans</Title>
         <PlansContainer>
           <Plan>
-            <NameCost>Pre Seed</NameCost>
+            <NameCost>Micro</NameCost>
             <Features>
               <span>Resources: 100</span>
               <span>Projects: 15</span>
@@ -72,7 +72,7 @@ export const Pricing: React.FC<PricingProps> = ({onClose}) => {
             <NameCost>19$/month</NameCost>
           </Plan>
           <Plan>
-            <NameCost>Series A</NameCost>
+            <NameCost>Small</NameCost>
             <Features>
               <span>Resources: 1000</span>
               <span>Projects: 100</span>
@@ -80,7 +80,7 @@ export const Pricing: React.FC<PricingProps> = ({onClose}) => {
             <NameCost>79$/month</NameCost>
           </Plan>
           <Plan>
-            <NameCost>Series B</NameCost>
+            <NameCost>Medium</NameCost>
             <Features>
               <span>Resources: 100,000</span>
               <span>Projects: 400</span>
@@ -88,7 +88,7 @@ export const Pricing: React.FC<PricingProps> = ({onClose}) => {
             <NameCost>599$/month</NameCost>
           </Plan>
           <Plan>
-            <NameCost>Series C</NameCost>
+            <NameCost>Large</NameCost>
             <Features>
               <span>Resources: 500,000</span>
               <span>Projects: 1000</span>

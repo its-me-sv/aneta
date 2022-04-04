@@ -35,17 +35,17 @@ export const Wrapper = styled.div<{isPricing ?: boolean}>`
   background-color: #f0f2f5;
   border-radius: 1rem;
   padding: 1%;
-  width: 42vw;
-  height: 77vh;
+  /* width: 42vw; */
+  /* height: 77vh; */
   max-width: 42vw;
   max-height: 77vh;
   gap: 1.4%;
   ${(props) => props.isPricing && `
     align-items: center;
-    width: auto;
-    height: auto;
     gap: 1rem;
     padding: 1%;
+    max-width: none;
+    max-height: none;
   `}
 `;
 
@@ -109,6 +109,7 @@ export const Features = styled.div`
 
 export const NameCost = styled.span`
   font-family: calibri;
+  text-align: center;
   font-size: 1.8rem;
   opacity: 0.84;
 `;

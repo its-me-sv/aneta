@@ -17,6 +17,7 @@ const BtnContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   cursor: pointer;
   ${(props: ButtonStyleProps) => {
     switch (props.variant) {

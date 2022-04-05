@@ -26,7 +26,7 @@ const NavUser: React.FC<NavUserProps> = () => {
     };
     return (
       <Container>
-        <NavHeader />
+        <NavHeader orgName={"Organisation name"} />
         <Body>
           {[0, 0].map((_, idx) => (
             <span key={idx} onClick={() => handleClick(idx)}>

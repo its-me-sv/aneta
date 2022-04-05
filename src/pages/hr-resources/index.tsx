@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
+import {useSearchParams} from 'react-router-dom';
 
 import NavHR from "../../components/nav-hr";
 import {StyledInput} from "../../components/input";
@@ -31,10 +32,12 @@ interface HRResourcesPageProps {}
 
 const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
     const {changeUni} = useUserNavContext();
+    const [searchParams] = useSearchParams();
     const [crId, setCrId] = useState<string>('hello');
 
     useEffect(() => {
       changeUni!(4);
+      console.log({id: searchParams.get('id')});
     }, []);
 
     return (

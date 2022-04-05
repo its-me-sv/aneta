@@ -19,7 +19,9 @@ const ProjectBrief: React.FC<ProjectBriefProps> = ({onClose}) => {
   const params = useParams();
 
   const takeToRescources = () => {
-    navigate(`../organisation/${params.orgName}/resources`);
+    navigate(
+      `../organisation/${params.orgName}/resources?id=${'9467eb20-a622-11ec-9631-773bd57f3429'}`
+    );
   };
 
   const addResource = () => {

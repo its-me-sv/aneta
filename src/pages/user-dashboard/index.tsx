@@ -46,7 +46,7 @@ const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
           <UserActions />
           <UserSkills />
           <EditUserForms />
-          <Leaves />
+          <Leaves id={id} />
           <JoinedOn id={id} />
         </RightContainer>
       </MainContainer>

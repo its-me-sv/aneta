@@ -38,6 +38,8 @@ const Select: React.FC<SelectProps> = ({value, setValue}) => {
       <InputLabel>Role</InputLabel>
       <SelectStyles value={value} onChange={handleRoleChange}>
         <OptionStyles value="Developer">Developer</OptionStyles>
+        <OptionStyles value="Tester">Tester</OptionStyles>
+        <OptionStyles value="Support">Support</OptionStyles>
         <OptionStyles value="Project Manager">Project Manager</OptionStyles>
       </SelectStyles>
     </InputField>

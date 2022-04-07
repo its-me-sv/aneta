@@ -1,7 +1,10 @@
 import React, {useState} from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 import {RightEnd} from '../../pages/home/styles';
+import {useUserContext} from '../../contexts/user.context';
+import {useAPIContext} from '../../contexts/api.context';
 
 import Input from "../input";
 
@@ -14,6 +17,8 @@ export const RightMid = styled.div`
 interface OrgFormProps {}
 
 const OrganisationFormCreate: React.FC<OrgFormProps> = () => {
+  const {setLoading} = useUserContext();
+  const {REST_API} = useAPIContext();
   const [orgName, setOrgname] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -22,7 +27,24 @@ const OrganisationFormCreate: React.FC<OrgFormProps> = () => {
   const handleCreate = () => {
     if (!orgName.length || !name.length || !email.length || !password.length)
       return window.alert("Field empty");
-    window.alert(JSON.stringify({orgName, name, email, password}));
+    setLoading!(true);
+    const formBody = {
+      orgName,
+      creator: name,
+      email,
+      password,
+    };
+    axios.post(`${REST_API}/organisation/create`, formBody)
+    .then(() => {
+      setLoading!(false);
+      window.alert("Organisation creation success");
+    })
+    .catch((err) => {
+      setLoading!(false);
+      const erd = err.response.data;
+      if (erd) return window.alert(JSON.stringify(erd));
+      return window.alert("Issue in creating account");
+    });
   };
 
   return (

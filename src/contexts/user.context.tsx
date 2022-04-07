@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState } from "react";
+import axios from "axios";
 
 import {useSocketContext} from './socket.context';
+import {useAPIContext} from "./api.context";
 
 interface UserContextInterface {
   id: string;
@@ -27,16 +29,30 @@ export const useUserContext = () => useContext(UserContext);
 
 export const UserContextProvider: React.FC = ({ children }) => {
   const {setSocket} = useSocketContext();
+  const {REST_API} = useAPIContext();
   const [id, setId] = useState<string>(defaultState.id);
   const [token, setToken] = useState<string>(defaultState.token);
   const [orgName, setOrgName] = useState<string>(defaultState.orgName);
   const [loading, setLoading] = useState<boolean>(defaultState.loading);
 
   const userLogout = () => {
-    setId('');
-    setToken('');
-    setOrgName('');
-    setSocket!(null);
+    setLoading(true);
+    axios.delete(`${REST_API}/auth/logout`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(() => {
+      setId("");
+      setToken("");
+      setOrgName("");
+      setSocket!(null);
+      setLoading(false);
+    })
+    .catch((err) => {
+      setLoading(false);
+      window.alert(err.response.data);
+    });;
   };
 
   return (

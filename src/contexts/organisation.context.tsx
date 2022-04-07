@@ -28,7 +28,7 @@ export const OrganisationContext = createContext<OrganisationContextInterface>(d
 export const useOrganisationContext = () => useContext(OrganisationContext);
 
 export const OrganisationContextProvider: React.FC = ({ children }) => {
-  const {setSocket} = useSocketContext();
+  const {socket} = useSocketContext();
   const {REST_API} = useAPIContext();
   const [id, setId] = useState<string>(defaultState.id);
   const [token, setToken] = useState<string>(defaultState.token);
@@ -37,17 +37,21 @@ export const OrganisationContextProvider: React.FC = ({ children }) => {
 
   const organisationLogout = () => {
     setLoading(true);
-    axios.delete(`${REST_API}/auth/logout`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    axios.put(`${REST_API}/organisation/set-status`, {status: 0, orgName}, {
+      headers: {Authorization: `Bearer ${token}`}
     })
     .then(() => {
-      setId('');
-      setToken('');
-      setOrgName('');
-      setSocket!(null);
-      setLoading(false);
+      axios.delete(`${REST_API}/auth/logout`, {
+      headers: {Authorization: `Bearer ${token}`,},
+    })
+      .then(() => {
+        setId("");
+        setToken("");
+        setOrgName("");
+        socket?.close();
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
     })
     .catch((err) => {
       setLoading(false);

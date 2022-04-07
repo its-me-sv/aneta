@@ -31,7 +31,7 @@ const App: React.FC<AppProps> = () => {
         <Route
           path="/"
           element={
-            oid.length ? (
+            oid.length && oon.length ? (
               <Navigate to={`/organisation/${oon}/dashboard`} />
             ) : (
               <HomePage />

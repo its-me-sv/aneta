@@ -1,5 +1,5 @@
 import React from 'react';
-import {HashRouter, Route, Routes} from 'react-router-dom';
+import {HashRouter, Route, Routes, Navigate} from 'react-router-dom';
 
 // pages
 import HomePage from './pages/home';
@@ -16,40 +16,66 @@ import HRProjectsPage from './pages/hr-projects';
 
 import BlockLoader from './components/block-loader';
 import {useUserContext} from './contexts/user.context';
+import {useOrganisationContext} from './contexts/organisation.context';
 
 interface AppProps {}
 
 const App: React.FC<AppProps> = () => {
-  const {loading} = useUserContext();
+  const {loading: l1, id: uid} = useUserContext();
+  const {loading: l2, id: oid, orgName: oon} = useOrganisationContext();
+  
   return (
     <HashRouter>
-      {loading && <BlockLoader />}
+      {(l1 || l2) && <BlockLoader />}
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={
+            oid.length ? (
+              <Navigate to={`/organisation/${oon}/dashboard`} />
+            ) : (
+              <HomePage />
+            )
+          }
+        />
         <Route
           path="/organisation/:orgName/dashboard"
-          element={<HRDashboardPage />}
+          element={!oid.length ? <Navigate to="/" /> : <HRDashboardPage />}
         />
-        <Route path="/organisation/:orgName/chat" element={<HRChatPage />} />
+        <Route
+          path="/organisation/:orgName/chat"
+          element={!oid.length ? <Navigate to="/" /> : <HRChatPage />}
+        />
         <Route
           path="/organisation/:orgName/projects"
-          element={<HRProjectsPage />}
+          element={!oid.length ? <Navigate to="/" /> : <HRProjectsPage />}
         />
         <Route
           path="/organisation/:orgName/resources"
-          element={<HRResourcesPage />}
+          element={!oid.length ? <Navigate to="/" /> : <HRResourcesPage />}
         />
         <Route
           path="/organisation/:orgName/financial"
-          element={<FinancialPage />}
+          element={!oid.length ? <Navigate to="/" /> : <FinancialPage />}
         />
         <Route
           path="/organisation/:orgName/settings"
-          element={<HRSettingsPage />}
+          element={!oid.length ? <Navigate to="/" /> : <HRSettingsPage />}
         />
-        <Route path="/organisation/:orgName/user" element={<UserHomePage />} />
-        <Route path="/user/dashboard" element={<UserDashboardPage />} />
-        <Route path="/user/chat" element={<UserChatPage />} />
+        <Route
+          path="/organisation/:orgName/user"
+          element={
+            uid.length ? <Navigate to="/user/dashboard" /> : <UserHomePage />
+          }
+        />
+        <Route
+          path="/user/dashboard"
+          element={!uid.length ? <Navigate to="/" /> : <UserDashboardPage />}
+        />
+        <Route
+          path="/user/chat"
+          element={!uid.length ? <Navigate to="/" /> : <UserChatPage />}
+        />
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
     </HashRouter>

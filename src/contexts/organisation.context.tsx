@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 
-interface UserContextInterface {
+interface OrganisationContextInterface {
   id: string;
   token: string;
   orgName: string;
@@ -11,29 +11,37 @@ interface UserContextInterface {
   setLoading?: (val: boolean) => void;
 }
 
-const defaultState: UserContextInterface = {
+const defaultState: OrganisationContextInterface = {
   id: "",
   token: "",
   orgName: "",
   loading: false,
 };
 
-export const UserContext = createContext<UserContextInterface>(defaultState);
+export const OrganisationContext = createContext<OrganisationContextInterface>(defaultState);
 
-export const useUserContext = () => useContext(UserContext);
+export const useOrganisationContext = () => useContext(OrganisationContext);
 
-export const UserContextProvider: React.FC = ({ children }) => {
+export const OrganisationContextProvider: React.FC = ({ children }) => {
   const [id, setId] = useState<string>(defaultState.id);
   const [token, setToken] = useState<string>(defaultState.token);
   const [orgName, setOrgName] = useState<string>(defaultState.orgName);
   const [loading, setLoading] = useState<boolean>(defaultState.loading);
 
   return (
-    <UserContext.Provider
+    <OrganisationContext.Provider
       value={{
-        id, token, loading, orgName,
-        setId, setToken, setLoading, setOrgName
+        id,
+        token,
+        loading,
+        orgName,
+        setId,
+        setToken,
+        setLoading,
+        setOrgName
       }}
-    >{children}</UserContext.Provider>
+    >
+      {children}
+    </OrganisationContext.Provider>
   );
 };

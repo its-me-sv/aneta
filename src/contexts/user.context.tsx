@@ -28,7 +28,7 @@ export const UserContext = createContext<UserContextInterface>(defaultState);
 export const useUserContext = () => useContext(UserContext);
 
 export const UserContextProvider: React.FC = ({ children }) => {
-  const {setSocket} = useSocketContext();
+  const {socket} = useSocketContext();
   const {REST_API} = useAPIContext();
   const [id, setId] = useState<string>(defaultState.id);
   const [token, setToken] = useState<string>(defaultState.token);
@@ -46,7 +46,7 @@ export const UserContextProvider: React.FC = ({ children }) => {
       setId("");
       setToken("");
       setOrgName("");
-      setSocket!(null);
+      socket?.close();
       setLoading(false);
     })
     .catch((err) => {

@@ -53,7 +53,7 @@ const EditOrgForms: React.FC<EditOrgFormProps> = () => {
         setEmail(data.email);
         setImageUrl(data.profilePicture);
         setLoading!(false);
-      }).catch((err) => setLoading!(false));
+      }).catch(() => setLoading!(false));
     }, []);
 
     const getImageUrl = () => {

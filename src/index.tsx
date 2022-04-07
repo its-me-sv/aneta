@@ -15,15 +15,15 @@ ReactDOM.render(
   <React.StrictMode>
     <SwitchContextProvider>
       <APIContextProvider>
-        <OrganisationContextProvider>
-          <UserContextProvider>
-            <SocketContextProvider>
+        <SocketContextProvider>
+          <OrganisationContextProvider>
+            <UserContextProvider>
               <UserNavContextProvider>
                 <App />
               </UserNavContextProvider>
-            </SocketContextProvider>
-          </UserContextProvider>
-        </OrganisationContextProvider>
+            </UserContextProvider>
+          </OrganisationContextProvider>
+        </SocketContextProvider>
       </APIContextProvider>
     </SwitchContextProvider>
   </React.StrictMode>,

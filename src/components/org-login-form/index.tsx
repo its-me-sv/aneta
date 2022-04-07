@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import axios from "axios";
+import {io} from "socket.io-client";
 
 import {RightEnd} from '../../pages/home/styles';
 import {useAPIContext} from '../../contexts/api.context';
 import {useOrganisationContext} from '../../contexts/organisation.context';
+import {useSocketContext} from '../../contexts/socket.context';
 
 import Input from '../input';
 
@@ -17,8 +19,9 @@ export const RightMid = styled.div`
 interface OrgFormProps {}
 
 const OrganisationFormLogin: React.FC<OrgFormProps> = () => {
-  const {REST_API} = useAPIContext();
+  const {REST_API, SOCKET} = useAPIContext();
   const {setId, setToken, setOrgName, setLoading} = useOrganisationContext();
+  const {setSocket} = useSocketContext();
   const [orgName, setOrgname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   
@@ -36,6 +39,7 @@ const OrganisationFormLogin: React.FC<OrgFormProps> = () => {
       setId!(data.id);
       setToken!(data.token);
       setOrgName!(data.orgName);
+      setSocket!(io(SOCKET, {query: {userId: data.id}}));
     })
     .catch(err => {
       setLoading!(false);

@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import logoutIcon from "../../assets/icons/logout.png";
+import {useOrganisationContext} from '../../contexts/organisation.context';
+import {useUserContext} from '../../contexts/user.context';
 
 const LogoutSection = styled.div`
   position: absolute;
@@ -31,8 +33,12 @@ const LogoutText = styled.span`
 interface LogoutProps {}
 
 const Logout: React.FC<LogoutProps> = () => {
+    const {organisationLogout, id: oid} = useOrganisationContext();
+    const {userLogout} = useUserContext();
+    
     const onClick = () => {
-      window.alert("Logout clicked");
+      if (oid.length) return organisationLogout!();
+      userLogout!();
     };
     
     return (

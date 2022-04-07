@@ -22,7 +22,7 @@ export const ProfileImage = styled.img.attrs({
   border-radius: 50%;
 `;
 
-type Statuses = "online" | "away" | "offline";
+export type Statuses = "online" | "away" | "offline";
 
 export const Status = styled.div<{ status: Statuses; variant: number }>`
   width: 0.84rem;

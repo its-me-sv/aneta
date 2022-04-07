@@ -9,6 +9,7 @@ import HorizontalLine from '../horizontal-line';
 import SimpleProfile from '../simple-profile';
 
 import {useUserNavContext} from '../../contexts/user-nav.context';
+import {useUserContext} from '../../contexts/user.context';
 
 const destinationMapper = [
   "user/dashboard",
@@ -19,6 +20,7 @@ interface NavUserProps {}
 
 const NavUser: React.FC<NavUserProps> = () => {
     const navigate = useNavigate();
+    const {orgName, id} = useUserContext();
     const {uni, changeUni} = useUserNavContext();
     const handleClick = (val: number) => {
       changeUni!(val);
@@ -26,7 +28,7 @@ const NavUser: React.FC<NavUserProps> = () => {
     };
     return (
       <Container>
-        <NavHeader orgName={"Organisation name"} />
+        <NavHeader orgName={orgName} />
         <Body>
           {[0, 0].map((_, idx) => (
             <span key={idx} onClick={() => handleClick(idx)}>
@@ -36,7 +38,7 @@ const NavUser: React.FC<NavUserProps> = () => {
         </Body>
         <Footer>
           <HorizontalLine />
-          <SimpleProfile variant={1} />
+          <SimpleProfile id={id} variant={1} />
         </Footer>
       </Container>
     );

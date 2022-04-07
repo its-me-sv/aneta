@@ -10,6 +10,7 @@ import {
 
 import {useAPIContext} from '../../contexts/api.context';
 import {useOrganisationContext} from '../../contexts/organisation.context';
+import {useUserContext} from '../../contexts/user.context';
 
 interface SimpleProfileProps {
   variant: number;
@@ -21,23 +22,39 @@ const statusMapper: Array<Statuses>  = ["offline", "away", "online"];
 
 const SimpleProfile: React.FC<SimpleProfileProps> = ({variant, showEmail, id}) => {
     const {REST_API} = useAPIContext();
-    const {token: otkn} = useOrganisationContext();
+    const {token: otkn, id: hrId} = useOrganisationContext();
+    const {token: utkn} = useUserContext();
 
     const [imageUrl, setImageUrl] = useState<string>('');
     const [status, setStatus] = useState<number>(0);
     const [name, setName] = useState<string>('-------');
     const [email, setEmail] = useState<string>('-------');
+    const [role, setRole] = useState<string>('-------');
     
     useEffect(() => {
+      const token = hrId.length > 0 ? otkn : utkn;
       axios.post(`${REST_API}/organisation/info`, {oid: id}, {
-        headers: {Authorization: `Bearer ${otkn}`},
+        headers: {Authorization: `Bearer ${token}`},
       })
       .then(({data}) => {
         setImageUrl(data.profile_picture);
         setStatus(data.status);
         setName(data.creator_name);
         setEmail(data.email);
-      }).catch(err => {});
+      }).catch(err => {
+        if (err.response.data !== "Not found") return;
+        axios.post(`${REST_API}/employee/info`, {id}, {
+          headers: {Authorization: `Bearer ${token}`},
+        })
+        .then(({data}) => {
+          setImageUrl(data.profile_picture);
+          setStatus(data.status);
+          setEmail(data.email);
+          setName(data.name);
+          setRole(data.role);
+        })
+        .catch(() => {});
+      });
     }, []);
 
     return (
@@ -50,7 +67,7 @@ const SimpleProfile: React.FC<SimpleProfileProps> = ({variant, showEmail, id}) =
           <NameText variant={variant}>{name}</NameText>
           <div>
             <EmailText variant={variant}>
-              {variant === 1 ? `${email} ` : `Developer `}
+              {variant === 1 ? `${email} ` : `${role} `}
             </EmailText>
             {variant === 2 && showEmail && (
               <EmailText variant={variant}>| {email}</EmailText>

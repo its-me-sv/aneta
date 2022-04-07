@@ -1,7 +1,11 @@
 import React, {useState} from "react";
 import styled from "styled-components";
+import {useParams} from 'react-router-dom';
+import axios from "axios";
 
 import {RightEnd} from '../../pages/home/styles';
+import {useAPIContext} from '../../contexts/api.context';
+import {useUserContext} from "../../contexts/user.context";
 
 import Input from "../input";
 import Select from "../select";
@@ -15,6 +19,9 @@ export const RightMid = styled.div`
 interface OrgFormProps {}
 
 const UserFormCreate: React.FC<OrgFormProps> = () => {
+  const params = useParams();
+  const {REST_API} = useAPIContext();
+  const {setLoading} = useUserContext();
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [role, setRole] = useState<string>("Developer");
@@ -23,7 +30,24 @@ const UserFormCreate: React.FC<OrgFormProps> = () => {
   const handleCreate = () => {
     if (!name.length || !email.length || !password.length || !role.length)
       return window.alert("Field empty");
-    window.alert(JSON.stringify({ name, email, password, role }));
+    setLoading!(true);
+    const requestBody = {
+      orgName: params.orgName,
+      name, email, role, password
+    };
+    axios.post(`${REST_API}/employee/create`, requestBody)
+    .then(() => {
+      setLoading!(false);
+      window.alert("Account created successfully");
+      setName('');
+      setEmail('');
+      setRole("Developer");
+      setPassword('');
+    })
+    .catch(err => {
+      setLoading!(false);
+      window.alert(err.response.data);
+    });
   };
 
   return (

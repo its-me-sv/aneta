@@ -37,6 +37,10 @@ const OrganisationFormCreate: React.FC<OrgFormProps> = () => {
     axios.post(`${REST_API}/organisation/create`, formBody)
     .then(() => {
       setLoading!(false);
+      setOrgname('');
+      setName('');
+      setEmail('');
+      setPassword('');
       window.alert("Organisation creation success");
     })
     .catch((err) => {

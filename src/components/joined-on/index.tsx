@@ -21,11 +21,12 @@ const SinceFormatted = styled.span`
 
 interface JoinedOnProps {
   forProject?: boolean;
+  id?: string;
 }
 
-const JoinedOn: React.FC<JoinedOnProps> = ({forProject}) => {
+const JoinedOn: React.FC<JoinedOnProps> = ({forProject, id}) => {
     const timeStamp = getDateObj(
-      "9467eb20-a622-11ec-9631-773bd57f3429"
+      id || "9467eb20-a622-11ec-9631-773bd57f3429"
     ).toISOString();
     return (
       <div>

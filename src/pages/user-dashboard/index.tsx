@@ -11,6 +11,7 @@ import UserSkills from '../../components/user-skills';
 import EditUserForms from "../../components/edit-user-form";
 
 import {useUserNavContext} from '../../contexts/user-nav.context';
+import {useUserContext} from '../../contexts/user.context';
 
 const MainContainer = styled.div`
   display: grid;
@@ -30,6 +31,7 @@ interface UserDashboardPageProps {}
 
 const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
     const {changeUni} = useUserNavContext();
+    const {id} = useUserContext();
     
     useEffect(() => {
       changeUni!(0);
@@ -45,7 +47,7 @@ const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
           <UserSkills />
           <EditUserForms />
           <Leaves />
-          <JoinedOn />
+          <JoinedOn id={id} />
         </RightContainer>
       </MainContainer>
     );

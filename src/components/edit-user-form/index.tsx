@@ -6,11 +6,12 @@ import Button from '../button';
 
 import {Wrapper, ImageArea, ProfileImage} from './styles';
 
-interface EditUserFormProps {}
+interface EditUserFormProps {
+  fromOrg?: boolean;
+}
 
 const EditUserForms: React.FC<EditUserFormProps> = () => {
   const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>();
 
@@ -23,7 +24,6 @@ const EditUserForms: React.FC<EditUserFormProps> = () => {
       <Section name="Personal" />
       <Wrapper>
         <Input label="Name" name="Name" value={name} setValue={setName} />
-        <Input label="Email" name="Email" value={email} setValue={setEmail} />
         <Input
           label="Password"
           name="Password"

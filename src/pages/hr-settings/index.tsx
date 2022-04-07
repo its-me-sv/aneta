@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import NavHR from "../../components/nav-hr";
 import Logout from '../../components/logout';
 import EditOrgForms from '../../components/edit-org-form';
-import EditUserForms from '../../components/edit-user-form';
 
 import {useUserNavContext} from "../../contexts/user-nav.context";
 
@@ -35,7 +34,6 @@ const HRSettingsPage: React.FC<HRSettingsPageProps> = () => {
       <Logout />
       <RightContainer>
         <EditOrgForms />
-        <EditUserForms />
       </RightContainer>
     </MainContainer>
   );

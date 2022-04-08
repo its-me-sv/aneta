@@ -37,7 +37,7 @@ const UserSkillsManager: React.FC<UserSkillsManangerProps> = () => {
         headers: {Authorization: `Bearer ${token}`,}
       })
       .then(({data}) => {
-        setSkills(data.skill);
+        setSkills(data.skill||[]);
         setLoading!(false);
       })
       .catch(() => setLoading!(false));

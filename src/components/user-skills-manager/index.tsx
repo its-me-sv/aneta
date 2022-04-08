@@ -1,4 +1,10 @@
-import React, {useState, useEffect, ChangeEvent} from 'react';
+import React, {
+  useState, 
+  useEffect, 
+  ChangeEvent,
+  useRef,
+} from 'react';
+import axios from 'axios';
 
 import {
   SkillsContainer,
@@ -10,26 +16,43 @@ import {
 import {StyledInput} from '../input';
 
 import {useUserContext} from '../../contexts/user.context';
+import {useAPIContext} from '../../contexts/api.context';
 import Button from '../button';
 
 interface UserSkillsManangerProps {}
 
 const UserSkillsManager: React.FC<UserSkillsManangerProps> = () => {
-    const {setLoading} = useUserContext();
+    const {setLoading, id, token, orgName} = useUserContext();
+    const {REST_API} = useAPIContext();
     const [skills, setSkills] = useState<Array<string>>([]);
     const [newSkill, setNewSkill] = useState<string>('');
+    const isFetched = useRef<boolean>(false);
     
     useEffect(() => {
+      if (!id.length || !token.length) return;
+      if (isFetched.current) return;
+      isFetched.current = true;
       setLoading!(true);
-      setTimeout(() => {
-        setSkills(["JavaScript"]);
+      axios.post(`${REST_API}/employee/skills`, {id}, {
+        headers: {Authorization: `Bearer ${token}`,}
+      })
+      .then(({data}) => {
+        setSkills(data.skill);
         setLoading!(false);
-      }, 1000);
-    }, []);
+      })
+      .catch(() => setLoading!(false));
+    }, [id, token]);
 
-    const removeSkill = (idx: number) => {
-      const tbr = skills.splice(idx, 1)[0];
-      setSkills(prev => prev.filter(v => v !== tbr));
+    const removeSkill = (rs: string) => {
+      setLoading!(true);
+      axios.put(
+        `${REST_API}/employee/remove-skill`, 
+        {id, orgName, skill: rs}, 
+        {headers: {Authorization: `Bearer ${token}`}
+      }).then(() => {
+        setSkills(prev => prev.filter(v => v !== rs));
+        setLoading!(false);
+      }).catch(() => setLoading!(false));
     };
 
     const addSkill = () => {
@@ -38,8 +61,16 @@ const UserSkillsManager: React.FC<UserSkillsManangerProps> = () => {
         window.alert("Skill already exits");
         return;
       }
-      setSkills(prev => [...prev, newSkill]);
-      setNewSkill('');
+      setLoading!(true);
+      axios.put(
+        `${REST_API}/employee/add-skill`, 
+        {id, orgName, skill: newSkill}, 
+        {headers: {Authorization: `Bearer ${token}`}
+      }).then(() => {
+        setSkills(prev => [...prev, newSkill]);
+        setNewSkill('');
+        setLoading!(false);
+      }).catch(() => setLoading!(false));
     };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
@@ -51,7 +82,7 @@ const UserSkillsManager: React.FC<UserSkillsManangerProps> = () => {
           {skills.map((sn, idx) => (
             <SkillHolder key={idx}>
               <SkillName>{sn}</SkillName>
-              <CloseIcon onClick={() => removeSkill(idx)} />
+              <CloseIcon onClick={() => removeSkill(sn)} />
             </SkillHolder>
           ))}
         </SkillsContainer>

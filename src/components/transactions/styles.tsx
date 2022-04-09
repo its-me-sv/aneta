@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ColumnNames = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   font-family: calibri;
   font-size: 1.6rem;
   color: #1877f2;

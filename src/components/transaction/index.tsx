@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   font-family: bahnschrift;
   font-size: 1.2rem;
   color: black;

@@ -1,52 +1,28 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 
 import {
-  Container, 
-  ColumnNames, 
-  Wrapper,
-  Rows,
-  MoreSection,
+  Container, ColumnNames, Wrapper, Rows, MoreSection
 } from './styles';
 
 import HorizontalLine from '../horizontal-line';
 import {StyledInput} from '../input';
 import Transaction from '../transaction';
-import {useUserContext} from '../../contexts/user.context';
 import Button from '../button';
 
-interface TransactionType {
-  id: string;
-  recipient: string;
-  amount: number;
+import {TransactionType} from '../../pages/financial-page';
+
+interface TransactionsProps {
+  transactions: Array<TransactionType>;
+  fetchTransactions: () => void;
+  currPage: string | null;
 }
 
-const dummyData: Array<TransactionType> = Array(42).fill({
-  id: "9467eb20-a622-11ec-9631-773bd57f3429",
-  recipient: "9467eb20-a622-11ec-9631-773bd57f3429",
-  amount: 500
-});
-
-interface TransactionsProps {}
-
-const Transactions: React.FC<TransactionsProps> = () => {
-    const {setLoading} = useUserContext();
-    const [transactions, setTransactions] = useState<Array<TransactionType>>([]);
-
-    const fetchData = () => {
-      setLoading!(true);
-      setTimeout(() => {
-        setTransactions(prev => [...prev, ...dummyData]);
-        setLoading!(false);
-      }, 1000);
-    };
-
-    useEffect(() => {
-      fetchData();
-    }, []);
-
+const Transactions: React.FC<TransactionsProps> = ({
+  transactions, fetchTransactions, currPage
+}) => {
     return (
       <>
-        <StyledInput placeholder="Recipient Name" />
+        <StyledInput placeholder="Recipient Email" />
         <Wrapper>
           <Container>
             <ColumnNames>
@@ -62,12 +38,14 @@ const Transactions: React.FC<TransactionsProps> = () => {
               <Transaction key={idx} {...val} />
             ))}
             <MoreSection>
-              <Button 
-                onPress={fetchData} 
-                variant={1} 
-                disabled={false} 
-                text="Load more"
-              />
+              {currPage !== null && (
+                <Button 
+                  onPress={fetchTransactions}
+                  variant={1} 
+                  disabled={false} 
+                  text="Load more"
+                />
+              )}
             </MoreSection>
           </Rows>
         </Wrapper>

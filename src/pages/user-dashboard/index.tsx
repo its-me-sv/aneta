@@ -45,10 +45,10 @@ const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
         <Logout />
         <RightContainer>
           {joined && <AssignedTo />}
+          {joined && <Leaves id={id} />}
           {joined && <UserActions />}
           <UserSkills />
           <EditUserForms />
-          {joined && <Leaves id={id} />}
           {joined && <JoinedOn id={id} />}
         </RightContainer>
       </MainContainer>

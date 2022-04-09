@@ -5,9 +5,9 @@ export const Container = styled.div<{ variant?: number }>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   border-radius: 0.35rem;
-  padding: 0.35%;
+  padding: 0.35% 2%;
   ${(props) => {
     switch (props.variant) {
       case 1:

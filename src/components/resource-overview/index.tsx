@@ -31,6 +31,25 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
     const [projects, setProjects] = useState<Array<string>>([]);
     const [joined, setJoined] = useState<boolean>(false);
     const [email, setEmail] = useState<string>('');
+    const [request, setRequest] = useState<boolean>(false);
+    const [leaves, setLeaves] = useState<number>(0);
+
+    useEffect(() => {
+      setLoading!(true);
+      axios.post(
+        `${REST_API}/organisation/resource-overview`, 
+        {id: currId},
+        {headers: {Authorization: `Bearer ${token}`}}
+      ).then(({data}) => {
+        setSkills(data.skills||[]);
+        setProjects(data.projects||[]);
+        setJoined(data.joined);
+        setEmail(data.email);
+        setRequest(data.request);
+        setLeaves(data.leaves);
+        setLoading!(false);
+      }).catch(() => setLoading!(false));
+    }, []);
 
     const onHireClick = () => {
       setLoading!(true);
@@ -52,20 +71,18 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
       }).catch(() => setLoading!(false));
     };
 
-    useEffect(() => {
-      setLoading!(true);
-      axios.post(
-        `${REST_API}/organisation/resource-overview`, 
-        {id: currId},
+    const onAcceptLeaveClick = () => {
+      if (!request) return;
+      axios.put(
+        `${REST_API}/organisation/accept-leave`, 
+        {orgName, email, leaves: leaves + 1},
         {headers: {Authorization: `Bearer ${token}`}}
-      ).then(({data}) => {
-        setSkills(data.skills||[]);
-        setProjects(data.projects||[]);
-        setJoined(data.joined);
-        setEmail(data.email);
-        setLoading!(false);
-      }).catch(() => setLoading!(false));
-    }, []);
+      ).then(() => {
+        setLeaves(leaves + 1);
+        setRequest(false);
+        navigate(`../organisation/${orgName}/dashboard`);
+      }).catch(() => {});
+    };
     
     return (
       <Container>
@@ -82,14 +99,16 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
           </Header>
           <Body>
             {joined && <JoinedOn id={currId} />}
-            {joined && <Leaves id={currId} />}
+            {joined && <Leaves id={currId} leaves={leaves > 0 ? leaves : undefined} />}
             <Section name="Skills" />
             <ResourcesSkills skills={skills} />
             {joined && <AssignedTo fromHr={projects} />}
             <HRActions 
               joined={joined} 
+              request={request}
               hire={onHireClick}
               deny={onDenyClick}
+              acceptLeave={onAcceptLeaveClick}
             />
           </Body>
         </Wrapper>

@@ -15,11 +15,16 @@ const ActionButtons = styled.div`
 
 interface HRActionsProps {
   joined?: boolean;
+  request: boolean;
   hire: () => void;
   deny: () => void;
+  acceptLeave: () => void;
 }
 
-const HRActions: React.FC<HRActionsProps> = ({joined, hire, deny}) => {
+const HRActions: React.FC<HRActionsProps> = ({
+  joined, request, 
+  hire, deny, acceptLeave
+}) => {
   const onClick = () => window.alert("button clicked");
   return (
     <div>
@@ -45,7 +50,7 @@ const HRActions: React.FC<HRActionsProps> = ({joined, hire, deny}) => {
           <>
             <Button onPress={onClick} disabled={false} variant={2} text="Give salary" />
             <Button onPress={onClick} disabled={false} variant={1} text="Assign to project" />
-            <Button onPress={onClick} disabled={false} variant={5} text="Accept leave request" />
+            <Button onPress={acceptLeave} disabled={!request} variant={5} text="Accept leave request" />
           </>          
         )}
       </ActionButtons>

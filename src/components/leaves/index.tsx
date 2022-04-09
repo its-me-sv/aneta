@@ -8,15 +8,20 @@ import {useOrganisationContext} from '../../contexts/organisation.context';
 
 interface LeavesProps {
   id?: string;
+  leaves?: number;
 }
 
-const Leaves: React.FC<LeavesProps> = ({id}) => {
+const Leaves: React.FC<LeavesProps> = ({id, leaves: dl}) => {
     const {REST_API} = useAPIContext();
     const {token: utkn, id: uid} = useUserContext();
     const {token: otkn} = useOrganisationContext();
     const [leaves, setLeaves] = useState<string | number>('-------');
     
     useEffect(() => {
+      if (dl !== undefined) {
+        setLeaves(dl);
+        return;
+      }
       if (!id) return;
       const token = uid.length > 0 ? utkn : otkn;
       axios.post(`${REST_API}/employee/leaves`, {id}, {

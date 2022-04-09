@@ -27,7 +27,7 @@ const Candidates: React.FC<CandidatesProps> = () => {
       <Section name="Candidates" />
       <ResourcesContainer>
         {candidates.map(({id}, idx) => (
-          <Resource key={idx} id={id} />
+          <Resource key={idx} id={id} isCandidate/>
         ))}
         {candidatesPage !== null && (
           <Button

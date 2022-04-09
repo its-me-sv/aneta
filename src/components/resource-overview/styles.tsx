@@ -27,8 +27,8 @@ export const Header = styled.div`
 `;
 
 export const Body = styled.div`
-  height: 77vh;
-  width: 77vw;
+  /* height: 77vh;
+  width: 77vw; */
   max-width: 77vw;
   max-height: 77vh;
   overflow: auto;

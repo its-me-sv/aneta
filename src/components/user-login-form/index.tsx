@@ -21,7 +21,7 @@ interface OrgFormProps {}
 
 const UserFormLogin: React.FC<OrgFormProps> = () => {
   const {REST_API, SOCKET} = useAPIContext();
-  const {setId, setToken, setOrgName, setLoading} = useUserContext();
+  const {setId, setToken, setOrgName, setLoading, setEmail: se} = useUserContext();
   const {setSocket} = useSocketContext();
   const params = useParams();
   const [email, setEmail] = useState<string>("");
@@ -41,6 +41,7 @@ const UserFormLogin: React.FC<OrgFormProps> = () => {
       setId!(data.id);
       setToken!(data.token);
       setOrgName!(data.orgName);
+      se!(data.email);
       setSocket!(io(SOCKET, {query: {userId: data.id}}));
     })
     .catch(err => {

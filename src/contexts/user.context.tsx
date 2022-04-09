@@ -8,10 +8,12 @@ interface UserContextInterface {
   id: string;
   token: string;
   orgName: string;
+  email: string;
   loading: boolean;
   setId?: (val: string) => void;
   setToken?: (val: string) => void;
   setOrgName?: (val: string) => void;
+  setEmail?: (val: string) => void;
   setLoading?: (val: boolean) => void;
   userLogout?: () => void;
 }
@@ -20,6 +22,7 @@ const defaultState: UserContextInterface = {
   id: "",
   token: "",
   orgName: "",
+  email: "",
   loading: false,
 };
 
@@ -33,11 +36,12 @@ export const UserContextProvider: React.FC = ({ children }) => {
   const [id, setId] = useState<string>(defaultState.id);
   const [token, setToken] = useState<string>(defaultState.token);
   const [orgName, setOrgName] = useState<string>(defaultState.orgName);
+  const [email, setEmail] = useState<string>(defaultState.email);
   const [loading, setLoading] = useState<boolean>(defaultState.loading);
 
   const userLogout = () => {
     setLoading(true);
-    axios.put(`${REST_API}/employee/set-status`, {id, status: 0, orgName}, {
+    axios.put(`${REST_API}/employee/set-status`, {status: 0, orgName, email}, {
       headers: {Authorization: `Bearer ${token}`}
     })
     .then(() => {
@@ -67,8 +71,8 @@ export const UserContextProvider: React.FC = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
-        id, token, loading, orgName,
-        setId, setToken, setLoading, setOrgName,
+        id, token, loading, orgName, email,
+        setId, setToken, setLoading, setOrgName, setEmail,
         userLogout
       }}
     >{children}</UserContext.Provider>

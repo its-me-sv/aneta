@@ -17,7 +17,7 @@ interface EditUserFormProps {
 
 const EditUserForms: React.FC<EditUserFormProps> = () => {
   const {REST_API} = useAPIContext();
-  const {setLoading, token, id, orgName} = useUserContext();
+  const {setLoading, token, id, orgName, email} = useUserContext();
   const initName = useRef<string>();
   const initImage = useRef<string>();
 
@@ -56,7 +56,7 @@ const EditUserForms: React.FC<EditUserFormProps> = () => {
   const updateProfile = () => {
     if (btnDisabled) return;
     if (!name.length) return window.alert("Fields empty");
-    const requestBody = {name, imageUrl, password, orgName};
+    const requestBody = {name, imageUrl, password, orgName, email};
       setLoading!(true);
       axios.put(`${REST_API}/employee/update`, {...requestBody}, {
         headers: {Authorization: `Bearer ${token}`},

@@ -22,7 +22,7 @@ import Button from '../button';
 interface UserSkillsManangerProps {}
 
 const UserSkillsManager: React.FC<UserSkillsManangerProps> = () => {
-    const {setLoading, id, token, orgName} = useUserContext();
+    const {setLoading, id, token, orgName, email} = useUserContext();
     const {REST_API} = useAPIContext();
     const [skills, setSkills] = useState<Array<string>>([]);
     const [newSkill, setNewSkill] = useState<string>('');
@@ -37,7 +37,7 @@ const UserSkillsManager: React.FC<UserSkillsManangerProps> = () => {
         headers: {Authorization: `Bearer ${token}`,}
       })
       .then(({data}) => {
-        setSkills(data.skill||[]);
+        setSkills(data.skills||[]);
         setLoading!(false);
       })
       .catch(() => setLoading!(false));
@@ -47,7 +47,7 @@ const UserSkillsManager: React.FC<UserSkillsManangerProps> = () => {
       setLoading!(true);
       axios.put(
         `${REST_API}/employee/remove-skill`, 
-        {id, orgName, skill: rs}, 
+        {email, orgName, skill: rs}, 
         {headers: {Authorization: `Bearer ${token}`}
       }).then(() => {
         setSkills(prev => prev.filter(v => v !== rs));
@@ -64,7 +64,7 @@ const UserSkillsManager: React.FC<UserSkillsManangerProps> = () => {
       setLoading!(true);
       axios.put(
         `${REST_API}/employee/add-skill`, 
-        {id, orgName, skill: newSkill}, 
+        {email, orgName, skill: newSkill}, 
         {headers: {Authorization: `Bearer ${token}`}
       }).then(() => {
         setSkills(prev => [...prev, newSkill]);

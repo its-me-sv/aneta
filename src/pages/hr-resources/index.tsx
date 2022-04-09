@@ -35,6 +35,7 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
         fetched.current = false;
         resetEmployee!();
         resetCandidates!();
+        setCurrResource!('');
       };
     }, []);
 

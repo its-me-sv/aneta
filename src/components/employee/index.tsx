@@ -32,7 +32,7 @@ const Employee: React.FC<EmployeeProps> = ({big}) => {
       <div>
         <Section name="Employee" />
         <ResourcesContainer big={big}>
-          {employee.map(({id}, idx) => (
+          {employee?.map(({id}, idx) => (
             <Resource key={idx} id={id} />
           ))}
           {employeePage !== null && (

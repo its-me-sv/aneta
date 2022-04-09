@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 import {
   Container, Wrapper, Header, Body, CloseIcon
@@ -23,11 +24,23 @@ interface ResourceOverviewProps {
 }
 
 const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) => {
+    const navigate = useNavigate();
     const {REST_API} = useAPIContext();
-    const {token, setLoading} = useOrganisationContext();
+    const {token, setLoading, orgName} = useOrganisationContext();
     const [skills, setSkills] = useState<Array<string>>([]);
     const [projects, setProjects] = useState<Array<string>>([]);
     const [joined, setJoined] = useState<boolean>(false);
+    const [email, setEmail] = useState<string>('');
+
+    const onHireClick = () => {
+      setLoading!(true);
+      axios.put(`${REST_API}/organisation/hire`, {orgName, email}, {
+        headers: {Authorization: `Bearer ${token}`}
+      }).then(() => {
+        navigate(`../organisation/${orgName}/dashboard`);
+        setLoading!(false);
+      }).catch(() => setLoading!(false));
+    };
 
     useEffect(() => {
       setLoading!(true);
@@ -36,9 +49,10 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
         {id: currId},
         {headers: {Authorization: `Bearer ${token}`}}
       ).then(({data}) => {
-        setSkills(data.skills);
-        setProjects(data.projects);
+        setSkills(data.skills||[]);
+        setProjects(data.projects||[]);
         setJoined(data.joined);
+        setEmail(data.email);
         setLoading!(false);
       }).catch(() => setLoading!(false));
     }, []);
@@ -62,7 +76,10 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
             <Section name="Skills" />
             <ResourcesSkills skills={skills} />
             {joined && <AssignedTo fromHr={projects} />}
-            <HRActions joined={joined} />
+            <HRActions 
+              joined={joined} 
+              hire={onHireClick}
+            />
           </Body>
         </Wrapper>
       </Container>

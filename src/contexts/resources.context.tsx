@@ -46,9 +46,9 @@ export const ResourcesContextProvider: React.FC = ({children}) => {
         axios.post(`${REST_API}/organisation/employee?joined=true`, {...reqBody}, {
           headers: {Authorization: `Bearer ${token}`,}
         }).then(({data}) => {
-            setEmployee([...employee, ...data.resource]);
-            setEmployeePage(data.pageState);
-            setLoading!(false);
+          setEmployee([...employee, ...data.resource||[]]);
+          setEmployeePage(data.pageState);
+          setLoading!(false);
         }).catch(() => setLoading!(false));
     };
     
@@ -65,9 +65,9 @@ export const ResourcesContextProvider: React.FC = ({children}) => {
         axios.post(`${REST_API}/organisation/employee?joined=false`, {...reqBody}, {
           headers: {Authorization: `Bearer ${token}`,}
         }).then(({data}) => {
-            setCandidates([...candidates, ...data.resource]);
-            setCandidatesPage(data.pageState);
-            setLoading!(false);
+          setCandidates([...candidates, ...(data.resource || [])]);
+          setCandidatesPage(data.pageState);
+          setLoading!(false);
         }).catch(() => setLoading!(false));
     };
 

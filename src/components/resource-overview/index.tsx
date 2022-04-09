@@ -49,12 +49,12 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
           <CloseIcon onClick={onClose}>X</CloseIcon>
           <Header>
             <SimpleProfile id={currId} variant={2} showEmail />
-            <Button
+            {joined && <Button
               variant={4}
               text="Message"
               disabled={false}
               onPress={() => {}}
-            />
+            />}
           </Header>
           <Body>
             {joined && <JoinedOn id={currId} />}
@@ -62,7 +62,7 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
             <Section name="Skills" />
             <ResourcesSkills skills={skills} />
             {joined && <AssignedTo fromHr={projects} />}
-            <HRActions />
+            <HRActions joined={joined} />
           </Body>
         </Wrapper>
       </Container>

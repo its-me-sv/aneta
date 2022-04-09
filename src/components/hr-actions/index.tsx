@@ -13,44 +13,40 @@ const ActionButtons = styled.div`
   justify-content: space-evenly;
 `;
 
-interface HRActionsProps {}
+interface HRActionsProps {
+  joined?: boolean;
+}
 
-const HRActions: React.FC<HRActionsProps> = () => {
+const HRActions: React.FC<HRActionsProps> = ({joined}) => {
   const onClick = () => window.alert("button clicked");
   return (
     <div>
       <Section name="Actions" />
       <ActionButtons>
-        <Button
-          onPress={onClick}
-          disabled={false}
-          variant={2}
-          text="Promote"
-        />
-        <Button
-          onPress={onClick}
-          disabled={false}
-          variant={1}
-          text="Give salary"
-        />
-        <Button
-          onPress={onClick}
-          disabled={false}
-          variant={4}
-          text="Assign to project"
-        />
-        <Button
-          onPress={onClick}
-          disabled={false}
-          variant={5}
-          text="Provide holiday"
-        />
-        <Button
-          onPress={onClick}
-          disabled={false}
-          variant={3}
-          text="Accept leave request"
-        />
+        {!joined && (
+          <>
+            <Button
+              onPress={onClick}
+              disabled={false}
+              variant={2}
+              text="Hire"
+            />
+            <Button
+              onPress={onClick}
+              disabled={false}
+              variant={3}
+              text="Deny"
+            />
+          </>
+        )}
+        {joined && (
+          <>
+            <Button onPress={onClick} disabled={false} variant={2} text="Give salary" />
+            <Button onPress={onClick} disabled={false} variant={1} text="Assign to project" />
+            <Button onPress={onClick} disabled={false} variant={5} text="Accept leave request" />
+            <Button onPress={onClick} disabled={false} variant={3} text="Fire" />
+          </>          
+        )}
       </ActionButtons>
     </div>
   );

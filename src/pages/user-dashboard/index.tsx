@@ -1,5 +1,7 @@
-import React, {useEffect} from 'react';
-import styled from 'styled-components';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+
+import {MainContainer, RightContainer} from './styles';
 
 import NavUser from '../../components/nav-user';
 import Logout from '../../components/logout';
@@ -12,42 +14,42 @@ import EditUserForms from "../../components/edit-user-form";
 
 import {useUserNavContext} from '../../contexts/user-nav.context';
 import {useUserContext} from '../../contexts/user.context';
-
-const MainContainer = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 10fr;
-`;
-
-const RightContainer = styled.div`
-  padding: 3% 4.2% 2% 3.6%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: auto;
-  max-height: 90vh;
-`;
+import {useAPIContext} from '../../contexts/api.context';
 
 interface UserDashboardPageProps {}
 
 const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
+    const {REST_API} = useAPIContext();
     const {changeUni} = useUserNavContext();
-    const {id} = useUserContext();
+    const {id, token, setLoading} = useUserContext();
+    const [joined, setJoined] = useState<boolean>(false);
     
     useEffect(() => {
       changeUni!(0);
     }, []);
+
+    useEffect(() => {
+      if (!id.length || !token.length) return;
+      setLoading!(true);
+      axios.post(`${REST_API}/employee/joined`, {id}, {
+        headers: {Authorization: `Bearer ${token}`}
+      }).then(({data}) => {
+        setJoined(data.joined);
+        setLoading!(false);
+      }).catch(() => setLoading!(false));
+    }, [id, token]);
     
     return (
       <MainContainer>
-        <NavUser />
+        <NavUser joined={joined} />
         <Logout />
         <RightContainer>
-          <AssignedTo />
-          <UserActions />
+          {joined && <AssignedTo />}
+          {joined && <UserActions />}
           <UserSkills />
           <EditUserForms />
-          <Leaves id={id} />
-          <JoinedOn id={id} />
+          {joined && <Leaves id={id} />}
+          {joined && <JoinedOn id={id} />}
         </RightContainer>
       </MainContainer>
     );

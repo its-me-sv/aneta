@@ -16,9 +16,11 @@ const destinationMapper = [
   "user/chat",
 ];
 
-interface NavUserProps {}
+interface NavUserProps {
+  joined?: boolean;
+}
 
-const NavUser: React.FC<NavUserProps> = () => {
+const NavUser: React.FC<NavUserProps> = ({joined}) => {
     const navigate = useNavigate();
     const {orgName, id} = useUserContext();
     const {uni, changeUni} = useUserNavContext();
@@ -30,7 +32,7 @@ const NavUser: React.FC<NavUserProps> = () => {
       <Container>
         <NavHeader orgName={orgName} />
         <Body>
-          {[0, 0].map((_, idx) => (
+          {Array(joined ? 2 : 1).fill(0).map((_, idx) => (
             <span key={idx} onClick={() => handleClick(idx)}>
               <Option variant={idx} active={uni === idx} />
             </span>

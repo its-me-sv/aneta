@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useSearchParams} from 'react-router-dom';
 
 import {MainContainer, ResourcesWrapper, RightContainer} from './styles';
@@ -17,11 +17,11 @@ interface HRResourcesPageProps {}
 const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
     const {changeUni} = useUserNavContext();
     const {
+      currResource, setCurrResource,
       fetchEmployee, fetchCandidates, 
       resetEmployee, resetCandidates
     } = useRescourcesContext();
     const [searchParams] = useSearchParams();
-    const [crId, setCrId] = useState<string>('');
     const fetched = useRef<boolean>(false);
     const projId = searchParams.get('id');
 
@@ -41,13 +41,16 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
     return (
       <MainContainer>
         <NavHR />
-        {crId && <ResourceOverview currId={crId} onClose={() => setCrId('')} />}
+        {currResource && (
+          <ResourceOverview
+            currId={currResource}
+            onClose={() => setCurrResource!("")}
+          />
+        )}
         <RightContainer>
           <StyledInput placeholder="Name | Email | Role" />
           <ResourcesWrapper>
-            <Employee 
-              big={(projId && projId?.length > 0) as boolean} 
-            />
+            <Employee big={(projId && projId?.length > 0) as boolean} />
             {!projId && <Candidates />}
           </ResourcesWrapper>
         </RightContainer>

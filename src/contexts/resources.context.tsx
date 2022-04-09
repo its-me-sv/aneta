@@ -5,10 +5,12 @@ import {useAPIContext} from './api.context';
 import {useOrganisationContext} from './organisation.context';
 
 interface ResourcesContextInterface {
-  candidates: Array<{id: string}>;
+  candidates: Array<{ id: string }>;
   candidatesPage: string | null;
-  employee: Array<{id: string}>;
+  employee: Array<{ id: string }>;
   employeePage: string | null;
+  currResource: string;
+  setCurrResource?: (val: string) => void;
   fetchCandidates?: () => void;
   fetchEmployee?: () => void;
   resetCandidates?: () => void;
@@ -19,7 +21,8 @@ const defaultState: ResourcesContextInterface = {
   candidates: [],
   candidatesPage: "",
   employeePage: "",
-  employee: []
+  employee: [],
+  currResource: ''
 };
 
 export const ResourcesContext = createContext<ResourcesContextInterface>(defaultState);
@@ -33,6 +36,7 @@ export const ResourcesContextProvider: React.FC = ({children}) => {
     const [candidates, setCandidates] = useState<Array<{id: string}>>(defaultState.candidates);
     const [employeePage, setEmployeePage] = useState<string|null>(defaultState.employeePage);
     const [candidatesPage, setCandidatesPage] = useState<string|null>(defaultState.candidatesPage);
+    const [currResource, setCurrResource] = useState<string>('');
     
     const fetchEmployee = () => {
         if (employeePage === null) return;
@@ -75,8 +79,9 @@ export const ResourcesContextProvider: React.FC = ({children}) => {
     return (
         <ResourcesContext.Provider
           value={{
-            employee, candidates, employeePage, candidatesPage,
-            fetchEmployee, fetchCandidates, resetEmployee, resetCandidates
+            employee, candidates, employeePage, candidatesPage, currResource,
+            fetchEmployee, fetchCandidates, resetEmployee, resetCandidates,
+            setCurrResource
           }}
         >{children}</ResourcesContext.Provider>
     );

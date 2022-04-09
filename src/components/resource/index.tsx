@@ -6,6 +6,7 @@ import {NameText, EmailText} from '../simple-profile/styles';
 
 import {useAPIContext} from '../../contexts/api.context';
 import {useOrganisationContext} from '../../contexts/organisation.context';
+import {useRescourcesContext} from '../../contexts/resources.context';
 
 interface ResourceProps {
   id: string;
@@ -14,6 +15,7 @@ interface ResourceProps {
 
 const Resource: React.FC<ResourceProps> = ({id, isCandidate}) => {
     const {token} = useOrganisationContext();
+    const {setCurrResource} = useRescourcesContext();
     const {REST_API} = useAPIContext();
     const [name, setName] = useState<string>('-------');
     const [role, setRole] = useState<string>('-------');
@@ -30,7 +32,7 @@ const Resource: React.FC<ResourceProps> = ({id, isCandidate}) => {
     }, []);
 
     return (
-      <Container>
+      <Container onClick={() => setCurrResource!(id)}>
         <Wrapper>
           <NameText>{name}</NameText>
           <EmailText>{role}</EmailText>

@@ -19,11 +19,12 @@ interface HRActionsProps {
   hire: () => void;
   deny: () => void;
   acceptLeave: () => void;
+  salary: () => void;
 }
 
 const HRActions: React.FC<HRActionsProps> = ({
   joined, request, 
-  hire, deny, acceptLeave
+  hire, deny, acceptLeave, salary
 }) => {
   const onClick = () => window.alert("button clicked");
   return (
@@ -48,7 +49,7 @@ const HRActions: React.FC<HRActionsProps> = ({
         )}
         {joined && (
           <>
-            <Button onPress={onClick} disabled={false} variant={2} text="Give salary" />
+            <Button onPress={salary} disabled={false} variant={2} text="Give salary" />
             <Button onPress={onClick} disabled={false} variant={1} text="Assign to project" />
             <Button onPress={acceptLeave} disabled={!request} variant={5} text="Accept leave request" />
           </>          

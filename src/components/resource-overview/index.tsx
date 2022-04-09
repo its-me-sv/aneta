@@ -33,6 +33,7 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
     const [email, setEmail] = useState<string>('');
     const [request, setRequest] = useState<boolean>(false);
     const [leaves, setLeaves] = useState<number>(0);
+    const [role, setRole] = useState<string>('');
 
     useEffect(() => {
       setLoading!(true);
@@ -47,6 +48,7 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
         setEmail(data.email);
         setRequest(data.request);
         setLeaves(data.leaves);
+        setRole(data.role);
         setLoading!(false);
       }).catch(() => setLoading!(false));
     }, []);
@@ -83,6 +85,18 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
         navigate(`../organisation/${orgName}/dashboard`);
       }).catch(() => {});
     };
+
+    const onSalaryClick = () => {
+      setLoading!(true);
+      axios.post(
+        `${REST_API}/transactions/new`, 
+        {orgName, role, empEmail: email},
+        {headers: {Authorization: `Bearer ${token}`}}
+      ).then(() => {
+        setLoading!(false);
+        window.alert("Transaction Success");
+      }).catch(() => setLoading!(false));
+    };
     
     return (
       <Container>
@@ -109,6 +123,7 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
               hire={onHireClick}
               deny={onDenyClick}
               acceptLeave={onAcceptLeaveClick}
+              salary={onSalaryClick}
             />
           </Body>
         </Wrapper>

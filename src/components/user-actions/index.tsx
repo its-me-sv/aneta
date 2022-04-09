@@ -13,7 +13,7 @@ interface UserActionsProps {}
 
 const UserActions: React.FC<UserActionsProps> = () => {
   const {REST_API} = useAPIContext();
-  const {token, id, setLoading} = useUserContext();
+  const {token, id, setLoading, orgName} = useUserContext();
   const [status, setStatus] = useState<number>(2);
   const [request, setRequest] = useState<boolean>(false);
   const fetched = useRef<boolean>(false);
@@ -34,6 +34,19 @@ const UserActions: React.FC<UserActionsProps> = () => {
     .catch(() => setLoading!(false));
   }, [token, id]);
   
+  const updateStatus = (no: number) => {
+    if (no === status) return;
+    setLoading!(true);
+    axios.put(
+      `${REST_API}/employee/set-status`,
+      {id, orgName, status: no},
+      {headers: {Authorization: `Bearer ${token}`}}
+    ).then(() => {
+      setStatus(no);
+      setLoading!(false);
+    }).catch(() => setLoading!(false));
+  };
+
   const onClick = () => window.alert("button clicked");
   
   return (
@@ -41,14 +54,14 @@ const UserActions: React.FC<UserActionsProps> = () => {
       <Section name="Actions" />
       <ActionButtons>
         <Button
-          onPress={onClick}
-          disabled={status===1}
+          onPress={() => updateStatus(1)}
+          disabled={status === 1}
           variant={1}
           text="SET AWAY"
         />
         <Button
-          onPress={onClick}
-          disabled={status===2}
+          onPress={() => updateStatus(2)}
+          disabled={status === 2}
           variant={2}
           text="SET ONLINE"
         />

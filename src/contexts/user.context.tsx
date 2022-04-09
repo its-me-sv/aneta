@@ -37,22 +37,31 @@ export const UserContextProvider: React.FC = ({ children }) => {
 
   const userLogout = () => {
     setLoading(true);
-    axios.delete(`${REST_API}/auth/logout`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    axios.put(`${REST_API}/employee/set-status`, {id, status: 0, orgName}, {
+      headers: {Authorization: `Bearer ${token}`}
     })
     .then(() => {
-      setId("");
-      setToken("");
-      setOrgName("");
-      socket?.close();
-      setLoading(false);
+      axios.delete(`${REST_API}/auth/logout`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        setId("");
+        setToken("");
+        setOrgName("");
+        socket?.close();
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        window.alert(err.response.data);
+      });
     })
     .catch((err) => {
       setLoading(false);
       window.alert(err.response.data);
-    });;
+    });
   };
 
   return (

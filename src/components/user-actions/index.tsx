@@ -13,7 +13,7 @@ interface UserActionsProps {}
 
 const UserActions: React.FC<UserActionsProps> = () => {
   const {REST_API} = useAPIContext();
-  const {token, id, setLoading, orgName} = useUserContext();
+  const {token, id, setLoading, orgName, email} = useUserContext();
   const [status, setStatus] = useState<number>(2);
   const [request, setRequest] = useState<boolean>(false);
   const fetched = useRef<boolean>(false);
@@ -39,7 +39,7 @@ const UserActions: React.FC<UserActionsProps> = () => {
     setLoading!(true);
     axios.put(
       `${REST_API}/employee/set-status`,
-      {id, orgName, status: no},
+      {email, orgName, status: no},
       {headers: {Authorization: `Bearer ${token}`}}
     ).then(() => {
       setStatus(no);
@@ -47,8 +47,14 @@ const UserActions: React.FC<UserActionsProps> = () => {
     }).catch(() => setLoading!(false));
   };
 
-  const onClick = () => window.alert("button clicked");
-  
+  const requestLeave = () => {
+    if (request) return;
+    axios.put(`${REST_API}/employee/leave-request`, {orgName, email}, {
+      headers: {Authorization: `Bearer ${token}`}
+    })
+    .then(() => setRequest(true));
+  };
+
   return (
     <div>
       <Section name="Actions" />
@@ -66,7 +72,7 @@ const UserActions: React.FC<UserActionsProps> = () => {
           text="SET ONLINE"
         />
         <Button
-          onPress={onClick}
+          onPress={requestLeave}
           disabled={request}
           variant={3}
           text="REQUEST LEAVE"

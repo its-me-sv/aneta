@@ -29,7 +29,7 @@ const Resource: React.FC<ResourceProps> = ({id, isCandidate}) => {
         setRole(data.role);
         setRequest(data.request);
       }).catch(() => {});
-    }, []);
+    }, [id]);
 
     return (
       <Container onClick={() => setCurrResource!(id)}>

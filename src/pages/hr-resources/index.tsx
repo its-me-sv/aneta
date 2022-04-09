@@ -1,4 +1,9 @@
-import React, {useEffect, useRef} from 'react';
+import React, {
+  useEffect,
+  useRef,
+  MutableRefObject,
+  KeyboardEventHandler,
+} from "react";
 import {useSearchParams} from 'react-router-dom';
 
 import {MainContainer, ResourcesWrapper, RightContainer} from './styles';
@@ -24,6 +29,17 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
     const [searchParams] = useSearchParams();
     const fetched = useRef<boolean>(false);
     const projId = searchParams.get('id');
+    const keywordRef =
+      useRef() as MutableRefObject<HTMLInputElement>;
+    const fetchWithKeyword: KeyboardEventHandler<HTMLInputElement> = (
+      event
+    ) => {
+      if (event.key !== "Enter") return;
+      if (keywordRef.current.value.length < 1)
+        return window.alert("Field empty");
+      fetchEmployee!(keywordRef.current.value);
+      fetchCandidates!(keywordRef.current.value);
+    };
 
     useEffect(() => {
       changeUni!(4);
@@ -49,7 +65,11 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
           />
         )}
         <RightContainer>
-          <StyledInput placeholder="Name | Email | Role" />
+          <StyledInput
+            placeholder="Name | Email | Role"
+            ref={keywordRef}
+            onKeyDown={fetchWithKeyword}
+          />
           <ResourcesWrapper>
             <Employee big={(projId && projId?.length > 0) as boolean} />
             {!projId && <Candidates />}

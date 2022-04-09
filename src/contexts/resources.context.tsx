@@ -11,8 +11,8 @@ interface ResourcesContextInterface {
   employeePage: string | null;
   currResource: string;
   setCurrResource?: (val: string) => void;
-  fetchCandidates?: () => void;
-  fetchEmployee?: () => void;
+  fetchCandidates?: (val?: string) => void;
+  fetchEmployee?: (val?: string) => void;
   resetCandidates?: () => void;
   resetEmployee?: () => void;
 }
@@ -38,15 +38,20 @@ export const ResourcesContextProvider: React.FC = ({children}) => {
     const [candidatesPage, setCandidatesPage] = useState<string|null>(defaultState.candidatesPage);
     const [currResource, setCurrResource] = useState<string>('');
     
-    const fetchEmployee = () => {
-        if (employeePage === null) return;
+    const fetchEmployee = (kw: string = '') => {
+        if (employeePage === null && !kw?.length) return;
         setLoading!(true);
-        const reqBody: {orgName: string; page?: string} = {orgName};
+        const reqBody: {orgName: string; page?: string; keyword?: string} = {orgName};
         if (employeePage?.length) reqBody.page = employeePage;
+        if (kw?.length > 0) {
+          delete reqBody.page;
+          reqBody.keyword = kw;
+        };
         axios.post(`${REST_API}/organisation/employee?joined=true`, {...reqBody}, {
           headers: {Authorization: `Bearer ${token}`,}
         }).then(({data}) => {
-          setEmployee([...employee, ...data.resource||[]]);
+          if (kw?.length) setEmployee(data.resource || []);
+          else setEmployee([...employee, ...data.resource||[]]);
           setEmployeePage(data.pageState);
           setLoading!(false);
         }).catch(() => setLoading!(false));
@@ -57,18 +62,27 @@ export const ResourcesContextProvider: React.FC = ({children}) => {
         setEmployeePage('');
     }
     
-    const fetchCandidates = () => {
-        if (candidatesPage === null) return;
-        setLoading!(true);
-        const reqBody: {orgName: string; page?: string} = {orgName};
-        if (candidatesPage?.length) reqBody.page = candidatesPage;
-        axios.post(`${REST_API}/organisation/employee?joined=false`, {...reqBody}, {
-          headers: {Authorization: `Bearer ${token}`,}
-        }).then(({data}) => {
-          setCandidates([...candidates, ...(data.resource || [])]);
-          setCandidatesPage(data.pageState);
-          setLoading!(false);
-        }).catch(() => setLoading!(false));
+    const fetchCandidates = (kw: string = "") => {
+      if (candidatesPage === null && !kw?.length) return;
+      setLoading!(true);
+      const reqBody: { orgName: string; page?: string; keyword?: string} = { orgName };
+      if (candidatesPage?.length) reqBody.page = candidatesPage;
+      if (kw?.length > 0) {
+        delete reqBody.page;
+        reqBody.keyword = kw;
+      };
+      axios.post(
+        `${REST_API}/organisation/employee?joined=false`,
+        {...reqBody},
+        {headers: { Authorization: `Bearer ${token}`},}
+      )
+      .then(({ data }) => {
+        if (kw?.length) setCandidates(data.resource || []);
+        else setCandidates([...candidates, ...(data.resource || [])]);
+        setCandidatesPage(data.pageState);
+        setLoading!(false);
+      })
+      .catch(() => setLoading!(false));
     };
 
     const resetCandidates = () => {

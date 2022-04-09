@@ -1,4 +1,4 @@
-import React, {KeyboardEventHandler, RefObject, useRef} from 'react';
+import React, {KeyboardEventHandler, MutableRefObject, useRef} from 'react';
 
 import {
   Container, ColumnNames, Wrapper, Rows, MoreSection
@@ -21,7 +21,7 @@ const Transactions: React.FC<TransactionsProps> = ({
   transactions, fetchTransactions, currPage
 }) => {
     const recipientRef =
-      React.useRef() as React.MutableRefObject<HTMLInputElement>;
+      useRef() as MutableRefObject<HTMLInputElement>;
     const fetchWithRecipient: KeyboardEventHandler<HTMLInputElement> = (event) => {
       if (event.key!== "Enter") return;
       if (recipientRef.current.value.length < 1) 

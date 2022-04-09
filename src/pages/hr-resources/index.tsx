@@ -34,10 +34,11 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
     const {changeUni} = useUserNavContext();
     const [searchParams] = useSearchParams();
     const [crId, setCrId] = useState<string>('hello');
+    const projId = searchParams.get('id');
 
     useEffect(() => {
       changeUni!(4);
-      console.log({id: searchParams.get('id')});
+      console.log({id: projId});
     }, []);
 
     return (
@@ -47,8 +48,10 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
         <RightContainer>
           <StyledInput placeholder="Name | Email | Role" />
           <ResourcesWrapper>
-            <Employee />
-            <Candidates />
+            <Employee 
+              big={(projId && projId?.length > 0) as boolean} 
+            />
+            {!projId && <Candidates />}
           </ResourcesWrapper>
         </RightContainer>
       </MainContainer>

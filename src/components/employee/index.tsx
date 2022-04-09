@@ -7,7 +7,7 @@ import Button from '../button';
 
 import {useUserContext} from '../../contexts/user.context';
 
-export const ResourcesContainer = styled.div`
+export const ResourcesContainer = styled.div<{big?: boolean}>`
   padding: 1%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -15,11 +15,17 @@ export const ResourcesContainer = styled.div`
   max-height: 32vh;
   overflow-y: auto;
   gap: 0.42rem;
+  ${(props) => props.big && `
+    height: 77vh;
+    max-height: 77vh;
+  `}
 `;
 
-interface EmployeeProps {}
+interface EmployeeProps {
+  big?: boolean;
+}
 
-const Employee: React.FC<EmployeeProps> = () => {
+const Employee: React.FC<EmployeeProps> = ({big}) => {
     const {setLoading} = useUserContext();
     const [resources, setResources] = useState<Array<any>>([]);
     
@@ -38,7 +44,7 @@ const Employee: React.FC<EmployeeProps> = () => {
     return (
       <div>
         <Section name="Employee" />
-        <ResourcesContainer>
+        <ResourcesContainer big={big}>
           {resources.map((_, idx) => (
             <Resource key={idx} />
           ))}

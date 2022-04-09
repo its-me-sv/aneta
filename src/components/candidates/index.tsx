@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import styled from "styled-components";
 
 import Section from "../section";
 import Resource from "../resource";
 import Button from "../button";
 
-import {useUserContext} from "../../contexts/user.context";
+import {useRescourcesContext} from "../../contexts/resources.context";
 
 export const ResourcesContainer = styled.div`
   padding: 1%;
@@ -20,34 +20,23 @@ export const ResourcesContainer = styled.div`
 interface CandidatesProps {}
 
 const Candidates: React.FC<CandidatesProps> = () => {
-  const { setLoading } = useUserContext();
-  const [resources, setResources] = useState<Array<any>>([]);
-
-  const fetchResources = () => {
-    setLoading!(true);
-    setTimeout(() => {
-      setResources((prev) => [...prev, ...Array(42).fill(0)]);
-      setLoading!(false);
-    }, 1000);
-  };
-
-  useEffect(() => {
-    fetchResources();
-  }, []);
+  const {candidates, fetchCandidates, candidatesPage} = useRescourcesContext();
 
   return (
     <div>
       <Section name="Candidates" />
       <ResourcesContainer>
-        {resources.map((_, idx) => (
-          <Resource key={idx} />
+        {candidates.map(({id}, idx) => (
+          <Resource key={idx} id={id} />
         ))}
-        <Button
-          variant={4}
-          text="Load more"
-          disabled={false}
-          onPress={fetchResources}
-        />
+        {candidatesPage !== null && (
+          <Button
+            variant={4}
+            text="Load more"
+            disabled={false}
+            onPress={fetchCandidates!}
+          />
+        )}
       </ResourcesContainer>
     </div>
   );

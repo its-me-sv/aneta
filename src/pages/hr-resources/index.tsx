@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import styled from "styled-components";
+import React, {useEffect, useState, useRef} from 'react';
 import {useSearchParams} from 'react-router-dom';
+
+import {MainContainer, ResourcesWrapper, RightContainer} from './styles';
 
 import NavHR from "../../components/nav-hr";
 import {StyledInput} from "../../components/input";
@@ -9,36 +10,32 @@ import Candidates from '../../components/candidates';
 import ResourceOverview from '../../components/resource-overview';
 
 import {useUserNavContext} from "../../contexts/user-nav.context";
-
-const MainContainer = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 10fr;
-`;
-
-const RightContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 1% 1%;
-`;
-
-const ResourcesWrapper = styled.div`
-  padding-top: 1%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
+import {useRescourcesContext} from "../../contexts/resources.context";
 
 interface HRResourcesPageProps {}
 
 const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
     const {changeUni} = useUserNavContext();
+    const {
+      fetchEmployee, fetchCandidates, 
+      resetEmployee, resetCandidates
+    } = useRescourcesContext();
     const [searchParams] = useSearchParams();
-    const [crId, setCrId] = useState<string>('hello');
+    const [crId, setCrId] = useState<string>('');
+    const fetched = useRef<boolean>(false);
     const projId = searchParams.get('id');
 
     useEffect(() => {
       changeUni!(4);
-      console.log({id: projId});
+      if (fetched.current) return;
+      fetched.current = true;
+      fetchEmployee!();
+      fetchCandidates!();
+      return () => {
+        fetched.current = false;
+        resetEmployee!();
+        resetCandidates!();
+      };
     }, []);
 
     return (

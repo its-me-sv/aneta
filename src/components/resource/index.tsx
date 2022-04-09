@@ -49,14 +49,16 @@ const Circle = styled.span`
   color: white;
 `;
 
-interface ResourceProps {}
+interface ResourceProps {
+  id: string;
+}
 
-const Resource: React.FC<ResourceProps> = () => {
+const Resource: React.FC<ResourceProps> = ({id}) => {
     return (
       <Container>
         <Wrapper>
           <NameText>Suraj Vijay</NameText>
-          <EmailText>Developer</EmailText>
+          <EmailText>{id}</EmailText>
         </Wrapper>
         <Circle>1</Circle>
       </Container>

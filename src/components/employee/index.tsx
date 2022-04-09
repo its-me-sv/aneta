@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import Section from '../section';
 import Resource from '../resource';
 import Button from '../button';
 
-import {useUserContext} from '../../contexts/user.context';
+import {useRescourcesContext} from '../../contexts/resources.context';
 
 export const ResourcesContainer = styled.div<{big?: boolean}>`
   padding: 1%;
@@ -26,34 +26,23 @@ interface EmployeeProps {
 }
 
 const Employee: React.FC<EmployeeProps> = ({big}) => {
-    const {setLoading} = useUserContext();
-    const [resources, setResources] = useState<Array<any>>([]);
-    
-    const fetchResources = () => {
-      setLoading!(true);
-      setTimeout(() => {
-        setResources((prev) => [...prev, ...Array(42).fill(0)]);
-        setLoading!(false);
-      }, 1000);
-    };
-
-    useEffect(() => {
-      fetchResources();
-    }, []);
+    const {employee, fetchEmployee, employeePage} = useRescourcesContext();
 
     return (
       <div>
         <Section name="Employee" />
         <ResourcesContainer big={big}>
-          {resources.map((_, idx) => (
-            <Resource key={idx} />
+          {employee.map(({id}, idx) => (
+            <Resource key={idx} id={id} />
           ))}
-          <Button
-            variant={4}
-            text="Load more"
-            disabled={false}
-            onPress={fetchResources}
-          />
+          {employeePage !== null && (
+            <Button
+              variant={4}
+              text="Load more"
+              disabled={false}
+              onPress={fetchEmployee!}
+            />
+          )}
         </ResourcesContainer>
       </div>
     );

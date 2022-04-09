@@ -25,15 +25,20 @@ const FinancialPage: React.FC<FinancialPageProps> = () => {
     const [transactions, setTransactions] = useState<Array<TransactionType>>([]);
     const [page, setPage] = useState<string | null>('');
 
-    const fetchTransactions = () => {
-      if (page === null) return;
+    const fetchTransactions = (recipient: string = '') => {
+      if (page === null && !recipient?.length) return;
       setLoading!(true);
-      const reqBody: {orgName: string; page?: string} = {orgName};
+      const reqBody: {orgName: string; page?: string; recipient?: string} = {orgName};
       if (page?.length) reqBody.page = page;
+      if (recipient?.length > 0) {
+        delete reqBody.page;
+        reqBody.recipient = recipient;
+      };
       axios.post(`${REST_API}/transactions/fetch`, {...reqBody}, {
         headers: {Authorization: `Bearer ${token}`,}
       }).then(({data}) => {
-        setTransactions([...(data.transactions || []), ...transactions]);
+        if (recipient?.length) setTransactions(data.transactions || []);
+        else setTransactions([...(data.transactions || []), ...transactions]);
         setPage(data.pageState);
         setLoading!(false);
       }).catch(() => setLoading!(false));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {KeyboardEventHandler, RefObject, useRef} from 'react';
 
 import {
   Container, ColumnNames, Wrapper, Rows, MoreSection
@@ -13,23 +13,35 @@ import {TransactionType} from '../../pages/financial-page';
 
 interface TransactionsProps {
   transactions: Array<TransactionType>;
-  fetchTransactions: () => void;
+  fetchTransactions: (recipient?: string) => void;
   currPage: string | null;
 }
 
 const Transactions: React.FC<TransactionsProps> = ({
   transactions, fetchTransactions, currPage
 }) => {
+    const recipientRef =
+      React.useRef() as React.MutableRefObject<HTMLInputElement>;
+    const fetchWithRecipient: KeyboardEventHandler<HTMLInputElement> = (event) => {
+      if (event.key!== "Enter") return;
+      if (recipientRef.current.value.length < 1) 
+        return window.alert("Field empty");
+      fetchTransactions(recipientRef.current.value);
+    };
     return (
       <>
-        <StyledInput placeholder="Recipient Email" />
+        <StyledInput 
+          ref={recipientRef} 
+          placeholder="Recipient Email"
+          onKeyDown={fetchWithRecipient}
+        />
         <Wrapper>
           <Container>
             <ColumnNames>
               <span>Transaction ID</span>
               <span>Date</span>
               <span>Recipient</span>
-              <span>Amount</span>
+              <span>Amount ($)</span>
             </ColumnNames>
             <HorizontalLine variant={2} />
           </Container>

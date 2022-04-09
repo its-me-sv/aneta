@@ -42,6 +42,16 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
       }).catch(() => setLoading!(false));
     };
 
+    const onDenyClick = () => {
+      setLoading!(true);
+      axios.put(`${REST_API}/organisation/deny`, {orgName, email}, {
+        headers: {Authorization: `Bearer ${token}`}
+      }).then(() => {
+        navigate(`../organisation/${orgName}/dashboard`);
+        setLoading!(false);
+      }).catch(() => setLoading!(false));
+    };
+
     useEffect(() => {
       setLoading!(true);
       axios.post(
@@ -79,6 +89,7 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
             <HRActions 
               joined={joined} 
               hire={onHireClick}
+              deny={onDenyClick}
             />
           </Body>
         </Wrapper>

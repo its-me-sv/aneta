@@ -49,7 +49,7 @@ const HRActions: React.FC<HRActionsProps> = ({
         )}
         {joined && (
           <>
-            <Button onPress={salary} disabled={false} variant={2} text="Give salary" />
+            <Button onPress={salary} disabled={false} variant={2} text="Remit salary" />
             <Button onPress={onClick} disabled={false} variant={1} text="Assign to project" />
             <Button onPress={acceptLeave} disabled={!request} variant={5} text="Accept leave request" />
           </>          

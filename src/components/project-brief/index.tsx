@@ -1,15 +1,17 @@
-import React from "react";
+import React, {useEffect, useState, useRef, ChangeEvent} from "react";
 import {useNavigate, useParams} from 'react-router-dom';
+import axios from "axios";
 
 import {Container, Wrapper, CloseIcon} from "../resource-overview/styles";
-import {Text, ActionsContainer} from './styles';
+import {Text, ActionsContainer, DescBox} from './styles';
 
 import Section from '../section';
 import Button from '../button';
 import JoinedOn from '../joined-on';
-import {PrivacyAndPolicies} from '../home-nav/data';
 
 import {useProjectsContext} from '../../contexts/projects.context';
+import {useAPIContext} from '../../contexts/api.context';
+import {useOrganisationContext} from '../../contexts/organisation.context';
 
 interface ProjectBriefProps {}
 
@@ -17,13 +19,35 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
   const navigate = useNavigate();
   const params = useParams();
   const {currProject: projId, setCurrProject} = useProjectsContext();
+  const {REST_API} = useAPIContext();
+  const {setLoading, token} = useOrganisationContext();
+  const [name, setName] = useState<string>('-------');
+  const [desc, setDesc] = useState<string>('-------');
+  const descRef = useRef<string>("-------");
+  const [resc, setResc] = useState<Array<string>>([]);
+  const [stat, setStat] = useState<number>(0);
+
+  useEffect(() => {
+    if (!projId.length) return;
+    setLoading!(true);
+    axios.post(`${REST_API}/projects/overview`, {id: projId}, {
+      headers: {Authorization: `Bearer ${token}`}
+    }).then(({data}) => {
+      setName(data.name);
+      setDesc(data.description);
+      descRef.current = data.description;
+      setStat(data.status);
+      setResc(data.resources || []);
+      setLoading!(false);
+    }).catch(() => setLoading!(false));
+  }, [projId]);
 
   const onClose = () => setCurrProject!('');
+  const handleDesc = (event: ChangeEvent<HTMLTextAreaElement>) =>
+    setDesc(event.target.value);
 
   const takeToRescources = () => {
-    navigate(
-      `../organisation/${params.orgName}/resources?id=${'9467eb20-a622-11ec-9631-773bd57f3429'}`
-    );
+    navigate(`../organisation/${params.orgName}/resources?id=${projId}`);
   };
 
   const addResource = () => {
@@ -36,34 +60,45 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
       <Wrapper>
         <CloseIcon onClick={onClose}>X</CloseIcon>
         <Section name="Name" />
-        <Text>Big Project Name - {projId}</Text>
+        <Text>{name}</Text>
         <Section name="Description" />
-        <Text isDesc>{PrivacyAndPolicies}</Text>
+        <DescBox 
+          value={desc} 
+          onChange={handleDesc}
+          rows={7}
+          cols={84}
+        />
+        <Button
+          variant={2}
+          text="Update"
+          onPress={() => {}}
+          disabled={descRef.current === desc}
+        />
         <Section name="Actions" />
         <ActionsContainer>
           <Button
-            variant={1}
+            variant={3}
             text="Stall"
             onPress={() => {}}
-            disabled={false}
+            disabled={stat === 0}
           />
           <Button
-            variant={2}
+            variant={4}
+            text="Resume"
+            onPress={() => {}}
+            disabled={stat === 1}
+          />
+          <Button
+            variant={5}
             text="Complete"
             onPress={() => {}}
-            disabled={false}
-          />
-          <Button
-            variant={3}
-            text="Update"
-            onPress={() => {}}
-            disabled={false}
+            disabled={stat === 2}
           />
         </ActionsContainer>
-        <JoinedOn forProject />
+        <JoinedOn id={projId} forProject />
         <Section name="Resources" />
         <ActionsContainer>
-          <span>42</span>
+          <span>{resc.length}</span>
           <Button
             variant={0}
             text="Add resource"

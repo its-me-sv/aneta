@@ -58,6 +58,19 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
     }).catch(() => setLoading!(false));
   };
 
+  const updateDescription = () => {
+    if (descRef.current === desc) return;
+    if (!desc.length) return window.alert("Field empty");
+    setLoading!(true);
+    const reqBody = {orgName, projName: name, desc};
+    axios.put(`${REST_API}/projects/set-desc`, {...reqBody}, {
+      headers: {Authorization: `Bearer ${token}`}
+    }).then(() => {
+      descRef.current = desc;
+      setLoading!(false);
+    }).catch(() => setLoading!(false));
+  };
+
   const takeToRescources = () => {
     navigate(`../organisation/${params.orgName}/resources?id=${projId}`);
     setCurrProject!('');
@@ -84,7 +97,7 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
         <Button
           variant={2}
           text="Update"
-          onPress={() => {}}
+          onPress={updateDescription}
           disabled={descRef.current === desc}
         />
         <Section name="Actions" />

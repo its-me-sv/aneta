@@ -65,11 +65,13 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
           />
         )}
         <RightContainer>
-          <StyledInput
-            placeholder="Name | Email | Role"
-            ref={keywordRef}
-            onKeyDown={fetchWithKeyword}
-          />
+          {!projId && (
+            <StyledInput
+              placeholder="Name | Email | Role"
+              ref={keywordRef}
+              onKeyDown={fetchWithKeyword}
+            />
+          )}
           <ResourcesWrapper>
             <Employee big={(projId && projId?.length > 0) as boolean} />
             {!projId && <Candidates />}

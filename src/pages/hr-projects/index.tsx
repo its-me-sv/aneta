@@ -25,7 +25,7 @@ interface HRProjectsPageProps {}
 const HRProjectsPage: React.FC<HRProjectsPageProps> = () => {
   const { changeUni } = useUserNavContext();
   const [showForm, setShowForm] = useState<boolean>(false);
-  const [currProj, setCurrProj] = useState<string>('hello');
+  const [currProj, setCurrProj] = useState<string>('');
 
   useEffect(() => {
     changeUni!(3);

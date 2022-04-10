@@ -20,7 +20,7 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
   const params = useParams();
   const {currProject: projId, setCurrProject} = useProjectsContext();
   const {REST_API} = useAPIContext();
-  const {setLoading, token} = useOrganisationContext();
+  const {setLoading, token, orgName} = useOrganisationContext();
   const [name, setName] = useState<string>('-------');
   const [desc, setDesc] = useState<string>('-------');
   const descRef = useRef<string>("-------");
@@ -45,6 +45,18 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
   const onClose = () => setCurrProject!('');
   const handleDesc = (event: ChangeEvent<HTMLTextAreaElement>) =>
     setDesc(event.target.value);
+
+  const updateStatus = (status: number) => {
+    if (status === stat) return;
+    setLoading!(true);
+    const reqBody = {orgName, projName: name, status};
+    axios.put(`${REST_API}/projects/set-status`, {...reqBody}, {
+      headers: {Authorization: `Bearer ${token}`}
+    }).then(() => {
+      setStat(status);
+      setLoading!(false);
+    }).catch(() => setLoading!(false));
+  };
 
   const takeToRescources = () => {
     navigate(`../organisation/${params.orgName}/resources?id=${projId}`);
@@ -80,19 +92,19 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
           <Button
             variant={3}
             text="Stall"
-            onPress={() => {}}
+            onPress={() => updateStatus(0)}
             disabled={stat === 0}
           />
           <Button
             variant={4}
             text="Resume"
-            onPress={() => {}}
+            onPress={() => updateStatus(1)}
             disabled={stat === 1}
           />
           <Button
             variant={5}
             text="Complete"
-            onPress={() => {}}
+            onPress={() => updateStatus(2)}
             disabled={stat === 2}
           />
         </ActionsContainer>

@@ -48,6 +48,7 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
 
   const takeToRescources = () => {
     navigate(`../organisation/${params.orgName}/resources?id=${projId}`);
+    setCurrProject!('');
   };
 
   const addResource = () => {

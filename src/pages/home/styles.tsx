@@ -14,6 +14,7 @@ export const FormContainer = styled.div`
   grid-template-columns: 1fr 2fr;
   border-radius: 1rem;
   background-color: #f0f2f5;
+  max-width: 42vw;
 `;
 
 export const LeftContainer = styled.div`
@@ -65,4 +66,5 @@ export const CaptionText = styled.span`
 export const Slogan = styled.span`
   font-family: roboto;
   font-size: 1.4rem;
+  text-align: center;
 `;

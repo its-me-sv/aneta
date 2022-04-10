@@ -9,14 +9,16 @@ import Button from '../button';
 import JoinedOn from '../joined-on';
 import {PrivacyAndPolicies} from '../home-nav/data';
 
-interface ProjectBriefProps {
-  projId: string;
-  onClose: () => void;
-}
+import {useProjectsContext} from '../../contexts/projects.context';
 
-const ProjectBrief: React.FC<ProjectBriefProps> = ({onClose}) => {
+interface ProjectBriefProps {}
+
+const ProjectBrief: React.FC<ProjectBriefProps> = () => {
   const navigate = useNavigate();
   const params = useParams();
+  const {currProject: projId, setCurrProject} = useProjectsContext();
+
+  const onClose = () => setCurrProject!('');
 
   const takeToRescources = () => {
     navigate(
@@ -34,7 +36,7 @@ const ProjectBrief: React.FC<ProjectBriefProps> = ({onClose}) => {
       <Wrapper>
         <CloseIcon onClick={onClose}>X</CloseIcon>
         <Section name="Name" />
-        <Text>Big Project Name</Text>
+        <Text>Big Project Name - {projId}</Text>
         <Section name="Description" />
         <Text isDesc>{PrivacyAndPolicies}</Text>
         <Section name="Actions" />

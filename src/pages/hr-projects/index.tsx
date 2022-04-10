@@ -1,4 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {
+  useEffect, useState,
+  KeyboardEventHandler, MutableRefObject, useRef
+} from "react";
+import axios from "axios";
 
 import {
   MainContainer,
@@ -8,7 +12,7 @@ import {
 } from "./styles";
 
 import NavHR from "../../components/nav-hr";
-import { StyledInput } from "../../components/input";
+import {StyledInput} from "../../components/input";
 import Button from "../../components/button";
 import ProjectForm from '../../components/project-form';
 import ProjectBrief from "../../components/project-brief";
@@ -18,24 +22,49 @@ import {
   CompleteProjects
 } from '../../components/projects';
 
-import { useUserNavContext } from "../../contexts/user-nav.context";
+import {useUserNavContext} from "../../contexts/user-nav.context";
+import {useProjectsContext} from "../../contexts/projects.context";
+import {useAPIContext} from '../../contexts/api.context';
+import {useOrganisationContext} from '../../contexts/organisation.context';
 
 interface HRProjectsPageProps {}
 
 const HRProjectsPage: React.FC<HRProjectsPageProps> = () => {
-  const { changeUni } = useUserNavContext();
+  const {changeUni} = useUserNavContext();
+  const {currProject, setCurrProject} = useProjectsContext();
+  const {REST_API} = useAPIContext();
+  const {setLoading, token, orgName} = useOrganisationContext();
   const [showForm, setShowForm] = useState<boolean>(false);
-  const [currProj, setCurrProj] = useState<string>('');
+  const projRef = useRef() as MutableRefObject<HTMLInputElement>;
 
   useEffect(() => {
     changeUni!(3);
   }, []);
 
+  const findByName: KeyboardEventHandler<HTMLInputElement> = (event) => {
+    if (event.key!== "Enter") return;
+    if (projRef.current.value.length < 1) 
+      return window.alert("Field empty");
+    setLoading!(true);
+    const projName = projRef.current.value;
+    axios.post(
+      `${REST_API}/projects/find`,
+      {orgName, projName},
+      {headers: {Authorization: `Bearer ${token}`}}
+    ).then(({data}) => {
+      setLoading!(false);
+      setCurrProject!(data.id);
+    }).catch(err => {
+      setLoading!(false);
+      window.alert(JSON.stringify(err?.response?.data));
+    });
+  };
+
   return (
     <MainContainer>
       <NavHR />
       {showForm && <ProjectForm onClose={() => setShowForm(false)} />}
-      {currProj.length > 0 && <ProjectBrief projId={currProj} onClose={() => setCurrProj('')} />}
+      {currProject.length > 0 && <ProjectBrief />}
       <RightContainer>
         <TopButton>
           <Button
@@ -45,7 +74,11 @@ const HRProjectsPage: React.FC<HRProjectsPageProps> = () => {
             disabled={false}
           />
         </TopButton>
-        <StyledInput placeholder="Name" />
+        <StyledInput 
+          placeholder="Name" 
+          ref={projRef}
+          onKeyDown={findByName}
+        />
         <ResourcesWrapper>
           <ActiveProjects />
           <StalledProjects />

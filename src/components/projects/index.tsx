@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import styled from "styled-components";
 
 import Section from '../section';
 import ProjectOverview from '../project-overview';
 import Button from "../button";
 
-import {useUserContext} from "../../contexts/user.context";
+import {useProjectsContext} from "../../contexts/projects.context";
 
 const ProjectsContainer = styled.div`
   padding: 1%;
@@ -20,34 +20,27 @@ const ProjectsContainer = styled.div`
 interface ActiveProjectProps {}
 
 export const ActiveProjects: React.FC<ActiveProjectProps> = () => {
-  const {setLoading} = useUserContext();
-  const [projects, setProjects] = useState<Array<any>>([]);
-
-  const fetchProjects = () => {
-    setLoading!(true);
-    setTimeout(() => {
-      setProjects((prev) => [...prev, ...Array(42).fill(0)]);
-      setLoading!(false);
-    }, 1000);
-  };
-
-  useEffect(() => {
-    fetchProjects();
-  }, []);
+  const {
+    active: projects,
+    activePage: page,
+    fetchActive: fetchProjects,
+  } = useProjectsContext();
 
   return (
     <div>
       <Section name="Active" />
       <ProjectsContainer>
-        {projects.map((_, idx) => (
-          <ProjectOverview key={idx} />
+        {projects.map((val, idx) => (
+          <ProjectOverview key={idx} {...val} />
         ))}
-        <Button
-          text="Load more"
-          disabled={false}
-          onPress={fetchProjects}
-          variant={4}
-        />
+        {page !== null && (
+          <Button
+            text="Load more"
+            disabled={false}
+            onPress={fetchProjects!}
+            variant={4}
+          />
+        )}
       </ProjectsContainer>
     </div>
   );
@@ -56,34 +49,27 @@ export const ActiveProjects: React.FC<ActiveProjectProps> = () => {
 interface StalledProjectProps {}
 
 export const StalledProjects: React.FC<StalledProjectProps> = () => {
-  const { setLoading } = useUserContext();
-  const [projects, setProjects] = useState<Array<any>>([]);
-
-  const fetchProjects = () => {
-    setLoading!(true);
-    setTimeout(() => {
-      setProjects((prev) => [...prev, ...Array(42).fill(0)]);
-      setLoading!(false);
-    }, 1000);
-  };
-
-  useEffect(() => {
-    fetchProjects();
-  }, []);
+  const {
+    stalled: projects,
+    stalledPage: page,
+    fetchStalled: fetchProjects,
+  } = useProjectsContext();
 
   return (
     <div>
       <Section name="Stalled" />
       <ProjectsContainer>
-        {projects.map((_, idx) => (
-          <ProjectOverview key={idx} />
+        {projects.map((val, idx) => (
+          <ProjectOverview key={idx} {...val} />
         ))}
-        <Button
-          text="Load more"
-          disabled={false}
-          onPress={fetchProjects}
-          variant={4}
-        />
+        {page !== null && (
+          <Button
+            text="Load more"
+            disabled={false}
+            onPress={fetchProjects!}
+            variant={4}
+          />
+        )}
       </ProjectsContainer>
     </div>
   );
@@ -92,34 +78,27 @@ export const StalledProjects: React.FC<StalledProjectProps> = () => {
 interface CompleteProjectProps {}
 
 export const CompleteProjects: React.FC<CompleteProjectProps> = () => {
-  const { setLoading } = useUserContext();
-  const [projects, setProjects] = useState<Array<any>>([]);
-
-  const fetchProjects = () => {
-    setLoading!(true);
-    setTimeout(() => {
-      setProjects((prev) => [...prev, ...Array(42).fill(0)]);
-      setLoading!(false);
-    }, 1000);
-  };
-
-  useEffect(() => {
-    fetchProjects();
-  }, []);
+  const {
+    completed: projects,
+    completedPage: page,
+    fetchCompleted: fetchProjects,
+  } = useProjectsContext();
 
   return (
     <div>
       <Section name="Complete" />
       <ProjectsContainer>
-        {projects.map((_, idx) => (
-          <ProjectOverview key={idx} />
+        {projects.map((val, idx) => (
+          <ProjectOverview key={idx} {...val} />
         ))}
-        <Button
-          text="Load more"
-          disabled={false}
-          onPress={fetchProjects}
-          variant={4}
-        />
+        {page !== null && (
+          <Button
+            text="Load more"
+            disabled={false}
+            onPress={fetchProjects!}
+            variant={4}
+          />
+        )}
       </ProjectsContainer>
     </div>
   );

@@ -6,6 +6,7 @@ export const Container = styled.div`
   padding: 1% 2%;
   border: 1px solid rgba(0, 0, 0, 0.7);
   border-radius: 0.35rem;
+  justify-content: space-between;
   cursor: pointer;
   &:hover {
     box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);

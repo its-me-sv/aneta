@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 import {Footer, TitleText} from './styles';
 
@@ -16,6 +17,7 @@ interface ProjectFormProps {
 
 const ProjectForm: React.FC<ProjectFormProps> = ({onClose}) => {
   const {REST_API} = useAPIContext();
+  const navigate = useNavigate();
   const {setLoading, token, orgName} = useOrganisationContext();
   const [name, setName] = useState<string>('');
   const [desc, setDesc] = useState<string>('');
@@ -35,6 +37,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({onClose}) => {
       setLoading!(false);
       onClose();
       window.alert("Project created successfully");
+      navigate(`../organisation/${orgName}/dashboard`);
     }).catch(err => {
       setLoading!(false);
       window.alert(JSON.stringify(err?.response?.data));

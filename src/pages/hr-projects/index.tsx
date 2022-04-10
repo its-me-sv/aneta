@@ -31,7 +31,11 @@ interface HRProjectsPageProps {}
 
 const HRProjectsPage: React.FC<HRProjectsPageProps> = () => {
   const {changeUni} = useUserNavContext();
-  const {currProject, setCurrProject} = useProjectsContext();
+  const {
+    currProject, setCurrProject,
+    fetchActive, fetchStalled, fetchCompleted,
+    resetProjects
+  } = useProjectsContext();
   const {REST_API} = useAPIContext();
   const {setLoading, token, orgName} = useOrganisationContext();
   const [showForm, setShowForm] = useState<boolean>(false);
@@ -39,6 +43,10 @@ const HRProjectsPage: React.FC<HRProjectsPageProps> = () => {
 
   useEffect(() => {
     changeUni!(3);
+    fetchActive!();
+    fetchStalled!();
+    fetchCompleted!();
+    return resetProjects;
   }, []);
 
   const findByName: KeyboardEventHandler<HTMLInputElement> = (event) => {

@@ -4,19 +4,21 @@ import {format} from 'timeago.js';
 import {Container, Title, Description, Date} from './styles';
 
 import {getDateObj} from '../../utils/timeuuid-to-date';
-import {TermsAndConditions} from '../home-nav/data';
+import {useProjectsContext} from '../../contexts/projects.context';
 
-interface ProjectOverviewProps {}
+interface ProjectOverviewProps {
+  id: string;
+  name: string;
+  description: string;
+}
 
-const ProjectOverview: React.FC<ProjectOverviewProps> = () => {
-  const timeStamp = getDateObj(
-    "9467eb20-a622-11ec-9631-773bd57f3429"
-  ).toISOString();
+const ProjectOverview: React.FC<ProjectOverviewProps> = ({id, name, description}) => {
+  const {setCurrProject} = useProjectsContext();
   return (
-    <Container>
-      <Title>Big project name</Title>
-      <Description>{TermsAndConditions}</Description>
-      <Date>{format(timeStamp)}</Date>
+    <Container onClick={() => setCurrProject!(id)}>
+      <Title>{name}</Title>
+      <Description>{description}</Description>
+      <Date>{format(getDateObj(id).toISOString())}</Date>
     </Container>
   );
 };

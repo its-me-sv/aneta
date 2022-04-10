@@ -59,8 +59,7 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
   };
 
   const updateDescription = () => {
-    if (descRef.current === desc) return;
-    if (!desc.length) return window.alert("Field empty");
+    if (descRef.current === desc || !desc.length) return;
     setLoading!(true);
     const reqBody = {orgName, projName: name, desc};
     axios.put(`${REST_API}/projects/set-desc`, {...reqBody}, {
@@ -98,7 +97,7 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
           variant={2}
           text="Update"
           onPress={updateDescription}
-          disabled={descRef.current === desc}
+          disabled={descRef.current === desc || desc.length === 0}
         />
         <Section name="Actions" />
         <ActionsContainer>

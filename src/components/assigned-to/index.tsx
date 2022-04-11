@@ -32,7 +32,7 @@ const AssignedTo: React.FC<AssignedToProps> = ({fromHr}) => {
         headers: {Authorization: `Bearer ${token}`}
       })
       .then(({data}) => {
-        setProjects(data.project||[]);
+        setProjects(data.projects||[]);
         setLoading!(false);
       }).catch(() => setLoading!(false));
     }, []);

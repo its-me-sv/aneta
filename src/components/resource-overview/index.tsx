@@ -97,6 +97,10 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
         window.alert("Transaction Success");
       }).catch(() => setLoading!(false));
     };
+
+    const onAssignProject = () => {
+      window.alert("Assigning to project");
+    };
     
     return (
       <Container>
@@ -130,6 +134,7 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
               deny={onDenyClick}
               acceptLeave={onAcceptLeaveClick}
               salary={onSalaryClick}
+              assignProject={onAssignProject}
             />
           </Body>
         </Wrapper>

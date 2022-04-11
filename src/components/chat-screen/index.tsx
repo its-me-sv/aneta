@@ -13,6 +13,7 @@ import Button from '../button';
 import Message from '../message';
 
 import {useUserContext} from '../../contexts/user.context';
+import {useContactsContext} from '../../contexts/contacts.context';
 
 interface MessageType {
     id: string;
@@ -24,17 +25,12 @@ const dummyMessages: Array<MessageType> = Array(42).fill({
     msg: "Simple message"
 });
 
-interface ChatScreenProps {
-  chatId: string;
-}
+interface ChatScreenProps {}
 
-const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
+const ChatScreen: React.FC<ChatScreenProps> = ({}) => {
     const {setLoading} = useUserContext();
+    const {currContact: chatId} = useContactsContext();
     const [messages, setMessages] = useState<Array<MessageType>>([]);
-
-    useEffect(() => {
-      console.log(chatId);
-    }, [chatId]);
 
     const fetchData = useCallback(() => {
       setLoading!(true);

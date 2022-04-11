@@ -50,7 +50,7 @@ const UserChatPage: React.FC<UserChatPageProps> = () => {
       <NavUser joined={joined} />
       <RightContainer>
         {currContact.length 
-        ? <ChatScreen chatId={currContact} /> 
+        ? <ChatScreen /> 
         : <NotSelected>Choose a contact from the contacts</NotSelected>}
         <Contacts setChat={setCurrContact!} />
       </RightContainer>

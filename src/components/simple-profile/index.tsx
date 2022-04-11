@@ -43,7 +43,7 @@ const SimpleProfile: React.FC<SimpleProfileProps> = ({variant, showEmail, id}) =
         setEmail(data.email);
         setRole(data.role);
       }).catch(() => {});
-    }, []);
+    }, [id]);
 
     return (
       <Container>

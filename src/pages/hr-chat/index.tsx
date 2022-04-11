@@ -31,11 +31,9 @@ const HRChatPage: React.FC<HRChatPageProps> = () => {
     <MainContainer>
       <NavHR />
       <RightContainer>
-        {currContact.length ? (
-          <ChatScreen chatId={currContact} />
-        ) : (
-          <NotSelected>Choose a contact from the contacts</NotSelected>
-        )}
+        {currContact.length
+        ? <ChatScreen />
+        : <NotSelected>Choose a contact from the contacts</NotSelected>}
         <Contacts setChat={setCurrContact!} />
       </RightContainer>
     </MainContainer>

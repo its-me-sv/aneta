@@ -33,28 +33,16 @@ const SimpleProfile: React.FC<SimpleProfileProps> = ({variant, showEmail, id}) =
     
     useEffect(() => {
       const token = hrId.length > 0 ? otkn : utkn;
-      axios.post(`${REST_API}/organisation/info`, {oid: id}, {
+      axios.post(`${REST_API}/organisation/comm-info`, {id}, {
         headers: {Authorization: `Bearer ${token}`},
       })
       .then(({data}) => {
-        setImageUrl(data.profile_picture);
+        setImageUrl(data.image);
         setStatus(data.status);
-        setName(data.creator_name);
+        setName(data.name);
         setEmail(data.email);
-      }).catch(err => {
-        if (err.response.data !== "Not found") return;
-        axios.post(`${REST_API}/employee/info`, {id}, {
-          headers: {Authorization: `Bearer ${token}`},
-        })
-        .then(({data}) => {
-          setImageUrl(data.profile_picture);
-          setStatus(data.status);
-          setEmail(data.email);
-          setName(data.name);
-          setRole(data.role);
-        })
-        .catch(() => {});
-      });
+        setRole(data.role);
+      }).catch(() => {});
     }, []);
 
     return (

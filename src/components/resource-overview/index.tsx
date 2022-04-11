@@ -111,6 +111,7 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
         }).then(() => {
           setLoading!(false);
           window.alert("Assigned to project");
+          onClose();
           navigate(`../organisation/${orgName}/dashboard`);
         }).catch(() => setLoading!(false));
       }).catch((err) => {

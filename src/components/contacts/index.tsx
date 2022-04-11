@@ -1,4 +1,9 @@
-import React, {KeyboardEvent} from 'react';
+import React, {
+  KeyboardEvent,
+  useRef,
+  MutableRefObject,
+  KeyboardEventHandler,
+} from "react";
 
 import {ContactsContainer , Container, Contact} from './styles';
 import {StyledInput} from '../input';
@@ -14,27 +19,30 @@ interface ContactsProps {
 
 const Contacts: React.FC<ContactsProps> = ({setChat}) => {
   const {contacts, contactsPage: page, fetchContacts} = useContactsContext();
+  const keywordRef = useRef() as MutableRefObject<HTMLInputElement>;
 
-  const handleSearch = (event: KeyboardEvent) => {
+  const fetchWithKeyword: KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.key !== "Enter") return;
-    window.alert(event.key);
+    if (keywordRef.current.value.length < 1) return window.alert("Field empty");
+    fetchContacts!(keywordRef.current.value);
   };
 
   return (
     <ContactsContainer>
-      <StyledInput 
-        placeholder="Name" 
-        onKeyDown={handleSearch} 
+      <StyledInput
+        placeholder="Name | Email | Role"
+        ref={keywordRef}
+        onKeyDown={fetchWithKeyword}
       />
       <Container>
-        {contacts.map(({id}, idx) => (
+        {contacts.map(({ id }, idx) => (
           <Contact key={idx} onClick={() => setChat(id)}>
             <SimpleProfile variant={2} id={id} />
             <HorizontalLine variant={2} />
           </Contact>
         ))}
         {page !== null && (
-          <Button 
+          <Button
             variant={4}
             text="Load more"
             disabled={false}

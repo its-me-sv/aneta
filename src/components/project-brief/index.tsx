@@ -73,7 +73,7 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
   const takeToRescources = () => {
     setCurrProject!('');
     navigate(
-      `../organisation/${params.orgName}/resources?id=${projId}`, 
+      `../organisation/${params.orgName}/resources`, 
       {state: resc}
     );
   };

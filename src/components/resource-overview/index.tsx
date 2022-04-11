@@ -116,7 +116,13 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
             {joined && <Leaves id={currId} leaves={leaves > 0 ? leaves : undefined} />}
             <Section name="Skills" />
             <ResourcesSkills skills={skills} />
-            {joined && <AssignedTo fromHr={projects} />}
+            {joined && (
+              <AssignedTo 
+                fromHr={projects}
+                fromHrEmail={email}
+                fromHrId={currId}
+              />
+            )}
             <HRActions 
               joined={joined} 
               request={request}

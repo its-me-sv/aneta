@@ -11,3 +11,9 @@ export const Projects = styled.div`
   overflow-x: auto;
   gap: 0.5rem;
 `;
+
+export const Holder = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;

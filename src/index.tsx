@@ -12,6 +12,7 @@ import {SocketContextProvider} from './contexts/socket.context';
 import {UserNavContextProvider} from './contexts/user-nav.context';
 import {ResourcesContextProvider} from "./contexts/resources.context";
 import {ProjectsContextProvider} from "./contexts/projects.context";
+import {ContactsContextProvider} from './contexts/contacts.context';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -23,7 +24,9 @@ ReactDOM.render(
               <UserNavContextProvider>
                 <ResourcesContextProvider>
                   <ProjectsContextProvider>
-                    <App />
+                    <ContactsContextProvider>
+                      <App />
+                    </ContactsContextProvider>
                   </ProjectsContextProvider>
                 </ResourcesContextProvider>
               </UserNavContextProvider>

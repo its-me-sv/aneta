@@ -77,7 +77,21 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
 
   const addResource = () => {
     const resourceEmail = window.prompt("Email of resource");
-    window.alert(resourceEmail);
+    if (!resourceEmail || !resourceEmail.length) 
+      return window.alert("Field empty");
+    setLoading!(true);
+    const reqBody = {orgName, projName: name, email: resourceEmail};
+    axios.put(`${REST_API}/projects/add-emp`, {...reqBody}, {
+      headers: {Authorization: `Bearer ${token}`}
+    }).then(({data}) => {
+      if (!resc.includes(data.id)) {
+        setResc([...resc, data.id]);
+        window.alert("Resource has been added");
+      } else {
+        window.alert("Resource already added");
+      }
+      setLoading!(false);
+    }).catch(() => setLoading!(false));
   };
 
   return (

@@ -66,7 +66,7 @@ const HRFinancial: React.FC<HRFinancialProps> = ({onPress}) => {
           <VrtclLn />
         </div>
         <Content>
-          <span>No. of Transactions</span>
+          <span>Transactions</span>
           <span>{state.transactions}</span>
         </Content>
       </SectionContent>

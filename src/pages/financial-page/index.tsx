@@ -38,7 +38,7 @@ const FinancialPage: React.FC<FinancialPageProps> = () => {
         headers: {Authorization: `Bearer ${token}`,}
       }).then(({data}) => {
         if (recipient?.length) setTransactions(data.transactions || []);
-        else setTransactions([...(data.transactions || []), ...transactions]);
+        else setTransactions([...transactions, ...(data.transactions || [])]);
         setPage(data.pageState);
         setLoading!(false);
       }).catch(() => setLoading!(false));

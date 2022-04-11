@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
-import styled from "styled-components";
 import {useNavigate, useParams} from "react-router-dom";
+
+import {MainContainer, RightContainer} from './styles';
 
 import NavHr, {destinationMapper} from '../../components/nav-hr';
 import Logout from "../../components/logout";
@@ -9,16 +10,6 @@ import HRResources from "../../components/hr-resources";
 import HRFinancial from '../../components/hr-financial';
 
 import {useUserNavContext} from "../../contexts/user-nav.context";
-
-const MainContainer = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 10fr;
-`;
-
-const RightContainer = styled.div`
-  padding: 3% 4.2% 2% 3.6%;
-  display: grid;
-`;
 
 interface HRDashboardPageProps {}
 

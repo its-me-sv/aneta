@@ -15,15 +15,29 @@ const HRResources: React.FC<HRResourcesProps> = ({onPress}) => {
       <HRSections variant={4} />
       <SectionContent>
         <Content>
-          <span>Total</span>
-          <span>8</span>
+          <span>Developer</span>
+          <span>1</span>
         </Content>
         <div>
           <VrtclLn />
         </div>
         <Content>
-          <span>Employee</span>
-          <span>4</span>
+          <span>Tester</span>
+          <span>1</span>
+        </Content>
+        <div>
+          <VrtclLn />
+        </div>
+        <Content>
+          <span>Support</span>
+          <span>1</span>
+        </Content>
+        <div>
+          <VrtclLn />
+        </div>
+        <Content>
+          <span>Project Manager</span>
+          <span>1</span>
         </Content>
         <div>
           <VrtclLn />

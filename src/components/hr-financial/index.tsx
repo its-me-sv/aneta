@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios';
+import numeral from 'numeral';
 
 import {Section, SectionContent, Content} from "../hr-sections/styles";
 
@@ -52,14 +53,14 @@ const HRFinancial: React.FC<HRFinancialProps> = ({onPress}) => {
       <SectionContent>
         <Content>
           <span>Today</span>
-          <span>{state.today} $</span>
+          <span>{numeral(state.today).format("($ 0.000 a)")}</span>
         </Content>
         <div>
           <VrtclLn />
         </div>
         <Content>
           <span>Total</span>
-          <span>{state.total} $</span>
+          <span>{numeral(state.total).format("($ 0.000 a)")}</span>
         </Content>
         <div>
           <VrtclLn />

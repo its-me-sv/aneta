@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import axios from "axios";
 
 import {MainContainer, RightContainer, NotSelected} from './styles';
@@ -10,6 +10,8 @@ import Contacts from "../../components/contacts";
 import {useUserContext} from "../../contexts/user.context";
 import {useAPIContext} from "../../contexts/api.context";
 import {useUserNavContext} from "../../contexts/user-nav.context";
+import {useContactsContext} from '../../contexts/contacts.context';
+
 
 interface UserChatPageProps {}
 
@@ -17,11 +19,19 @@ const UserChatPage: React.FC<UserChatPageProps> = () => {
   const {changeUni} = useUserNavContext();
   const {REST_API} = useAPIContext();
   const {id, token, setLoading} = useUserContext();
-  const [currChat, setCurrChat] = useState<string>('');
+  const {currContact, setCurrContact, fetchContacts, resetContacts} = useContactsContext();
   const [joined, setJoined] = useState<boolean>(false);
+  const fetched = useRef<boolean>(false);
   
   useEffect(() => {
     changeUni!(1);
+    if (fetched.current) return;
+    fetched.current = true;
+    fetchContacts!();
+    return () => {
+      resetContacts!();
+      setCurrContact!("");
+    };
   }, []);
 
   useEffect(() => {
@@ -39,10 +49,10 @@ const UserChatPage: React.FC<UserChatPageProps> = () => {
     <MainContainer>
       <NavUser joined={joined} />
       <RightContainer>
-        {currChat.length 
-        ? <ChatScreen chatId={currChat} /> 
+        {currContact.length 
+        ? <ChatScreen chatId={currContact} /> 
         : <NotSelected>Choose a contact from the contacts</NotSelected>}
-        <Contacts setChat={setCurrChat} />
+        <Contacts setChat={setCurrContact!} />
       </RightContainer>
     </MainContainer>
   );

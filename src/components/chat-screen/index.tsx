@@ -32,6 +32,10 @@ const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
     const {setLoading} = useUserContext();
     const [messages, setMessages] = useState<Array<MessageType>>([]);
 
+    useEffect(() => {
+      console.log(chatId);
+    }, [chatId]);
+
     const fetchData = useCallback(() => {
       setLoading!(true);
       setTimeout(() => {
@@ -48,7 +52,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
     return (
       <Container>
         <Header>
-          <SimpleProfile variant={2} />
+          <SimpleProfile variant={2} id={chatId} />
           <HorizontalLine variant={2} />
         </Header>
         <Body>

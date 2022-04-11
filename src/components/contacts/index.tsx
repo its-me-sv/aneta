@@ -28,7 +28,7 @@ const Contacts: React.FC<ContactsProps> = ({setChat}) => {
       />
       <Container>
         {contacts.map(({id}, idx) => (
-          <Contact key={idx} onClick={() => setChat(`${idx}`)}>
+          <Contact key={idx} onClick={() => setChat(id)}>
             <SimpleProfile variant={2} id={id} />
             <HorizontalLine variant={2} />
           </Contact>

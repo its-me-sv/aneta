@@ -99,7 +99,24 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
     };
 
     const onAssignProject = () => {
-      window.alert("Assigning to project");
+      const projName = window.prompt("Project name:");
+      if (!projName || !projName.length) return;
+      setLoading!(true);
+      axios.post(`${REST_API}/projects/find`, {orgName, projName}, {
+        headers: {Authorization: `Bearer ${token}`}
+      }).then(() => {
+        axios.put(
+          `${REST_API}/projects/add-emp`, {orgName, projName, email}, {
+          headers: {Authorization: `Bearer ${token}`}
+        }).then(() => {
+          setLoading!(false);
+          window.alert("Assigned to project");
+          navigate(`../organisation/${orgName}/dashboard`);
+        }).catch(() => setLoading!(false));
+      }).catch((err) => {
+        setLoading!(false);
+        window.alert(JSON.stringify(err?.response?.data));
+      });
     };
     
     return (

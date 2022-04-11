@@ -4,7 +4,7 @@ import React, {
   MutableRefObject,
   KeyboardEventHandler,
 } from "react";
-import {useSearchParams} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 
 import {MainContainer, ResourcesWrapper, RightContainer} from './styles';
 
@@ -26,9 +26,8 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
       fetchEmployee, fetchCandidates, 
       resetEmployee, resetCandidates
     } = useRescourcesContext();
-    const [searchParams] = useSearchParams();
     const fetched = useRef<boolean>(false);
-    const projId = searchParams.get('id');
+    const {state: projs} = useLocation();
     const keywordRef =
       useRef() as MutableRefObject<HTMLInputElement>;
     const fetchWithKeyword: KeyboardEventHandler<HTMLInputElement> = (
@@ -43,6 +42,7 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
 
     useEffect(() => {
       changeUni!(4);
+      if (projs) return;
       if (fetched.current) return;
       fetched.current = true;
       fetchEmployee!();
@@ -53,7 +53,7 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
         resetCandidates!();
         setCurrResource!('');
       };
-    }, []);
+    }, [projs]);
 
     return (
       <MainContainer>
@@ -65,7 +65,7 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
           />
         )}
         <RightContainer>
-          {!projId && (
+          {!projs && (
             <StyledInput
               placeholder="Name | Email | Role"
               ref={keywordRef}
@@ -73,8 +73,11 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
             />
           )}
           <ResourcesWrapper>
-            <Employee big={(projId && projId?.length > 0) as boolean} />
-            {!projId && <Candidates />}
+            <Employee
+              big={(projs && (projs as Array<string>)?.length > 0) as boolean}
+              fromHr={projs as Array<string>}
+            />
+            {!projs && <Candidates />}
           </ResourcesWrapper>
         </RightContainer>
       </MainContainer>

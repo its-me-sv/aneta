@@ -23,9 +23,10 @@ export const ResourcesContainer = styled.div<{big?: boolean}>`
 
 interface EmployeeProps {
   big?: boolean;
+  fromHr?: Array<string>;
 }
 
-const Employee: React.FC<EmployeeProps> = ({big}) => {
+const Employee: React.FC<EmployeeProps> = ({big, fromHr}) => {
     const {employee, fetchEmployee, employeePage} = useRescourcesContext();
 
     return (
@@ -35,7 +36,10 @@ const Employee: React.FC<EmployeeProps> = ({big}) => {
           {employee?.map(({id}, idx) => (
             <Resource key={idx} id={id} />
           ))}
-          {employeePage !== null && (
+          {fromHr && fromHr?.map((val, idx) => (
+            <Resource key={val} id={val} />
+          ))}
+          {(!fromHr && employeePage !== null) && (
             <Button
               variant={4}
               text="Load more"

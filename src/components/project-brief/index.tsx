@@ -71,8 +71,11 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
   };
 
   const takeToRescources = () => {
-    navigate(`../organisation/${params.orgName}/resources?id=${projId}`);
     setCurrProject!('');
+    navigate(
+      `../organisation/${params.orgName}/resources?id=${projId}`, 
+      {state: resc}
+    );
   };
 
   const addResource = () => {
@@ -145,12 +148,14 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
             disabled={false}
           />
         </ActionsContainer>
-        <Button
-          variant={0}
-          text="View resources"
-          onPress={takeToRescources}
-          disabled={false}
-        />
+        {resc.length > 0 && (
+          <Button
+            variant={0}
+            text="View resources"
+            onPress={takeToRescources}
+            disabled={false}
+          />
+        )}
       </Wrapper>
     </Container>
   );

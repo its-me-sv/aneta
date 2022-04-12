@@ -16,7 +16,7 @@ import {useSocketContext} from "../../contexts/socket.context";
 interface HRDashboardPageProps {}
 
 const HRDashboardPage: React.FC<HRDashboardPageProps> = () => {
-  const {orgName} = useOrganisationContext();
+  const {orgName, id: orgId} = useOrganisationContext();
   const {socket} = useSocketContext();
   const navigate = useNavigate();
   const params = useParams();
@@ -34,6 +34,7 @@ const HRDashboardPage: React.FC<HRDashboardPageProps> = () => {
   useEffect(() => {
     if (!orgName.length) return;
     socket?.emit("joinRoom", orgName);
+    socket?.emit("joinRoom", orgId);
   }, [orgName]);
 
   return (

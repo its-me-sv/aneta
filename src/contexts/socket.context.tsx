@@ -3,11 +3,13 @@ import {Socket} from "socket.io-client";
 
 interface ServerToClientEvents {
   createAcc?: () => void;
+  newMsg?: (msgObj: any) => void;
 }
 
 interface ClientToServerEvents {
   joinRoom?: (roomId: string) => void;
   leaveRoom?: (roomId: string) => void;
+  newMsg?: (val: any) => void;
 }
 
 interface SocketContextInterface {

@@ -12,7 +12,6 @@ import {useAPIContext} from "../../contexts/api.context";
 import {useUserNavContext} from "../../contexts/user-nav.context";
 import {useContactsContext} from '../../contexts/contacts.context';
 
-
 interface UserChatPageProps {}
 
 const UserChatPage: React.FC<UserChatPageProps> = () => {
@@ -60,7 +59,7 @@ const UserChatPage: React.FC<UserChatPageProps> = () => {
       <RightContainer>
         {currContact.length 
         ? <ChatScreen chatId={currContact} /> 
-        : <NotSelected>Choose a contact from the contacts</NotSelected>}
+        : <NotSelected>Select a Recipient from the right</NotSelected>}
         <Contacts setChat={setCurrContact!} orgId={orgId} />
       </RightContainer>
     </MainContainer>

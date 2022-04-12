@@ -11,6 +11,7 @@ import Message from '../message';
 import {useMessagesContext} from '../../contexts/messages.context';
 import {useUserContext} from '../../contexts/user.context';
 import {useOrganisationContext} from '../../contexts/organisation.context';
+import {useSocketContext} from "../../contexts/socket.context";
 
 interface ChatScreenProps {
   chatId: string;
@@ -19,6 +20,7 @@ interface ChatScreenProps {
 const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
   const {id: oid} = useOrganisationContext();
   const {id: eid} = useUserContext();
+  const {socket} = useSocketContext();
   const {
     messages, msgPage, 
     fetchMessages, sendMessage
@@ -26,10 +28,18 @@ const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
   const [newMsg, setNewMsg] = useState<string>('');
 
   const sender = oid.length > 0 ? oid : eid;
+  const roomId = [chatId, sender].sort().join('');
 
   useEffect(() => {
     fetchMessages!(chatId, true);
   }, [chatId]);
+
+  useEffect(() => {
+    socket?.emit("joinRoom", roomId);
+    return () => {
+      socket?.emit("leaveRoom", roomId);
+    };
+  }, [roomId, socket]);
 
   const onMessageSend = () => {
     if (!newMsg.length) return;

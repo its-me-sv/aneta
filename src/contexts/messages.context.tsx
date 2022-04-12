@@ -44,7 +44,6 @@ export const MessagesContextProvider: React.FC = ({children}) => {
 
   const fetchMessages = (reciever: string, initial: boolean = false) => {
     if (msgPage === null && !initial) return;
-    setLoading!(true);
     const reqBody: any = {sender, reciever, orgName};
     if (msgPage?.length) reqBody.page = msgPage;
     if (initial) delete reqBody.page;
@@ -54,7 +53,6 @@ export const MessagesContextProvider: React.FC = ({children}) => {
       if (initial) setMessages(data.messages);
       else setMessages([...data.messages, ...messages]);
       setMsgPage(data.pageState);
-      setLoading!(false);
     }).catch(() => setLoading!(false));
   };
 

@@ -36,7 +36,6 @@ export const ContactsContextProvider: React.FC = ({children}) => {
       if (contactsPage === null && !kw?.length) return;
       const token = htkn.length > 0 ? htkn : etkn;
       const orgName = hon.length > 0 ? hon : eon;
-      setLoading!(true);
       const reqBody: {orgName: string; page?: string; keyword?: string} = {orgName};
       if (contactsPage?.length) reqBody.page = contactsPage;
       if (kw?.length > 0) {
@@ -49,7 +48,6 @@ export const ContactsContextProvider: React.FC = ({children}) => {
         if (kw?.length) setContacts(data.resource || []);
         else setContacts([...contacts, ...(data.resource || [])]);
         setContactsPage(data.pageState);
-        setLoading!(false);
       }).catch(() => setLoading!(false));
     };
 

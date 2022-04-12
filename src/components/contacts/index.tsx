@@ -7,7 +7,6 @@ import React, {
 import {ContactsContainer , Container, Contact} from './styles';
 import {StyledInput} from '../input';
 import SimpleProfile from '../simple-profile';
-import HorizontalLine from '../horizontal-line';
 import Button from '../button';
 
 import {useContactsContext} from '../../contexts/contacts.context';
@@ -41,7 +40,6 @@ const Contacts: React.FC<ContactsProps> = ({setChat, orgId}) => {
             selected={currContact === orgId}
           >
             <SimpleProfile variant={2} id={orgId} />
-            <HorizontalLine variant={2} />
           </Contact>
         )}
         {contacts.map(({ id }, idx) => (
@@ -51,12 +49,11 @@ const Contacts: React.FC<ContactsProps> = ({setChat, orgId}) => {
             selected={currContact === id}
           >
             <SimpleProfile variant={2} id={id} />
-            <HorizontalLine variant={2} />
           </Contact>
         ))}
         {page !== null && (
           <Button
-            variant={4}
+            variant={6}
             text="Load more"
             disabled={false}
             onPress={fetchContacts!}

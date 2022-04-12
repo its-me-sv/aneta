@@ -13,6 +13,7 @@ import {UserNavContextProvider} from './contexts/user-nav.context';
 import {ResourcesContextProvider} from "./contexts/resources.context";
 import {ProjectsContextProvider} from "./contexts/projects.context";
 import {ContactsContextProvider} from './contexts/contacts.context';
+import {MessagesContextProvider} from './contexts/messages.context';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -25,7 +26,9 @@ ReactDOM.render(
                 <ResourcesContextProvider>
                   <ProjectsContextProvider>
                     <ContactsContextProvider>
-                      <App />
+                      <MessagesContextProvider>
+                        <App />
+                      </MessagesContextProvider>
                     </ContactsContextProvider>
                   </ProjectsContextProvider>
                 </ResourcesContextProvider>

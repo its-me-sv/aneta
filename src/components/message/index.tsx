@@ -7,12 +7,12 @@ import {MessageContainer, Msg, Time} from './styles';
 interface MessageProps {
   id: string;
   msg: string;
-  owner: number;
+  owner: boolean;
 }
 
 const Message: React.FC<MessageProps> = ({id, msg, owner}) => {
     return (
-      <MessageContainer owner={owner >= 0.5}>
+      <MessageContainer owner={owner}>
         <Msg>{msg}</Msg>
         <Time>
           {prettyDate(

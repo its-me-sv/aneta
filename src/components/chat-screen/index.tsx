@@ -1,8 +1,4 @@
-import React, {
-  useState, 
-  useEffect, 
-  useCallback,
-} from "react";
+import React, {useEffect} from "react";
 
 import {Container, Footer, Header, Body} from './styles';
 
@@ -12,62 +8,55 @@ import {StyledTextArea} from '../input';
 import Button from '../button';
 import Message from '../message';
 
+import {useMessagesContext} from '../../contexts/messages.context';
 import {useUserContext} from '../../contexts/user.context';
-import {useContactsContext} from '../../contexts/contacts.context';
+import {useOrganisationContext} from '../../contexts/organisation.context';
 
-interface MessageType {
-    id: string;
-    msg: string;
+interface ChatScreenProps {
+  chatId: string;
 }
 
-const dummyMessages: Array<MessageType> = Array(42).fill({
-    id: "9467eb20-a622-11ec-9631-773bd57f3429",
-    msg: "Simple message"
-});
+const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
+  const {id: oid} = useOrganisationContext();
+  const {id: eid} = useUserContext();
+  const {messages, msgPage, fetchMessages} = useMessagesContext();
 
-interface ChatScreenProps {}
+  const sender = oid.length > 0 ? oid : eid;
 
-const ChatScreen: React.FC<ChatScreenProps> = ({}) => {
-    const {setLoading} = useUserContext();
-    const {currContact: chatId} = useContactsContext();
-    const [messages, setMessages] = useState<Array<MessageType>>([]);
+  useEffect(() => {
+    fetchMessages!(chatId, true);
+  }, [chatId]);
 
-    const fetchData = useCallback(() => {
-      setLoading!(true);
-      setTimeout(() => {
-        setMessages(prev => [...dummyMessages, ...prev]);
-        setLoading!(false);
-      }, 1000);
-    }, [setLoading]);
-
-    useEffect(() => {
-      fetchData();
-      return () => setMessages([]);
-    }, [fetchData]);
-    
-    return (
-      <Container>
-        <Header>
-          <SimpleProfile variant={2} id={chatId} />
-          <HorizontalLine variant={2} />
-        </Header>
-        <Body>
+  return (
+    <Container>
+      <Header>
+        <SimpleProfile variant={2} id={chatId} />
+        <HorizontalLine variant={2} />
+      </Header>
+      <Body>
+        {msgPage !== null && (
           <Button
-            onPress={fetchData}
+            onPress={() => fetchMessages!(chatId)}
             text="Load more"
             variant={1}
             disabled={false}
           />
-          {messages.map((props, idx) => (
-            <Message owner={Math.random()} key={idx} {...props} />
-          ))}
-        </Body>
-        <Footer>
-          <StyledTextArea rows={2} placeholder="Message" />
-          <Button variant={2} text="SEND" onPress={() => {}} disabled={false} />
-        </Footer>
-      </Container>
-    );
+        )}
+        {messages.map((props, idx) => (
+          <Message 
+            key={idx}
+            id={props.id}
+            msg={props.message}
+            owner={props.sender === sender}
+          />
+        ))}
+      </Body>
+      <Footer>
+        <StyledTextArea rows={2} placeholder="Message" />
+        <Button variant={2} text="SEND" onPress={() => {}} disabled={false} />
+      </Footer>
+    </Container>
+  );
 };
 
 export default ChatScreen;

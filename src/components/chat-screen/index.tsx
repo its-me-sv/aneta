@@ -58,13 +58,13 @@ const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
           <Button
             onPress={() => fetchMessages!(chatId)}
             text="Load more"
-            variant={1}
+            variant={6}
             disabled={false}
           />
         )}
         {messages.map((props, idx) => (
           <Message
-            key={idx}
+            key={props.id}
             id={props.id}
             msg={props.message}
             owner={props.sender === sender}

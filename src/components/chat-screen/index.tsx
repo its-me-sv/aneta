@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 
 import {Container, Footer, Header, Body} from './styles';
 
@@ -19,13 +19,23 @@ interface ChatScreenProps {
 const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
   const {id: oid} = useOrganisationContext();
   const {id: eid} = useUserContext();
-  const {messages, msgPage, fetchMessages} = useMessagesContext();
+  const {
+    messages, msgPage, 
+    fetchMessages, sendMessage
+  } = useMessagesContext();
+  const [newMsg, setNewMsg] = useState<string>('');
 
   const sender = oid.length > 0 ? oid : eid;
 
   useEffect(() => {
     fetchMessages!(chatId, true);
   }, [chatId]);
+
+  const onMessageSend = () => {
+    if (!newMsg.length) return;
+    sendMessage!(newMsg, chatId);
+    setNewMsg('');
+  };
 
   return (
     <Container>
@@ -43,7 +53,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
           />
         )}
         {messages.map((props, idx) => (
-          <Message 
+          <Message
             key={idx}
             id={props.id}
             msg={props.message}
@@ -52,8 +62,18 @@ const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
         ))}
       </Body>
       <Footer>
-        <StyledTextArea rows={2} placeholder="Message" />
-        <Button variant={2} text="SEND" onPress={() => {}} disabled={false} />
+        <StyledTextArea
+          rows={2}
+          placeholder="Message"
+          value={newMsg}
+          onChange={(event) => setNewMsg(event.target.value)}
+        />
+        <Button
+          variant={2}
+          text="SEND"
+          onPress={onMessageSend}
+          disabled={newMsg.length < 1}
+        />
       </Footer>
     </Container>
   );

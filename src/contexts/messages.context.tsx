@@ -15,6 +15,7 @@ interface MessagesContextInterface {
   messages: Array<MessageType>;
   msgPage: string | null;
   fetchMessages?: (reciever:string, initial?: boolean) => void;
+  sendMessage?: (message: string, reciever: string) => void;
 }
 
 const defaultState: MessagesContextInterface = {
@@ -53,9 +54,18 @@ export const MessagesContextProvider: React.FC = ({children}) => {
     }).catch(() => setLoading!(false));
   };
 
+  const sendMessage = (message: string, reciever: string) => {
+    const reqBody: any = {sender, reciever, orgName, msg: message};
+    axios.post(`${REST_API}/messages/new`, {...reqBody}, {
+      headers: {Authorization: `Bearer ${token}`}
+    }).then(({data}) => {
+      setMessages([...messages, data]);
+    }).catch(() => {});
+  };
+
   return (
     <MessagesContext.Provider
-      value={{messages, msgPage, fetchMessages}}
+      value={{messages, msgPage, fetchMessages, sendMessage}}
     >{children}</MessagesContext.Provider>
   );
 };

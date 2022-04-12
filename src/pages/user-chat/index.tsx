@@ -18,9 +18,10 @@ interface UserChatPageProps {}
 const UserChatPage: React.FC<UserChatPageProps> = () => {
   const {changeUni} = useUserNavContext();
   const {REST_API} = useAPIContext();
-  const {id, token, setLoading} = useUserContext();
+  const {id, token, setLoading, orgName} = useUserContext();
   const {currContact, setCurrContact, fetchContacts, resetContacts} = useContactsContext();
   const [joined, setJoined] = useState<boolean>(false);
+  const [orgId, setOrgId] = useState<string>('');
   const fetched = useRef<boolean>(false);
   
   useEffect(() => {
@@ -45,6 +46,14 @@ const UserChatPage: React.FC<UserChatPageProps> = () => {
     }).catch(() => setLoading!(false));
   }, [id, token]);
 
+  useEffect(() => {
+    axios.post(`${REST_API}/organisation/get-id`, {orgName}, {
+      headers: {Authorization: `Bearer ${token}`}
+    }).then(({data}) => {
+      setOrgId(data.id);
+    }).catch(() => {});
+  }, []);
+
   return (
     <MainContainer>
       <NavUser joined={joined} />
@@ -52,7 +61,7 @@ const UserChatPage: React.FC<UserChatPageProps> = () => {
         {currContact.length 
         ? <ChatScreen chatId={currContact} /> 
         : <NotSelected>Choose a contact from the contacts</NotSelected>}
-        <Contacts setChat={setCurrContact!} />
+        <Contacts setChat={setCurrContact!} orgId={orgId} />
       </RightContainer>
     </MainContainer>
   );

@@ -14,9 +14,10 @@ import {useContactsContext} from '../../contexts/contacts.context';
 
 interface ContactsProps {
   setChat: (val: string) => void;
+  orgId?: string;
 }
 
-const Contacts: React.FC<ContactsProps> = ({setChat}) => {
+const Contacts: React.FC<ContactsProps> = ({setChat, orgId}) => {
   const {contacts, contactsPage: page, fetchContacts} = useContactsContext();
   const keywordRef = useRef() as MutableRefObject<HTMLInputElement>;
 
@@ -34,6 +35,12 @@ const Contacts: React.FC<ContactsProps> = ({setChat}) => {
         onKeyDown={fetchWithKeyword}
       />
       <Container>
+        {orgId && orgId.length > 0 && (
+          <Contact onClick={() => setChat(orgId)}>
+            <SimpleProfile variant={2} id={orgId} />
+            <HorizontalLine variant={2} />
+          </Contact>
+        )}
         {contacts.map(({ id }, idx) => (
           <Contact key={idx} onClick={() => setChat(id)}>
             <SimpleProfile variant={2} id={id} />

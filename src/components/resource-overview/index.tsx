@@ -17,6 +17,7 @@ import Section from '../section';
 
 import {useAPIContext} from '../../contexts/api.context';
 import {useOrganisationContext} from '../../contexts/organisation.context';
+import {useContactsContext} from '../../contexts/contacts.context';
 
 interface ResourceOverviewProps {
   currId: string;
@@ -27,6 +28,7 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
     const navigate = useNavigate();
     const {REST_API} = useAPIContext();
     const {token, setLoading, orgName} = useOrganisationContext();
+    const {setCurrContact} = useContactsContext();
     const [skills, setSkills] = useState<Array<string>>([]);
     const [projects, setProjects] = useState<Array<string>>([]);
     const [joined, setJoined] = useState<boolean>(false);
@@ -119,6 +121,11 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
         window.alert(JSON.stringify(err?.response?.data));
       });
     };
+
+    const onMessageClick = () => {
+      setCurrContact!(currId);
+      navigate(`../organisation/${orgName}/chat`);
+    };
     
     return (
       <Container>
@@ -130,7 +137,7 @@ const ResourceOverview: React.FC<ResourceOverviewProps> = ({onClose, currId}) =>
               variant={4}
               text="Message"
               disabled={false}
-              onPress={() => {}}
+              onPress={onMessageClick}
             />}
           </Header>
           <Body>

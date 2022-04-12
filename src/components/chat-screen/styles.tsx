@@ -16,6 +16,7 @@ export const Header = styled.div`
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
+  padding-right: 1%;
   gap: 0.42rem;
   margin: 0rem 0rem;
   height: 70vh;

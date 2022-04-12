@@ -16,6 +16,6 @@ export const NotSelected = styled.div`
   justify-content: center;
   font-family: calibri;
   font-size: 4.2rem;
-  opacity: 0.5;
+  opacity: 0.36;
   text-align: center;
 `;

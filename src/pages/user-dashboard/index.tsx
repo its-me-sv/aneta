@@ -15,6 +15,7 @@ import EditUserForms from "../../components/edit-user-form";
 import {useUserNavContext} from '../../contexts/user-nav.context';
 import {useUserContext} from '../../contexts/user.context';
 import {useAPIContext} from '../../contexts/api.context';
+import {useSocketContext} from '../../contexts/socket.context';
 
 interface UserDashboardPageProps {}
 
@@ -22,6 +23,7 @@ const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
     const {REST_API} = useAPIContext();
     const {changeUni} = useUserNavContext();
     const {id, token, setLoading} = useUserContext();
+    const {socket} = useSocketContext();
     const [joined, setJoined] = useState<boolean>(false);
     
     useEffect(() => {
@@ -38,6 +40,11 @@ const UserDashboardPage: React.FC<UserDashboardPageProps> = () => {
         setLoading!(false);
       }).catch(() => setLoading!(false));
     }, [id, token]);
+
+    useEffect(() => {
+      if (!id) return;
+      socket?.emit("joinRoom", id);
+    }, [id]);
     
     return (
       <MainContainer>

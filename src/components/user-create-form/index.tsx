@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {useParams} from 'react-router-dom';
 import axios from "axios";
+import {io} from "socket.io-client";
 
 import {RightEnd} from '../../pages/home/styles';
 import {useAPIContext} from '../../contexts/api.context';
@@ -20,12 +21,17 @@ interface OrgFormProps {}
 
 const UserFormCreate: React.FC<OrgFormProps> = () => {
   const params = useParams();
-  const {REST_API} = useAPIContext();
+  const {REST_API, SOCKET} = useAPIContext();
   const {setLoading} = useUserContext();
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [role, setRole] = useState<string>("Developer");
   const [password, setPassword] = useState<string>("");
+  const [ws, setWs] = useState<any>();
+
+  useEffect(() => {
+    setWs(io(SOCKET));
+  }, []);
 
   const handleCreate = () => {
     if (!name.length || !email.length || !password.length || !role.length)
@@ -38,6 +44,7 @@ const UserFormCreate: React.FC<OrgFormProps> = () => {
     axios.post(`${REST_API}/employee/create`, requestBody)
     .then(() => {
       setLoading!(false);
+      ws?.emit("createAcc", params.orgName);
       window.alert("Account created successfully");
       setName('');
       setEmail('');

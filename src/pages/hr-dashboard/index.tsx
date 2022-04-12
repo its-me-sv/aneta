@@ -10,10 +10,14 @@ import HRResources from "../../components/hr-resources";
 import HRFinancial from '../../components/hr-financial';
 
 import {useUserNavContext} from "../../contexts/user-nav.context";
+import {useOrganisationContext} from "../../contexts/organisation.context";
+import {useSocketContext} from "../../contexts/socket.context";
 
 interface HRDashboardPageProps {}
 
 const HRDashboardPage: React.FC<HRDashboardPageProps> = () => {
+  const {orgName} = useOrganisationContext();
+  const {socket} = useSocketContext();
   const navigate = useNavigate();
   const params = useParams();
   const {changeUni} = useUserNavContext();
@@ -26,6 +30,11 @@ const HRDashboardPage: React.FC<HRDashboardPageProps> = () => {
   useEffect(() => {
     changeUni!(0);
   }, []);
+
+  useEffect(() => {
+    if (!orgName.length) return;
+    socket?.emit("joinRoom", orgName);
+  }, [orgName]);
 
   return (
     <MainContainer>

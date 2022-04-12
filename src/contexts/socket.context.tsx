@@ -1,9 +1,14 @@
 import React, {createContext, useContext, useState} from "react";
 import {Socket} from "socket.io-client";
 
-interface ServerToClientEvents {}
+interface ServerToClientEvents {
+  createAcc?: () => void;
+}
 
-interface ClientToServerEvents {}
+interface ClientToServerEvents {
+  joinRoom?: (roomId: string) => void;
+  leaveRoom?: (roomId: string) => void;
+}
 
 interface SocketContextInterface {
   socket?: Socket<ServerToClientEvents, ClientToServerEvents>;
@@ -22,11 +27,8 @@ export const SocketContextProvider: React.FC = ({ children }) => {
     useState<Socket<ServerToClientEvents, ClientToServerEvents>>();
   
   return (
-    <SocketContext.Provider
-      value={{
-        socket,
-        setSocket,
-      }}
-    >{children}</SocketContext.Provider>
+    <SocketContext.Provider value={{socket, setSocket}}>
+      {children}
+    </SocketContext.Provider>
   );
 };

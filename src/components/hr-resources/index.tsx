@@ -8,6 +8,7 @@ import {VrtclLn} from "../switch-form";
 
 import {useAPIContext} from '../../contexts/api.context';
 import {useOrganisationContext} from '../../contexts/organisation.context';
+import {useSocketContext} from '../../contexts/socket.context';
 
 interface ResourceStats {
   Developer: string;
@@ -31,6 +32,7 @@ interface HRResourcesProps {
 
 const HRResources: React.FC<HRResourcesProps> = ({onPress}) => {
   const {REST_API} = useAPIContext();
+  const {socket} = useSocketContext();
   const {token, orgName} = useOrganisationContext();
   const [state, setState] = useState<ResourceStats>(defaultState);
   const fetched = useRef<boolean>(false);
@@ -49,6 +51,12 @@ const HRResources: React.FC<HRResourcesProps> = ({onPress}) => {
     fetched.current = true;
     fetchData();
   }, [orgName, token]);
+
+  useEffect(() => {
+    socket?.on("createAcc", () => {
+      fetchData();
+    });
+  }, []);
 
   return (
     <Section onClick={onPress}>

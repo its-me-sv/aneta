@@ -1,5 +1,4 @@
 import React, {
-  KeyboardEvent,
   useRef,
   MutableRefObject,
   KeyboardEventHandler,

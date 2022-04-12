@@ -23,13 +23,15 @@ const statusMapper: Array<Statuses>  = ["offline", "away", "online"];
 const SimpleProfile: React.FC<SimpleProfileProps> = ({variant, showEmail, id}) => {
     const {REST_API} = useAPIContext();
     const {token: otkn, id: hrId} = useOrganisationContext();
-    const {token: utkn} = useUserContext();
+    const {token: utkn, id: empId} = useUserContext();
 
     const [imageUrl, setImageUrl] = useState<string>('');
     const [status, setStatus] = useState<number>(0);
     const [name, setName] = useState<string>('-------');
     const [email, setEmail] = useState<string>('-------');
     const [role, setRole] = useState<string>('-------');
+
+    const myId = hrId.length > 0 ? hrId : empId;
     
     useEffect(() => {
       const token = hrId.length > 0 ? otkn : utkn;
@@ -52,7 +54,9 @@ const SimpleProfile: React.FC<SimpleProfileProps> = ({variant, showEmail, id}) =
           <Status variant={variant} status={statusMapper[status]} />
         </ImageContainer>
         <ProfileDetails>
-          <NameText variant={variant}>{name}</NameText>
+          <NameText variant={variant}>
+            {variant !== 2 ? name : myId === id ? "You" : name}
+          </NameText>
           <div>
             <EmailText variant={variant}>
               {variant === 1 ? `${email} ` : `${role} `}

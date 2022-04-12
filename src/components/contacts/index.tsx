@@ -18,7 +18,7 @@ interface ContactsProps {
 }
 
 const Contacts: React.FC<ContactsProps> = ({setChat, orgId}) => {
-  const {contacts, contactsPage: page, fetchContacts} = useContactsContext();
+  const {contacts, contactsPage: page, fetchContacts, currContact} = useContactsContext();
   const keywordRef = useRef() as MutableRefObject<HTMLInputElement>;
 
   const fetchWithKeyword: KeyboardEventHandler<HTMLInputElement> = (event) => {
@@ -36,13 +36,20 @@ const Contacts: React.FC<ContactsProps> = ({setChat, orgId}) => {
       />
       <Container>
         {orgId && orgId.length > 0 && (
-          <Contact onClick={() => setChat(orgId)}>
+          <Contact 
+            onClick={() => setChat(orgId)} 
+            selected={currContact === orgId}
+          >
             <SimpleProfile variant={2} id={orgId} />
             <HorizontalLine variant={2} />
           </Contact>
         )}
         {contacts.map(({ id }, idx) => (
-          <Contact key={idx} onClick={() => setChat(id)}>
+          <Contact 
+            key={idx} 
+            onClick={() => setChat(id)} 
+            selected={currContact === id}
+          >
             <SimpleProfile variant={2} id={id} />
             <HorizontalLine variant={2} />
           </Contact>

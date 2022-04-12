@@ -13,7 +13,7 @@ export const Container = styled.div`
   overflow-y: auto;
 `;
 
-export const Contact = styled.div`
+export const Contact = styled.div<{selected: boolean}>`
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
@@ -23,4 +23,9 @@ export const Contact = styled.div`
     -webkit-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
     -moz-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
   }
+  ${(props) => props.selected && `
+    box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
+    -webkit-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
+    -moz-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
+  `}
 `;

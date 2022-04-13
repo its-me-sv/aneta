@@ -1,10 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  padding: 1%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 8fr 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0.42rem;
+  height: 100vh;
 `;
 
 export const Header = styled.div`
@@ -16,11 +18,9 @@ export const Header = styled.div`
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
-  padding-right: 1%;
+  padding: 0% 1%;
+  margin-right: 0.42%;
   gap: 0.42rem;
-  margin: 0rem 0rem;
-  height: 70vh;
-  max-height: 70vh;
   overflow-y: auto;
 `;
 
@@ -29,6 +29,7 @@ export const Footer = styled.div`
   grid-template-columns: 11fr 1fr;
   align-items: center;
   gap: 1rem;
+  margin: 0% 0.42%;
 `;
 
 export const NoConv = styled.div`

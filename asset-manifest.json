@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/aneta/static/css/main.a8675554.css",
+    "main.js": "/aneta/static/js/main.725bfa13.js",
+    "static/media/calibri.ttf": "/aneta/static/media/calibri.ab3ba6d39bf555222bd4.ttf",
+    "static/media/arial.ttf": "/aneta/static/media/arial.5afb1f7c7464ace62524.ttf",
+    "static/media/bahnschrift.ttf": "/aneta/static/media/bahnschrift.23b347dac5478c8b4500.ttf",
+    "static/media/roboto.ttf": "/aneta/static/media/roboto.f25bd05915c1a3468d3d.ttf",
+    "static/media/settings.png": "/aneta/static/media/settings.bd733c7e56eabe31a217.png",
+    "static/media/financial.png": "/aneta/static/media/financial.7d4369ffd3f76f83bab2.png",
+    "static/media/resources.png": "/aneta/static/media/resources.4f89400e19d25d36ee95.png",
+    "static/media/me.jpg": "/aneta/static/media/me.961568814dceb733c85a.jpg",
+    "index.html": "/aneta/index.html",
+    "main.a8675554.css.map": "/aneta/static/css/main.a8675554.css.map",
+    "main.725bfa13.js.map": "/aneta/static/js/main.725bfa13.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a8675554.css",
+    "static/js/main.725bfa13.js"
+  ]
+}

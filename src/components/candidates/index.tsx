@@ -11,6 +11,7 @@ export const ResourcesContainer = styled.div`
   padding: 1%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(14, 1fr);
   height: 32vh;
   max-height: 32vh;
   overflow-y: auto;

@@ -11,13 +11,14 @@ export const ResourcesContainer = styled.div<{big?: boolean}>`
   padding: 1%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(14, 1fr);
   height: 32vh;
   max-height: 32vh;
   overflow-y: auto;
   gap: 0.42rem;
   ${(props) => props.big && `
-    height: 77vh;
-    max-height: 77vh;
+    height: 84vh;
+    max-height: 84vh;
   `}
 `;
 

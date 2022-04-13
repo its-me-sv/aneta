@@ -14,12 +14,14 @@ interface FinancialStats {
   today: string;
   total: string;
   transactions: string;
+  tenDays: string;
 }
 
 const defaultState: FinancialStats = {
   today: "-",
   total: "-",
   transactions: "-",
+  tenDays: "-"
 };
 
 interface HRFinancialProps {
@@ -54,6 +56,13 @@ const HRFinancial: React.FC<HRFinancialProps> = ({onPress}) => {
         <Content>
           <span>Today</span>
           <span>{numeral(state.today).format("($ 0.000 a)")}</span>
+        </Content>
+        <div>
+          <VrtclLn />
+        </div>
+        <Content>
+          <span>Last Ten Days</span>
+          <span>{numeral(state.tenDays).format("($ 0.000 a)")}</span>
         </Content>
         <div>
           <VrtclLn />

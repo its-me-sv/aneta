@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 
 import {MainContainer, RightContainer} from './styles';
@@ -8,6 +8,7 @@ import Logout from "../../components/logout";
 import HRProjects from '../../components/hr-projects';
 import HRResources from "../../components/hr-resources";
 import HRFinancial from '../../components/hr-financial';
+import ErrorPage from "../error";
 
 import {useUserNavContext} from "../../contexts/user-nav.context";
 import {useOrganisationContext} from "../../contexts/organisation.context";
@@ -21,6 +22,7 @@ const HRDashboardPage: React.FC<HRDashboardPageProps> = () => {
   const navigate = useNavigate();
   const params = useParams();
   const {changeUni} = useUserNavContext();
+  const [show, setShow] = useState<boolean | null>();
 
   const handleClick = (val: number) => {
     changeUni!(val);
@@ -35,7 +37,14 @@ const HRDashboardPage: React.FC<HRDashboardPageProps> = () => {
     if (!orgName.length) return;
     socket?.emit("joinRoom", orgName);
     socket?.emit("joinRoom", orgId);
-  }, [orgName]);
+  }, [orgName, orgId]);
+
+  useLayoutEffect(() => {
+    if (params.orgName !== orgName) setShow(false);
+    else setShow(true);
+  }, [params.orgName, orgName]);
+
+  if (show === false) return <ErrorPage />;
 
   return (
     <MainContainer>

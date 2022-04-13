@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect} from 'react';
 import axios from 'axios';
+import {useParams} from 'react-router-dom';
 
 import {MainContainer, RightContainer} from './styles';
 
 import NavHr from '../../components/nav-hr';
 import Transactions from '../../components/transactions';
+import ErrorPage from '../error';
 
 import {useUserNavContext} from '../../contexts/user-nav.context';
 import {useOrganisationContext} from '../../contexts/organisation.context';
@@ -21,9 +23,11 @@ interface FinancialPageProps {}
 const FinancialPage: React.FC<FinancialPageProps> = () => {
     const {changeUni} = useUserNavContext();
     const {REST_API} = useAPIContext();
+    const params = useParams();
     const {setLoading, token, orgName} = useOrganisationContext();
     const [transactions, setTransactions] = useState<Array<TransactionType>>([]);
     const [page, setPage] = useState<string | null>('');
+    const [show, setShow] = useState<boolean|null>();
 
     const fetchTransactions = (recipient: string = '') => {
       if (page === null && !recipient?.length) return;
@@ -48,6 +52,13 @@ const FinancialPage: React.FC<FinancialPageProps> = () => {
       changeUni!(5);
       fetchTransactions();
     }, []);
+
+    useLayoutEffect(() => {
+      if (params.orgName !== orgName) setShow(false);
+      else setShow(true);
+    }, [params.orgName, orgName]);
+
+    if (show === false) return <ErrorPage />;
 
     return (
       <MainContainer>

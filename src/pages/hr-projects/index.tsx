@@ -1,7 +1,8 @@
 import React, {
-  useEffect, useState,
+  useEffect, useState, useLayoutEffect,
   KeyboardEventHandler, MutableRefObject, useRef
 } from "react";
+import {useParams} from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -21,6 +22,7 @@ import {
   StalledProjects, 
   CompleteProjects
 } from '../../components/projects';
+import ErrorPage from "../error";
 
 import {useUserNavContext} from "../../contexts/user-nav.context";
 import {useProjectsContext} from "../../contexts/projects.context";
@@ -36,10 +38,12 @@ const HRProjectsPage: React.FC<HRProjectsPageProps> = () => {
     fetchActive, fetchStalled, fetchCompleted,
     resetProjects
   } = useProjectsContext();
+  const params = useParams();
   const {REST_API} = useAPIContext();
   const {setLoading, token, orgName} = useOrganisationContext();
   const [showForm, setShowForm] = useState<boolean>(false);
   const projRef = useRef() as MutableRefObject<HTMLInputElement>;
+  const [show, setShow] = useState<boolean | null>();
 
   useEffect(() => {
     changeUni!(3);
@@ -48,6 +52,13 @@ const HRProjectsPage: React.FC<HRProjectsPageProps> = () => {
     fetchCompleted!();
     return resetProjects;
   }, []);
+
+  useLayoutEffect(() => {
+    if (params.orgName !== orgName) setShow(false);
+    else setShow(true);
+  }, [params.orgName, orgName]);
+
+  if (show === false) return <ErrorPage />;
 
   const findByName: KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.key!== "Enter") return;

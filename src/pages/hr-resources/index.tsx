@@ -3,8 +3,9 @@ import React, {
   useRef,
   MutableRefObject,
   KeyboardEventHandler,
+  useState, useLayoutEffect
 } from "react";
-import {useLocation} from 'react-router-dom';
+import {useLocation, useParams} from 'react-router-dom';
 
 import {MainContainer, ResourcesWrapper, RightContainer} from './styles';
 
@@ -13,9 +14,11 @@ import {StyledInput} from "../../components/input";
 import Employee from '../../components/employee';
 import Candidates from '../../components/candidates';
 import ResourceOverview from '../../components/resource-overview';
+import ErrorPage from "../error";
 
 import {useUserNavContext} from "../../contexts/user-nav.context";
 import {useRescourcesContext} from "../../contexts/resources.context";
+import {useOrganisationContext} from "../../contexts/organisation.context";
 
 interface HRResourcesPageProps {}
 
@@ -28,6 +31,9 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
     } = useRescourcesContext();
     const fetched = useRef<boolean>(false);
     const {state: projs} = useLocation();
+    const params = useParams();
+    const {orgName} = useOrganisationContext();
+    const [show, setShow] = useState<boolean | null>();
     const keywordRef =
       useRef() as MutableRefObject<HTMLInputElement>;
     const fetchWithKeyword: KeyboardEventHandler<HTMLInputElement> = (
@@ -54,6 +60,13 @@ const HRResourcesPage: React.FC<HRResourcesPageProps> = () => {
         setCurrResource!('');
       };
     }, [projs]);
+
+    useLayoutEffect(() => {
+      if (params.orgName !== orgName) setShow(false);
+      else setShow(true);
+    }, [params.orgName, orgName]);
+
+    if (show === false) return <ErrorPage />;
 
     return (
       <MainContainer>

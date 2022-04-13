@@ -17,3 +17,9 @@ export const Holder = styled.div`
   flex-direction: row;
   align-items: center;
 `;
+
+export const NoneText = styled.span`
+  font-family: calibri;
+  font-size: 1rem;
+  opacity: 0.84;
+`;

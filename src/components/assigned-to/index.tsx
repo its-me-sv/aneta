@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from "react";
 import axios from "axios";
 
-import {Projects, Holder} from './styles';
+import {Projects, Holder, NoneText} from './styles';
 import {CloseIcon} from '../user-skills-manager/styles';
 
 import Section from '../section';
@@ -71,6 +71,9 @@ const AssignedTo: React.FC<AssignedToProps> = ({fromHr, fromHrEmail, fromHrId}) 
               {orgId.length > 0 && <CloseIcon />}
             </Holder>
           ))}
+          {projects.length === 0 && (
+            <NoneText>Not assigned to any projects currently</NoneText>
+          )}
         </Projects>
       </div>
     );

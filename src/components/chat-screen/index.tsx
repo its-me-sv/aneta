@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 
 import {Container, Footer, Header, Body, NoConv} from './styles';
 
@@ -26,9 +26,17 @@ const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
     fetchMessages, sendMessage
   } = useMessagesContext();
   const [newMsg, setNewMsg] = useState<string>('');
+  const messageEndRef = useRef<null | HTMLDivElement>(null);
+  const scrolled = useRef<boolean>(false);
 
   const sender = oid.length > 0 ? oid : eid;
   const roomId = [chatId, sender].sort().join('');
+
+  const scrollToBottom = (manip: boolean = false) => {
+    if (scrolled.current && !manip) return;
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    scrolled.current = true;
+  };
 
   useEffect(() => {
     fetchMessages!(chatId, true);
@@ -43,7 +51,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
 
   const onMessageSend = () => {
     if (!newMsg.length) return;
-    sendMessage!(newMsg, chatId);
+    sendMessage!(newMsg, chatId, scrollToBottom);
     setNewMsg('');
   };
 
@@ -62,17 +70,21 @@ const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
             disabled={false}
           />
         )}
-        {messages.map((props, idx) => (
-          <Message
-            key={props.id}
-            id={props.id}
-            msg={props.message}
-            owner={props.sender === sender}
-          />
-        ))}
+        {messages.map((props, idx) => {
+          if (idx === messages.length - 1) scrollToBottom();
+          return (
+            <Message
+              key={props.id}
+              id={props.id}
+              msg={props.message}
+              owner={props.sender === sender}
+            />
+          );
+        })}
         {messages.length === 0 && (
           <NoConv>No conversations yet</NoConv>
         )}
+        <div ref={messageEndRef} />
       </Body>
       <Footer>
         <StyledTextArea

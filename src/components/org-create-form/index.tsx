@@ -14,6 +14,8 @@ export const RightMid = styled.div`
   flex-direction: column;
 `;
 
+const notInOrg: Array<string> = '%&/:?'.split('');
+
 interface OrgFormProps {}
 
 const OrganisationFormCreate: React.FC<OrgFormProps> = () => {
@@ -27,6 +29,8 @@ const OrganisationFormCreate: React.FC<OrgFormProps> = () => {
   const handleCreate = () => {
     if (!orgName.length || !name.length || !email.length || !password.length)
       return window.alert("Field empty");
+    if (notInOrg.map(v => orgName.includes(v)).includes(true))
+      return window.alert("Invalid name for organisation");
     setLoading!(true);
     const formBody = {
       orgName,

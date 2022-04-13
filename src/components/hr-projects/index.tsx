@@ -73,7 +73,7 @@ const HRProjects: React.FC<HRProjectsProps> = ({onPress}) => {
         </div>
         <Content>
           <span>Total</span>
-          <span>{(+state.Active+(+state.Stalled)+(+state.Completed))||'-'}</span>
+          <span>{(+state.Active+(+state.Stalled)+(+state.Completed))||'0'}</span>
         </Content>
       </SectionContent>
     </Section>

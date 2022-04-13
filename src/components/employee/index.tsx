@@ -22,6 +22,16 @@ export const ResourcesContainer = styled.div<{big?: boolean}>`
   `}
 `;
 
+export const NoneContainer = styled.div`
+  font-family: arial;
+  font-size: 1.2rem;
+  opacity: 0.7;
+  a {
+    text-decoration: none;
+    color: #1977f3;
+  }
+`;
+
 interface EmployeeProps {
   big?: boolean;
   fromHr?: Array<string>;
@@ -34,19 +44,24 @@ const Employee: React.FC<EmployeeProps> = ({big, fromHr}) => {
       <div>
         <Section name="Employee" />
         <ResourcesContainer big={big}>
-          {employee?.map(({id}, idx) => (
+          {employee?.map(({ id }, idx) => (
             <Resource key={idx} id={id} />
           ))}
-          {fromHr && fromHr?.map((val, idx) => (
-            <Resource key={val} id={val} />
-          ))}
-          {(!fromHr && employeePage !== null) && (
+          {fromHr && fromHr?.map((val, idx) => <Resource key={val} id={val} />)}
+          {!fromHr && employeePage !== null && (
             <Button
               variant={4}
               text="Load more"
               disabled={false}
               onPress={fetchEmployee!}
             />
+          )}
+          {!fromHr && employee?.length === 0 && (
+            <NoneContainer>
+              <span>
+                You haven't hired any candidates. They can be hired through the candidates section below
+              </span>
+            </NoneContainer>
           )}
         </ResourcesContainer>
       </div>

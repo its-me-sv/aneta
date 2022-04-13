@@ -55,6 +55,8 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
     }).then(() => {
       setStat(status);
       setLoading!(false);
+      setCurrProject!('');
+      navigate(`../organisation/${params.orgName}/dashboard`);
     }).catch(() => setLoading!(false));
   };
 
@@ -120,7 +122,7 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
         <ActionsContainer>
           <Button
             variant={3}
-            text="Parked"
+            text="Park"
             onPress={() => updateStatus(0)}
             disabled={stat === 0}
           />

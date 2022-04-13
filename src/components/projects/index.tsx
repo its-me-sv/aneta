@@ -17,6 +17,13 @@ const ProjectsContainer = styled.div`
   gap: 0.42rem;
 `;
 
+const Empty = styled.span`
+  font-family: arial;
+  font-size: 2.1rem;
+  opacity: 0.4;
+  position: absolute;
+`;
+
 interface ActiveProjectProps {}
 
 export const ActiveProjects: React.FC<ActiveProjectProps> = () => {
@@ -62,6 +69,7 @@ export const StalledProjects: React.FC<StalledProjectProps> = () => {
         {projects.map((val, idx) => (
           <ProjectOverview key={idx} {...val} />
         ))}
+        {/* {projects.length < 1 && <Empty>No projects has been parked</Empty>} */}
         {page !== null && (
           <Button
             text="Load more"
@@ -91,6 +99,7 @@ export const CompleteProjects: React.FC<CompleteProjectProps> = () => {
         {projects.map((val, idx) => (
           <ProjectOverview key={idx} {...val} />
         ))}
+        {/* {projects.length < 1 && <Empty>No completed projects</Empty>} */}
         {page !== null && (
           <Button
             text="Load more"

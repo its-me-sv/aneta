@@ -10,3 +10,10 @@ export const RightContainer = styled.div`
   flex-direction: column;
   padding: 2% 1%;
 `;
+
+export const NoneText = styled.span`
+  font-size: 3.6rem;
+  text-align: center;
+  font-family: calibri;
+  opacity: 0.36;
+`;

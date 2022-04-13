@@ -2,7 +2,7 @@ import React, {useEffect, useState, useLayoutEffect} from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 
-import {MainContainer, RightContainer} from './styles';
+import {MainContainer, RightContainer, NoneText} from './styles';
 
 import NavHr from '../../components/nav-hr';
 import Transactions from '../../components/transactions';
@@ -69,6 +69,9 @@ const FinancialPage: React.FC<FinancialPageProps> = () => {
             fetchTransactions={fetchTransactions}
             currPage={page}
           />
+          {transactions.length === 0 && (
+            <NoneText>No transactions has been made yet</NoneText>
+          )}
         </RightContainer>
       </MainContainer>
     );

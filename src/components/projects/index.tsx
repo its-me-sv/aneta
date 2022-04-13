@@ -40,6 +40,9 @@ export const ActiveProjects: React.FC<ActiveProjectProps> = () => {
         {projects.map((val, idx) => (
           <ProjectOverview key={idx} {...val} />
         ))}
+        {projects.length === 0 && (
+          <Empty>Currently there isn't any active project</Empty>
+        )}
         {page !== null && (
           <Button
             text="Load more"
@@ -69,7 +72,9 @@ export const StalledProjects: React.FC<StalledProjectProps> = () => {
         {projects.map((val, idx) => (
           <ProjectOverview key={idx} {...val} />
         ))}
-        {/* {projects.length < 1 && <Empty>No projects has been parked</Empty>} */}
+        {projects.length === 0 && (
+          <Empty>No parked projects currently</Empty>
+        )}
         {page !== null && (
           <Button
             text="Load more"
@@ -99,7 +104,7 @@ export const CompleteProjects: React.FC<CompleteProjectProps> = () => {
         {projects.map((val, idx) => (
           <ProjectOverview key={idx} {...val} />
         ))}
-        {/* {projects.length < 1 && <Empty>No completed projects</Empty>} */}
+        {projects.length < 1 && <Empty>Currently no project has been marked completed</Empty>}
         {page !== null && (
           <Button
             text="Load more"

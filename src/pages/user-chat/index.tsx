@@ -59,7 +59,7 @@ const UserChatPage: React.FC<UserChatPageProps> = () => {
       <RightContainer>
         {currContact.length 
         ? <ChatScreen chatId={currContact} /> 
-        : <NotSelected>Select a Recipient from the right</NotSelected>}
+        : <NotSelected>Select a recipient from the right side</NotSelected>}
         <Contacts setChat={setCurrContact!} orgId={orgId} />
       </RightContainer>
     </MainContainer>

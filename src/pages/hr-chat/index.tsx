@@ -46,7 +46,7 @@ const HRChatPage: React.FC<HRChatPageProps> = () => {
       <RightContainer>
         {currContact.length
         ? <ChatScreen chatId={currContact} />
-        : <NotSelected>Select a Recipient from the right</NotSelected>}
+        : <NotSelected>Select a recipient from the right side</NotSelected>}
         <Contacts setChat={setCurrContact!} />
       </RightContainer>
     </MainContainer>

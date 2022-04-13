@@ -68,6 +68,13 @@ const HRProjects: React.FC<HRProjectsProps> = ({onPress}) => {
           <span>Completed</span>
           <span>{state.Completed}</span>
         </Content>
+        <div>
+          <VrtclLn />
+        </div>
+        <Content>
+          <span>Total</span>
+          <span>{+state.Active+(+state.Stalled)+(+state.Completed)}</span>
+        </Content>
       </SectionContent>
     </Section>
   );

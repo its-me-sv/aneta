@@ -63,6 +63,13 @@ const HRResources: React.FC<HRResourcesProps> = ({onPress}) => {
       <HRSections variant={4} />
       <SectionContent>
         <Content>
+          <span>Total Employee</span>
+          <span>{+state.Developer+(+state.Tester)+(+state.Support)+(+state['Project Manager'])}</span>
+        </Content>
+        <div>
+          <VrtclLn />
+        </div>
+        <Content>
           <span>Developers</span>
           <span>{state.Developer}</span>
         </Content>
@@ -85,7 +92,7 @@ const HRResources: React.FC<HRResourcesProps> = ({onPress}) => {
         </div>
         <Content>
           <span>Project Managers</span>
-          <span>{state['Project Manager']}</span>
+          <span>{state["Project Manager"]}</span>
         </Content>
         <div>
           <VrtclLn />

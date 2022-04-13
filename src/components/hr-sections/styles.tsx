@@ -35,3 +35,5 @@ export const Content = styled.div`
   font-size: 1.2rem;
   opacity: 0.8;
 `;
+
+export const Money = styled.span``;

@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import numeral from 'numeral';
 
-import {Section, SectionContent, Content} from "../hr-sections/styles";
+import {Section, SectionContent, Content, Money} from "../hr-sections/styles";
 
 import HRSections from "../hr-sections";
 import {VrtclLn} from "../switch-form";
@@ -54,29 +54,29 @@ const HRFinancial: React.FC<HRFinancialProps> = ({onPress}) => {
       <HRSections variant={5} />
       <SectionContent>
         <Content>
+          <span>Total Transactions</span>
+          <span>{state.transactions}</span>
+        </Content>
+        <div>
+          <VrtclLn />
+        </div>
+        <Content>
           <span>Today</span>
-          <span>{numeral(state.today).format("($ 0.000 a)")}</span>
+          <Money>{numeral(state.today).format("($ 0.000 a)")}</Money>
         </Content>
         <div>
           <VrtclLn />
         </div>
         <Content>
           <span>Last Ten Days</span>
-          <span>{numeral(state.tenDays).format("($ 0.000 a)")}</span>
+          <Money>{numeral(state.tenDays).format("($ 0.000 a)")}</Money>
         </Content>
         <div>
           <VrtclLn />
         </div>
         <Content>
           <span>Total</span>
-          <span>{numeral(state.total).format("($ 0.000 a)")}</span>
-        </Content>
-        <div>
-          <VrtclLn />
-        </div>
-        <Content>
-          <span>Transactions</span>
-          <span>{state.transactions}</span>
+          <Money>{numeral(state.total).format("($ 0.000 a)")}</Money>
         </Content>
       </SectionContent>
     </Section>

@@ -96,7 +96,10 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
         window.alert("Resource already added");
       }
       setLoading!(false);
-    }).catch(() => setLoading!(false));
+    }).catch(() => {
+      window.alert("Resource doesn't exist");
+      setLoading!(false);
+    });
   };
 
   return (

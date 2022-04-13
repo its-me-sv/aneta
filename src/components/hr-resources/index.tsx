@@ -64,7 +64,7 @@ const HRResources: React.FC<HRResourcesProps> = ({onPress}) => {
       <SectionContent>
         <Content>
           <span>Total Employee</span>
-          <span>{+state.Developer+(+state.Tester)+(+state.Support)+(+state['Project Manager'])}</span>
+          <span>{(+state.Developer+(+state.Tester)+(+state.Support)+(+state['Project Manager']))||'-'}</span>
         </Content>
         <div>
           <VrtclLn />

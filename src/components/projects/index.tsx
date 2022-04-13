@@ -57,7 +57,7 @@ export const StalledProjects: React.FC<StalledProjectProps> = () => {
 
   return (
     <div>
-      <Section name="Stalled" />
+      <Section name="Parked" />
       <ProjectsContainer>
         {projects.map((val, idx) => (
           <ProjectOverview key={idx} {...val} />

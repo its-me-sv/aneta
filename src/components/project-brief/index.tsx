@@ -120,7 +120,7 @@ const ProjectBrief: React.FC<ProjectBriefProps> = () => {
         <ActionsContainer>
           <Button
             variant={3}
-            text="Stall"
+            text="Parked"
             onPress={() => updateStatus(0)}
             disabled={stat === 0}
           />

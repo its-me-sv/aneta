@@ -58,7 +58,7 @@ const HRProjects: React.FC<HRProjectsProps> = ({onPress}) => {
           <VrtclLn />
         </div>
         <Content>
-          <span>Stalled</span>
+          <span>Parked</span>
           <span>{state.Stalled}</span>
         </Content>
         <div>

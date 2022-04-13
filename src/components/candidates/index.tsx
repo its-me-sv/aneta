@@ -54,8 +54,8 @@ const Candidates: React.FC<CandidatesProps> = () => {
               Currently there are no candidates. Candidates can apply from the below link
             </span>
             <br />
-            <a href={window.location.href.replace("resources", "user")} target="_blank" rel="noreferrer">
-              {window.location.href.replace("resources", "user")}
+            <a href={window.location.href.split("/").slice(0, -1).join('/')+'/user'} target="_blank" rel="noreferrer">
+              {window.location.href.split("/").slice(0, -1).join('/')+'/user'}
             </a>
           </NoneContainer>
         )}

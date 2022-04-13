@@ -21,11 +21,12 @@ export const Contact = styled.div<{ selected: boolean }>`
   cursor: pointer;
   border-radius: 0.26rem;
   border: 1.2px solid rgba(0, 0, 0, 0.6);
+  opacity: 0.8;
   &:hover {
     box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
     -webkit-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
     -moz-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
-    transform: scale(1.005);
+    opacity: 1;
   }
   ${(props) =>
     props.selected &&
@@ -33,6 +34,6 @@ export const Contact = styled.div<{ selected: boolean }>`
     box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
     -webkit-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
     -moz-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.84);
-    transform: scale(1.005);
+    opacity: 1;
   `}
 `;

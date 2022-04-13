@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {HashRouter, Route, Routes, Navigate} from 'react-router-dom';
+import axios from 'axios';
 
 // pages
 import HomePage from './pages/home';
@@ -17,12 +18,21 @@ import HRProjectsPage from './pages/hr-projects';
 import BlockLoader from './components/block-loader';
 import {useUserContext} from './contexts/user.context';
 import {useOrganisationContext} from './contexts/organisation.context';
+import {useAPIContext} from './contexts/api.context';
 
 interface AppProps {}
 
 const App: React.FC<AppProps> = () => {
-  const {loading: l1, id: uid} = useUserContext();
+  const {loading: l1, id: uid, setLoading} = useUserContext();
+  const {REST_API} = useAPIContext();
   const {loading: l2, id: oid, orgName: oon} = useOrganisationContext();
+
+  useEffect(() => {
+    setLoading!(true);
+    axios.get(`${REST_API}/validation/server`)
+    .then(() => setLoading!(false))
+    .catch(() => setLoading!(false));
+  }, []);
   
   return (
     <HashRouter>

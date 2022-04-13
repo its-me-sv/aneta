@@ -30,3 +30,8 @@ export const Footer = styled.div`
   align-items: center;
   gap: 1rem;
 `;
+
+export const NoConv = styled.div`
+  font-size: 4.2rem;
+  opacity: 0.36;
+`;

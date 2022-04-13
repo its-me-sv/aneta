@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-import {Container, Footer, Header, Body} from './styles';
+import {Container, Footer, Header, Body, NoConv} from './styles';
 
 import SimpleProfile from '../simple-profile';
 import HorizontalLine from '../horizontal-line';
@@ -70,6 +70,9 @@ const ChatScreen: React.FC<ChatScreenProps> = ({chatId}) => {
             owner={props.sender === sender}
           />
         ))}
+        {messages.length === 0 && (
+          <NoConv>No conversations yet</NoConv>
+        )}
       </Body>
       <Footer>
         <StyledTextArea

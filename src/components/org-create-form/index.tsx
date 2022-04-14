@@ -59,8 +59,8 @@ const OrganisationFormCreate: React.FC<OrgFormProps> = () => {
     <>
       <RightMid>
         <Input label="Organisation Name" name="orgName" value={orgName} setValue={setOrgname} />
-        <Input label="Name" name="name" value={name} setValue={setName} />
-        <Input label="Email" name="email" value={email} setValue={setEmail} />
+        <Input label="Your Name" name="name" value={name} setValue={setName} />
+        <Input label="Your Email" name="email" value={email} setValue={setEmail} />
         <Input label="Password" isPass name="password" value={password} setValue={setPassword} />
       </RightMid>
       <RightEnd onClick={handleCreate}>Create</RightEnd>

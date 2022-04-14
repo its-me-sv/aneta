@@ -14,7 +14,7 @@ export const RightMid = styled.div`
   flex-direction: column;
 `;
 
-const notInOrg: Array<string> = '%&/:?'.split('');
+const notInOrg: Array<string> = '%&/:?#'.split('');
 
 interface OrgFormProps {}
 

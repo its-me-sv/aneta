@@ -27,7 +27,7 @@ const HomePage: React.FC<HomePageProps> = () => {
     
     return (
       <HomePageContainer>
-        <HomeNav setter={setCurrOption}/>
+        <HomeNav setter={setCurrOption} />
         {currOption === 1 && <TermsAndPolicies onClose={ResetOption} />}
         {currOption === 2 && <Pricing onClose={ResetOption} />}
         <FormContainer>
@@ -36,7 +36,7 @@ const HomePage: React.FC<HomePageProps> = () => {
               <FirstText>A</FirstText>
               <SecondText>neta</SecondText>
             </div>
-            <Slogan>Work from home made simple.</Slogan>
+            <Slogan>Resources and Project Management Tool</Slogan>
           </LeftContainer>
           <RightContainer>
             <SwitchForm />
